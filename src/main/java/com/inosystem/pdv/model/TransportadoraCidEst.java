@@ -64,7 +64,7 @@ public class TransportadoraCidEst {
     /**
      * return transportadora
      */
-    public ransportadora getModelTransportadora() {
+    public Transportadora getModelTransportadora() {
         return this.transportadora;
     }
 
