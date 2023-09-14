@@ -11,46 +11,52 @@ import java.util.ArrayList;
  * @author jrpbj
  */
 public class CidadeEstado {
-private Cidade modelCidade;
+
+    private Cidade modelCidade;
     private Estado modelEstado;
     private ArrayList<CidadeEstado> listaCidadeEstados;
 
     /**
-    * Construtor
-    */
-    public CidadeEstado(){}
+     * Construtor
+     */
+    public CidadeEstado() {
+    }
 
     /**
-    * seta o valor de modelCidade
-    * @param pModelCidade
-    */
-    public void setModelCidade(Cidade pModelCidade){
+     * seta o valor de modelCidade
+     *
+     * @param pModelCidade
+     */
+    public void setModelCidade(Cidade pModelCidade) {
         this.modelCidade = pModelCidade;
     }
+
     /**
-    * return modelCidade
-    */
-    public Cidade getModelCidade(){
+     * return modelCidade
+     */
+    public Cidade getModelCidade() {
         return this.modelCidade;
     }
 
     /**
-    * seta o valor de modelEstado
-    * @param pModelEstado
-    */
-    public void setModelEstado(Estado pModelEstado){
+     * seta o valor de modelEstado
+     *
+     * @param pModelEstado
+     */
+    public void setModelEstado(Estado pModelEstado) {
         this.modelEstado = pModelEstado;
     }
+
     /**
-    * return modelEstado
-    */
-    public Estado getModelEstado(){
+     * return modelEstado
+     */
+    public Estado getModelEstado() {
         return this.modelEstado;
     }
 
     @Override
-    public String toString(){
-        return "ModelCidadeEstado {" + "::modelCidade = " + this.modelCidade + "::modelEstado = " + this.modelEstado +  "}";
+    public String toString() {
+        return "ModelCidadeEstado {" + "::modelCidade = " + this.modelCidade + "::modelEstado = " + this.modelEstado + "}";
     }
 
     /**
