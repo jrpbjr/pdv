@@ -4,6 +4,9 @@
  */
 package com.inosystem.pdv.contoller;
 
+import com.inosystem.pdv.dao.ClienteDao;
+import com.inosystem.pdv.dao.RelatorioDao;
+import com.inosystem.pdv.model.Cliente;
 import java.util.ArrayList;
 
 /**
@@ -13,32 +16,32 @@ import java.util.ArrayList;
 public class ClienteController {
 
     private ClienteDao daoCliente = new ClienteDao();
-    private DAORelatorios dAORelatorios = new DAORelatorios();
+    private RelatorioDao dAORelatorios = new RelatorioDao();
 
     /**
      * grava Cliente
      *
-     * @param pModelCliente return int
+     * @param pCliente return int
      */
-    public int salvarClienteController(ModelCliente pModelCliente) {
-        return this.daoCliente.salvarClienteDAO(pModelCliente);
+    public int salvarClienteController(Cliente pCliente) {
+        return this.daoCliente.salvarClienteDAO(pCliente);
     }
 
     /**
      * recupera Cliente
      *
-     * @param pCodigo return ModelCliente
+     * @param pCodigo return Cliente
      */
-    public ModelCliente getClienteController(int pCodigo) {
+    public Cliente getClienteController(int pCodigo) {
         return this.daoCliente.getClienteDAO(pCodigo);
     }
 
     /**
      * recupera Cliente
      *
-     * @param pNome return ModelCliente
+     * @param pNome return Cliente
      */
-    public ModelCliente getClienteController(String pNome) {
+    public Cliente getClienteController(String pNome) {
         return this.daoCliente.getClienteDAO(pNome);
     }
 
@@ -47,7 +50,7 @@ public class ClienteController {
      *
      * @param pCodigo return ArrayList
      */
-    public ArrayList<ModelCliente> getListaClienteController() {
+    public ArrayList<Cliente> getListaClienteController() {
         return this.daoCliente.getListaClienteDAO();
     }
 
@@ -56,17 +59,17 @@ public class ClienteController {
      *
      * @param pCodigo return ArrayList
      */
-    public ArrayList<ModelCliente> getListaClienteAtivoController() {
+    public ArrayList<Cliente> getListaClienteAtivoController() {
         return this.daoCliente.getListaClienteAtivoDAO();
     }
 
     /**
      * atualiza Cliente
      *
-     * @param pModelCliente return boolean
+     * @param pCliente return boolean
      */
-    public boolean atualizarClienteController(ModelCliente pModelCliente) {
-        return this.daoCliente.atualizarClienteDAO(pModelCliente);
+    public boolean atualizarClienteController(Cliente pCliente) {
+        return this.daoCliente.atualizarClienteDAO(pCliente);
     }
 
     /**
@@ -86,7 +89,7 @@ public class ClienteController {
         return this.dAORelatorios.gerarRelatorioClienteIndividual(pCodigoCliente);
     }
 
-    public boolean atualizarEnderecoClienteController(ModelCliente pModelCliente) {
-        return this.daoCliente.atualizarEnderecoClienteDAO(pModelCliente);
+    public boolean atualizarEnderecoClienteController(Cliente pCliente) {
+        return this.daoCliente.atualizarEnderecoClienteDAO(pCliente);
     }
 }
