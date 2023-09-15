@@ -10,7 +10,7 @@ import com.inosystem.pdv.util.Mascara;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.InputStream;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
