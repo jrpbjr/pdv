@@ -8,7 +8,7 @@ package com.inosystem.pdv.nfe.model;
  *
  * @author jrpbj
  */
-public class ModelXmlNfe {
+public class XmlNfe {
     
  //  labels para panel
     private String cobr;//financeiro
