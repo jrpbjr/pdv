@@ -1,10 +1,4 @@
-/*
- * ViewVenda.java
- *
- * Created on 2 de Fevereiro de 2008, 00:13
- */
 package com.inosystem.pdv.view;
-
 
 import com.inosystem.pdv.contoller.CaixaController;
 import com.inosystem.pdv.contoller.CidadeController;
@@ -14,8 +8,9 @@ import com.inosystem.pdv.contoller.CompraProdutoController;
 import com.inosystem.pdv.contoller.EstadoController;
 import com.inosystem.pdv.contoller.FormaPagamentoController;
 import com.inosystem.pdv.contoller.FornecedorController;
+import com.inosystem.pdv.contoller.PermissaoUsuarioController;
 import com.inosystem.pdv.contoller.ProdutoController;
-import com.inosystem.pdv.contoller.UnidadeMediaController;
+import com.inosystem.pdv.contoller.UnidadeMedidaController;
 import com.inosystem.pdv.contoller.VendaController;
 import com.inosystem.pdv.model.Caixa;
 import com.inosystem.pdv.model.Cliente;
@@ -23,6 +18,7 @@ import com.inosystem.pdv.model.ClienteCidadeEstado;
 import com.inosystem.pdv.model.CompraProduto;
 import com.inosystem.pdv.model.FormaPagamento;
 import com.inosystem.pdv.model.Produto;
+import com.inosystem.pdv.model.SessaoUsuario;
 import com.inosystem.pdv.model.Venda;
 import com.inosystem.pdv.util.AguardeGerandoRelatorio;
 import com.inosystem.pdv.util.Mascara;
@@ -48,7 +44,7 @@ public class ViewVenda extends javax.swing.JFrame {
     VendaController controllerVendas = new VendaController();
     Venda modelVendas = new Venda();
     Produto modelProdutos = new Produto();
-    UnidadeMediaController controllerUnidadeMedia = new UnidadeMediaController();
+    UnidadeMedidaController controllerUnidadeMedia = new UnidadeMedidaController();
     ArrayList<Venda> listaVenda = new ArrayList<>();
     ArrayList<Venda> listaVendaAlterar = new ArrayList<>();
     ArrayList<Produto> listaProduto = new ArrayList<>();
@@ -58,7 +54,7 @@ public class ViewVenda extends javax.swing.JFrame {
     ProdutoController controllerProdutos = new ProdutoController();
     Caixa modelCaixa = new Caixa();
     CaixaController controllerCaixa = new CaixaController();
-    EstadoController controllerEstado = new EstadoController();
+    EstadoController EstadoController = new EstadoController();
     CidadeController controllerCidade = new CidadeController();
     FormaPagamentoController controllerTipoPagamento = new FormaPagamentoController();
     ArrayList<FormaPagamento> listaModelTipoPagamentos = new ArrayList<>();
@@ -904,11 +900,10 @@ public class ViewVenda extends javax.swing.JFrame {
                 
                 
                 modelVendas.setDesconto(new BigDecimal(this.tfDesconto.getText()));
-                //modelVendas.setDesconto(Float.parseFloat(this.tfDesconto.getText()));
-                modelVendas.setTaxaEntrega(0f);
-                modelVendas.setValorTotal(Float.parseFloat(this.tfValorTotal.getText()));
+                modelVendas.setTaxaEntrega(new BigDecimal(0f));
+                modelVendas.setValorTotal(new BigDecimal(this.tfValorTotal.getText()));
                 modelVendas.setObservacao(this.tfObservacao.getText());
-                modelVendas.setCodigoUsuario(ModelSessaoUsuario.codigo);
+                modelVendas.setCodigoUsuario(SessaoUsuario.codigo);
                 try {
                     modelVendas.setDataVenda(bLMascaras.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
                 } catch (Exception ex) {
@@ -918,8 +913,8 @@ public class ViewVenda extends javax.swing.JFrame {
                 codigoProduto = Integer.parseInt(tbProdutos.getValueAt(i, 0).toString());
                 modelVendas.setProdutosCodigo(codigoProduto);
                 modelVendas.setTipo(1);
-                modelVendas.setValor(Double.parseDouble(tbProdutos.getValueAt(i, 3).toString()));
-                modelVendas.setQuantidade(Float.parseFloat(tbProdutos.getValueAt(i, 4).toString()));
+                modelVendas.setValor(new BigDecimal(tbProdutos.getValueAt(i, 3).toString()));
+                modelVendas.setQuantidade(new BigDecimal(tbProdutos.getValueAt(i, 4).toString()));
                 modelVendas.setTipoPagamento(controllerTipoPagamento.getFormaPagamentoController(this.jcbTipoPagamento.getSelectedItem().toString()).getCodigo());
                 quantidade = controllerProdutos.getProdutosController(codigoProduto).getEstoque() - Float.parseFloat(tbProdutos.getValueAt(i, 4).toString());
                 modelProdutos.setEstoque(quantidade);
@@ -968,11 +963,11 @@ public class ViewVenda extends javax.swing.JFrame {
                 modelProdutos = new Produto();
                 modelVendas.setCodigo(Integer.parseInt(this.tfNumeroVenda.getText()));
                 modelVendas.setClientesCodigo(controllerCliente.getClienteController(cbClientes.getSelectedItem().toString()).getCodigo());
-                modelVendas.setDesconto(Float.parseFloat(this.tfDesconto.getText()));
-                modelVendas.setTaxaEntrega(0f);
-                modelVendas.setValorTotal(Float.parseFloat(this.tfValorTotal.getText()));
+                modelVendas.setDesconto(new BigDecimal(this.tfDesconto.getText()));
+                modelVendas.setTaxaEntrega(new BigDecimal(0f));
+                modelVendas.setValorTotal(new BigDecimal(this.tfValorTotal.getText()));
                 modelVendas.setObservacao(this.tfObservacao.getText());
-                modelVendas.setCodigoUsuario(ModelSessaoUsuario.codigo);
+                modelVendas.setCodigoUsuario(SessaoUsuario.codigo);
                 try {
                     modelVendas.setDataVenda(bLMascaras.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
                 } catch (Exception ex) {
@@ -982,8 +977,8 @@ public class ViewVenda extends javax.swing.JFrame {
                 codigoProduto = Integer.parseInt(tbProdutos.getValueAt(i, 0).toString());
                 modelVendas.setProdutosCodigo(codigoProduto);
                 modelVendas.setTipo(1);
-                modelVendas.setValor(Double.parseDouble(tbProdutos.getValueAt(i, 3).toString()));
-                modelVendas.setQuantidade(Float.parseFloat(tbProdutos.getValueAt(i, 4).toString()));
+                modelVendas.setValor(new BigDecimal(tbProdutos.getValueAt(i, 3).toString()));
+                modelVendas.setQuantidade(new BigDecimal(tbProdutos.getValueAt(i, 4).toString()));
                 modelVendas.setTipoPagamento(controllerTipoPagamento.getFormaPagamentoController(this.jcbTipoPagamento.getSelectedItem().toString()).getCodigo());
                 quantidade = controllerProdutos.getProdutosController(codigoProduto).getEstoque() - Float.parseFloat(tbProdutos.getValueAt(i, 4).toString());
                 modelProdutos.setEstoque(quantidade);
@@ -1031,11 +1026,11 @@ public class ViewVenda extends javax.swing.JFrame {
                 modelVendas = new Venda();
                 modelProdutos = new Produto();
                 modelVendas.setClientesCodigo(controllerCliente.getClienteController(cbClientes.getSelectedItem().toString()).getCodigo());
-                modelVendas.setDesconto(Float.parseFloat(this.tfDesconto.getText()));
-                modelVendas.setTaxaEntrega(0f);
-                modelVendas.setValorTotal(Float.parseFloat(this.tfValorTotal.getText()));
+                modelVendas.setDesconto(new BigDecimal(this.tfDesconto.getText()));
+                modelVendas.setTaxaEntrega(new BigDecimal(0f));
+                modelVendas.setValorTotal(new BigDecimal(this.tfValorTotal.getText()));
                 modelVendas.setObservacao(this.tfObservacao.getText());
-                modelVendas.setCodigoUsuario(ModelSessaoUsuario.codigo);
+                modelVendas.setCodigoUsuario(SessaoUsuario.codigo);
                 try {
                     modelVendas.setDataVenda(bLMascaras.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
                 } catch (Exception ex) {
@@ -1045,8 +1040,8 @@ public class ViewVenda extends javax.swing.JFrame {
                 codigoProduto = Integer.parseInt(tbProdutos.getValueAt(i, 0).toString());
                 modelVendas.setProdutosCodigo(codigoProduto);
                 modelVendas.setTipo(1);
-                modelVendas.setValor(Double.parseDouble(tbProdutos.getValueAt(i, 3).toString()));
-                modelVendas.setQuantidade(Float.parseFloat(tbProdutos.getValueAt(i, 4).toString()));
+                modelVendas.setValor(new BigDecimal(tbProdutos.getValueAt(i, 3).toString()));
+                modelVendas.setQuantidade(new BigDecimal(tbProdutos.getValueAt(i, 4).toString()));
                 try {
                     modelVendas.setTipoPagamento(controllerTipoPagamento.getFormaPagamentoController(this.jcbTipoPagamento.getSelectedItem().toString()).getCodigo());
                 } catch (Exception e) {
@@ -1358,8 +1353,8 @@ public class ViewVenda extends javax.swing.JFrame {
             this.cbCodCliente.setSelectedItem(modelClienteCidadeEstado.getCliente().getCodigo());
             this.tfEndereco.setText(modelClienteCidadeEstado.getCliente().getEndereco());
             this.tfBairro.setText(modelClienteCidadeEstado.getCliente().getBairro());
-            this.tfEstado.setText(modelClienteCidadeEstado.getEstado().getUf() getModelEstado().getUf());
-            this.tfCidade.setText(modelClienteCidadeEstado.getModelCidade().getNome());
+            this.tfEstado.setText(modelClienteCidadeEstado.getEstado().getUf());
+            this.tfCidade.setText(modelClienteCidadeEstado.getCidade().getNome());
             this.tfTelefone.setText(modelClienteCidadeEstado.getCliente().getTelefone());
             this.tfCpfCnpj.setText(modelClienteCidadeEstado.getCliente().getCpfCNPJ());
             this.tfObservacaoCliente.setText(modelClienteCidadeEstado.getCliente().getObservacao());
@@ -1444,7 +1439,7 @@ public class ViewVenda extends javax.swing.JFrame {
                     fornecedor,
                     listaVendaAlterar.get(i).getValor(),
                     listaVendaAlterar.get(i).getQuantidade(),
-                    listaVendaAlterar.get(i).getQuantidade() * listaVendaAlterar.get(i).getValor(),
+                    listaVendaAlterar.get(i).getQuantidade().multiply(listaVendaAlterar.get(i).getValor()),
                     unidadeMedida
                 });
             }
@@ -1460,16 +1455,16 @@ public class ViewVenda extends javax.swing.JFrame {
         modelCaixa = new Caixa();
         modelCaixa = controllerCaixa.getCaixaController(1);
         if (modelVendas.getTipoPagamento() == 1) {
-            valorDinheiro = modelVendas.getValorTotal();
+            valorDinheiro = modelVendas.getValorTotal().floatValue();
             modelCaixa.setDinheiro(modelCaixa.getDinheiro() + valorDinheiro);
         } else if (modelVendas.getTipoPagamento() == 2) {
-            valorCartao = modelVendas.getValorTotal();
+            valorCartao = modelVendas.getValorTotal().floatValue();
             modelCaixa.setCartao(modelCaixa.getCartao() + valorCartao);
         } else if (modelVendas.getTipoPagamento() == 3) {
-            valorCheque = modelVendas.getValorTotal();
+            valorCheque = modelVendas.getValorTotal().floatValue();
             modelCaixa.setCheque(modelCaixa.getCheque() + valorCheque);
         } else if (modelVendas.getTipoPagamento() == 4) {
-            valorVale = modelVendas.getValorTotal();
+            valorVale = modelVendas.getValorTotal().floatValue();
             modelCaixa.setConvenio(modelCaixa.getConvenio() + valorVale);
         }
         controllerCaixa.atualizarCaixaController(modelCaixa);
@@ -1482,8 +1477,8 @@ public class ViewVenda extends javax.swing.JFrame {
         this.cbCodCliente.setSelectedItem(modelClienteCidadeEstado.getCliente().getCodigo());
         this.tfEndereco.setText(modelClienteCidadeEstado.getCliente().getEndereco());
         this.tfBairro.setText(modelClienteCidadeEstado.getCliente().getBairro());
-        this.tfEstado.setText(modelClienteCidadeEstado.getModelEstado().getUf());
-        this.tfCidade.setText(modelClienteCidadeEstado.getModelCidade().getNome());
+        this.tfEstado.setText(modelClienteCidadeEstado.getEstado().getUf());
+        this.tfCidade.setText(modelClienteCidadeEstado.getCidade().getNome());
         this.tfTelefone.setText(modelClienteCidadeEstado.getCliente().getTelefone());
         this.tfCpfCnpj.setText(modelClienteCidadeEstado.getCliente().getCpfCNPJ());
         this.tfObservacaoCliente.setText(modelClienteCidadeEstado.getCliente().getObservacao());
@@ -1579,7 +1574,7 @@ public class ViewVenda extends javax.swing.JFrame {
     //verificar permissão do usuário
     public boolean retornarCodigoUsuarioLogado() {
         try {
-            String permissao = new ControllerPermissaousuario().getPermissaousuarioCodUsuController(new ModelSessaoUsuario().codigo).getPermissao();
+            String permissao = new PermissaoUsuarioController().getPermissaousuarioCodUsuController(new SessaoUsuario().codigo).getPermissao();
             if (permissao.equals("compras")) {
                 return true;
             } else {
@@ -1695,7 +1690,7 @@ public class ViewVenda extends javax.swing.JFrame {
         for (int i = 0; i < cont; i++) {
             modelProdutos = new Produto();
             modelProdutos.setCodigo(listaVendaAlterar.get(i).getProdutosCodigo());
-            quantidade = controllerProdutos.getProdutosController(modelProdutos.getCodigo()).getEstoque() + listaVendaAlterar.get(i).getQuantidade();
+            quantidade = (new BigDecimal(controllerProdutos.getProdutosController(modelProdutos.getCodigo()).getEstoque()).add(listaVendaAlterar.get(i).getQuantidade())).floatValue();
             modelProdutos.setEstoque(quantidade);
             listaProduto.add(modelProdutos);
         }

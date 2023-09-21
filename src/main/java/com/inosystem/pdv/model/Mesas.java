@@ -70,7 +70,7 @@ public class Mesas {
 
     @Override
     public String toString() {
-        return "ModelMesas {" + "::codigo = " + this.codigo + "::numeroMesa = " + this.numeroMesa + "::situacaoMesa = " + this.situacaoMesa + "}";
+        return "mesas {" + "::codigo = " + this.codigo + "::numeroMesa = " + this.numeroMesa + "::situacaoMesa = " + this.situacaoMesa + "}";
     }
 
 }

@@ -63,7 +63,7 @@ private Integer codigo;
 
     @Override
     public String toString(){
-        return "ModelCidade {" + "::codigo = " + this.codigo + "::nome = " + this.nome + "::fk_cod_estado = " + this.fk_cod_estado +  "}";
+        return "Cidade {" + "::codigo = " + this.codigo + "::nome = " + this.nome + "::fk_cod_estado = " + this.fk_cod_estado +  "}";
     }
 
     /**

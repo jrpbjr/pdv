@@ -1,10 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
+import com.inosystem.pdv.util.AguardeGerandoRelatorio;
+import com.inosystem.pdv.util.BackupMySQL;
+import com.inosystem.pdv.util.Mascara;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,9 +10,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import util.AguardeGerandoRelatorio;
-import util.BLMascaras;
-import util.BackupMySQL;
+/*import util.AguardeGerandoRelatorio;
+import util.Mascara;
+import util.BackupMySQL;*/
 
 /**
  *
@@ -23,7 +21,7 @@ import util.BackupMySQL;
 public class ViewBackup extends javax.swing.JFrame {
 
     BackupMySQL backupMySQL = new BackupMySQL();
-    BLMascaras bLMascaras = new BLMascaras();
+    Mascara bLMascaras = new Mascara();
 
     /**
      * Creates new form ViewBackup

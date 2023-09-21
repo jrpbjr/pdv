@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
-import blserial.BLCriptografiaReversivel;
-import blserial.Config;
-import blserial.ConfigXML;
+import com.inosystem.pdv.serial.Config;
+import com.inosystem.pdv.serial.ConfigXML;
+import com.inosystem.pdv.serial.CriptografiaReversivel;
 import com.thoughtworks.xstream.XStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -240,6 +235,7 @@ public class ViewAtivacao extends javax.swing.JFrame {
         config.setDiasValidadeStr(serial[3]);
         config.setNomePC(serial[4]);
 
+
         return config;
     }
 
@@ -270,7 +266,7 @@ public class ViewAtivacao extends javax.swing.JFrame {
      public boolean imprimirLicenca() {
         Config config = new Config();
         XStream xStream = new XStream();
-        BLCriptografiaReversivel criptografia = new BLCriptografiaReversivel();
+        CriptografiaReversivel criptografia = new CriptografiaReversivel();
         ConfigXML configXML = new ConfigXML();
         xStream.alias("licenca", Config.class);
 

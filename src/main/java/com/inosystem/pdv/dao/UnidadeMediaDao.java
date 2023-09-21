@@ -5,7 +5,7 @@
 package com.inosystem.pdv.dao;
 
 import com.inosystem.pdv.conexoes.ConexaoMySql;
-import com.inosystem.pdv.model.UnidadeMedia;
+import com.inosystem.pdv.model.UnidadeMedida;
 import java.util.ArrayList;
 
 /**
@@ -15,11 +15,11 @@ import java.util.ArrayList;
 public class UnidadeMediaDao extends ConexaoMySql {
     
 /**
-    * grava UnidadeMedia
+    * grava UnidadeMedida
     * @param pUnidadeMedia
     * return int
     */
-    public int salvarUnidadeMediaDAO(UnidadeMedia pUnidadeMedia){
+    public int salvarUnidadeMediaDAO(UnidadeMedida pUnidadeMedia){
         try {
             this.conectar();
             return this.insertSQL(
@@ -40,12 +40,12 @@ public class UnidadeMediaDao extends ConexaoMySql {
     }
 
     /**
-    * recupera UnidadeMedia
+    * recupera UnidadeMedida
     * @param pCodigo
-    * return UnidadeMedia
+    * return UnidadeMedida
     */
-    public UnidadeMedia getUnidadeMediaDAO(int pCodigo){
-        UnidadeMedia modelUnidadeMedia = new UnidadeMedia();
+    public UnidadeMedida getUnidadeMediaDAO(int pCodigo){
+        UnidadeMedida modelUnidadeMedia = new UnidadeMedida();
         try {
             this.conectar();
             this.executarSQL(
@@ -74,12 +74,12 @@ public class UnidadeMediaDao extends ConexaoMySql {
     }
     
     /**
-    * recupera UnidadeMedia
+    * recupera UnidadeMedida
     * @param pCodigo
-    * return UnidadeMedia
+    * return UnidadeMedida
     */
-    public UnidadeMedia getUnidadeMediaDAO(String pNome){
-        UnidadeMedia modelUnidadeMedia = new UnidadeMedia();
+    public UnidadeMedida getUnidadeMediaDAO(String pNome){
+        UnidadeMedida modelUnidadeMedia = new UnidadeMedida();
         try {
             this.conectar();
             this.executarSQL(
@@ -108,12 +108,12 @@ public class UnidadeMediaDao extends ConexaoMySql {
     }
 
     /**
-    * recupera uma lista de UnidadeMedia
-        * return ArrayList
+    * recupera uma lista de UnidadeMedida
+ return ArrayList
     */
-    public ArrayList<UnidadeMedia> getListaUnidadeMediaDAO(){
-        ArrayList<UnidadeMedia> listamodelUnidadeMedia = new ArrayList();
-        UnidadeMedia modelUnidadeMedia = new UnidadeMedia();
+    public ArrayList<UnidadeMedida> getListaUnidadeMediaDAO(){
+        ArrayList<UnidadeMedida> listamodelUnidadeMedia = new ArrayList();
+        UnidadeMedida modelUnidadeMedia = new UnidadeMedida();
         try {
             this.conectar();
             this.executarSQL(
@@ -127,7 +127,7 @@ public class UnidadeMediaDao extends ConexaoMySql {
             );
 
             while(this.getResultSet().next()){
-                modelUnidadeMedia = new UnidadeMedia();
+                modelUnidadeMedia = new UnidadeMedida();
                 modelUnidadeMedia.setCodigo(this.getResultSet().getInt(1));
                 modelUnidadeMedia.setAbreviacao(this.getResultSet().getString(2));
                 modelUnidadeMedia.setDescricao(this.getResultSet().getString(3));
@@ -142,11 +142,11 @@ public class UnidadeMediaDao extends ConexaoMySql {
     }
 
     /**
-    * atualiza UnidadeMedia
+    * atualiza UnidadeMedida
     * @param pUnidadeMedia
     * return boolean
     */
-    public boolean atualizarUnidadeMediaDAO(UnidadeMedia pUnidadeMedia){
+    public boolean atualizarUnidadeMediaDAO(UnidadeMedida pUnidadeMedia){
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(
@@ -167,7 +167,7 @@ public class UnidadeMediaDao extends ConexaoMySql {
     }
 
     /**
-    * exclui UnidadeMedia
+    * exclui UnidadeMedida
     * @param pCodigo
     * return boolean
     */

@@ -121,6 +121,6 @@ public class FormaPagamento {
 
     @Override
     public String toString() {
-        return "ModelFormaPagamento {" + "::codigo = " + this.codigo + "::descricao = " + this.descricao + "::desconto = " + this.desconto + "::quantidadeParcelas = " + this.quantidadeParcelas + "::observacao = " + this.observacao + "::situacao = " + this.situacao + "}";
+        return "FormaPagamento {" + "::codigo = " + this.codigo + "::descricao = " + this.descricao + "::desconto = " + this.desconto + "::quantidadeParcelas = " + this.quantidadeParcelas + "::observacao = " + this.observacao + "::situacao = " + this.situacao + "}";
     }
 }

@@ -75,8 +75,8 @@ public ArrayList<TransportadoraCidEst> getListaTransportadoraCidadeEstadoDAO() {
                 modelTransportadora.setCnpj(this.getResultSet().getString(15));
                 modelTransportadora.setInscEstad(this.getResultSet().getString(16));
 
-                modelTransportadoraCidadeEstado.setModelCidade(modelCidade);
-                modelTransportadoraCidadeEstado.setModelEstado(modelEstado);
+                modelTransportadoraCidadeEstado.setCidade(modelCidade);
+                modelTransportadoraCidadeEstado.setEstado(modelEstado);
                 modelTransportadoraCidadeEstado.setModelTransportadora(modelTransportadora);
 
                 listaFornecedorCidadeEstado.add(modelTransportadoraCidadeEstado);

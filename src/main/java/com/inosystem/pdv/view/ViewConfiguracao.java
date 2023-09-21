@@ -5,10 +5,10 @@
  */
 package com.inosystem.pdv.view;
 
+import com.inosystem.pdv.model.Config;
+import com.inosystem.pdv.util.ManipularXML;
 import javax.swing.JOptionPane;
-import model.ModelConfig;
 import util.Impressora;
-import util.ManipularXML;
 
 /**
  *
@@ -16,11 +16,11 @@ import util.ManipularXML;
  */
 public class ViewConfiguracao extends javax.swing.JFrame {
 
-    ModelConfig modelConfig = new ModelConfig();
+    Config modelConfig = new Config();
     ManipularXML manipularXML = new ManipularXML();
 
     /**
-     * Creates new form ViewModelConfiguracao
+     * Creates new form ViewConfiguracao
      */
     public ViewConfiguracao() {
         initComponents();
@@ -400,8 +400,8 @@ public class ViewConfiguracao extends javax.swing.JFrame {
 
     //carregar dados na interface
     private void carregarDados() {
-        modelConfig = new ModelConfig();
-        modelConfig = manipularXML.lerXmlConfig();
+        modelConfig = new Config();
+        modelConfig = ManipularXML.lerXmlConfig();
         jtfNomeBanco.setText(modelConfig.getNomeBanco());
         jtfUsuario.setText(modelConfig.getUsuario());
         jtfSenha.setText(modelConfig.getSenha());

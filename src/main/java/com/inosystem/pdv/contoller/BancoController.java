@@ -8,11 +8,11 @@ import com.inosystem.pdv.dao.BancoDao;
 import com.inosystem.pdv.model.Banco;
 import java.util.ArrayList;
 
-    /**
-     *
-     * @author Jrpbjr
-     */
-    public class BancoController {
+/**
+ *
+ * @author jrpbj
+ */
+public class BancoController {
 
         private BancoDao bancoDao = new BancoDao();
 
@@ -78,6 +78,4 @@ import java.util.ArrayList;
         public boolean excluirBancoController(int pCodigo) {
             return this.bancoDao.excluirBancoDAO(pCodigo);
         }
-
-    }
-
+}

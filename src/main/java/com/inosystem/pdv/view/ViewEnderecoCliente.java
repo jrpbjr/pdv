@@ -1,20 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
-import controller.ControllerCidade;
-import controller.ControllerCliente;
-import controller.ControllerClienteCidadeEstado;
-import controller.ControllerEstado;
+import com.inosystem.pdv.contoller.CidadeController;
+import com.inosystem.pdv.contoller.ClienteCidadeEstadoController;
+import com.inosystem.pdv.contoller.ClienteController;
+import com.inosystem.pdv.contoller.EstadoController;
+import com.inosystem.pdv.model.Cidade;
+import com.inosystem.pdv.model.Cliente;
+import com.inosystem.pdv.model.ClienteCidadeEstado;
+import com.inosystem.pdv.model.Estado;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import model.ModelCidade;
-import model.ModelCliente;
-import model.ModelClienteCidadeEstado;
-import model.ModelEstado;
 
 /**
  *
@@ -22,14 +17,14 @@ import model.ModelEstado;
  */
 public class ViewEnderecoCliente extends javax.swing.JFrame {
 
-    ControllerEstado controllerEstado = new ControllerEstado();
-    ArrayList<ModelEstado> listaModelEstados = new ArrayList<>();
-    ControllerCidade controllerCidade = new ControllerCidade();
-    ArrayList<ModelCidade> listaModelCidades = new ArrayList<>();
-    ModelClienteCidadeEstado modelClienteCidadeEstado = new ModelClienteCidadeEstado();
-    ControllerClienteCidadeEstado controllerClienteCidadeEstado = new ControllerClienteCidadeEstado();
-    ModelCliente modelCliente = new ModelCliente();
-    ControllerCliente controllerCliente = new ControllerCliente();
+    EstadoController EstadoController = new EstadoController();
+    ArrayList<Estado> listaEstados = new ArrayList<>();
+    CidadeController controllerCidade = new CidadeController();
+    ArrayList<Cidade> listaCidades = new ArrayList<>();
+    ClienteCidadeEstado modelClienteCidadeEstado = new ClienteCidadeEstado();
+    ClienteCidadeEstadoController controllerClienteCidadeEstado = new ClienteCidadeEstadoController();
+    Cliente modelCliente = new Cliente();
+    ClienteController controllerCliente = new ClienteController();
 
     /**
      * Creates new form ViewEnderecoCliente
@@ -44,14 +39,14 @@ public class ViewEnderecoCliente extends javax.swing.JFrame {
     public void retornarClientePeloCodigo() {
         modelClienteCidadeEstado = controllerClienteCidadeEstado.getClienteCidadeEstadoController(Integer.parseInt(jtfCodigo.getText()));
 
-        this.jtfNome.setText(modelClienteCidadeEstado.getModelCliente().getNome());
-        this.jtfEndereco.setText(modelClienteCidadeEstado.getModelCliente().getEndereco());
-        this.jtfBairro.setText(modelClienteCidadeEstado.getModelCliente().getBairro());
-        this.jcbEstado.setSelectedItem(modelClienteCidadeEstado.getModelEstado().getUf());
+        this.jtfNome.setText(modelClienteCidadeEstado.getCliente().getNome());
+        this.jtfEndereco.setText(modelClienteCidadeEstado.getCliente().getEndereco());
+        this.jtfBairro.setText(modelClienteCidadeEstado.getCliente().getBairro());
+        this.jcbEstado.setSelectedItem(modelClienteCidadeEstado.getEstado().getUf());
         this.listarCidades();
-        this.jcbCidade.setSelectedItem(modelClienteCidadeEstado.getModelCidade().getNome());
-        this.jtfTelefone.setText(modelClienteCidadeEstado.getModelCliente().getTelefone());
-        this.jtfcep.setText(modelClienteCidadeEstado.getModelCliente().getCep());
+        this.jcbCidade.setSelectedItem(modelClienteCidadeEstado.getCidade().getNome());
+        this.jtfTelefone.setText(modelClienteCidadeEstado.getCliente().getTelefone());
+        this.jtfcep.setText(modelClienteCidadeEstado.getCliente().getCep());
     }
 
     /**
@@ -319,13 +314,13 @@ public class ViewEnderecoCliente extends javax.swing.JFrame {
      */
     private void listarCidades() {
         try {
-            listaModelCidades = controllerCidade.getListaCidadePorEstadoController(controllerEstado.getEstadoUFController(this.jcbEstado.getSelectedItem().toString()).getCodigo());
+            listaCidades = controllerCidade.getListaCidadePorEstadoController(EstadoController.getEstadoUFController(this.jcbEstado.getSelectedItem().toString()).getCodigo());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Você deve cadastrar cidades e estados primeiro!");
         }
         jcbCidade.removeAllItems();
-        for (int i = 0; i < listaModelCidades.size(); i++) {
-            jcbCidade.addItem(listaModelCidades.get(i).getNome());
+        for (int i = 0; i < listaCidades.size(); i++) {
+            jcbCidade.addItem(listaCidades.get(i).getNome());
         }
     }
 
@@ -333,10 +328,10 @@ public class ViewEnderecoCliente extends javax.swing.JFrame {
      * Preencher combobox estados
      */
     private void listarEstados() {
-        listaModelEstados = controllerEstado.getListaEstadoController();
+        listaEstados = EstadoController.getListaEstadoController();
         jcbEstado.removeAllItems();
-        for (int i = 0; i < listaModelEstados.size(); i++) {
-            jcbEstado.addItem(listaModelEstados.get(i).getUf());
+        for (int i = 0; i < listaEstados.size(); i++) {
+            jcbEstado.addItem(listaEstados.get(i).getUf());
         }
     }
 

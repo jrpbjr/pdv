@@ -191,6 +191,6 @@ public class Garcom {
 
     @Override
     public String toString() {
-        return "ModelGarcom {" + "::codigo = " + this.codigo + "::nome = " + this.nome + "::endereco = " + this.endereco + "::bairro = " + this.bairro + "::codCidade = " + this.codCidade + "::codEstado = " + this.codEstado + "::cep = " + this.cep + "::telefone = " + this.telefone + "::comissao = " + this.comissao + "::senha = " + this.senha + "}";
+        return "Garcom {" + "::codigo = " + this.codigo + "::nome = " + this.nome + "::endereco = " + this.endereco + "::bairro = " + this.bairro + "::codCidade = " + this.codCidade + "::codEstado = " + this.codEstado + "::cep = " + this.cep + "::telefone = " + this.telefone + "::comissao = " + this.comissao + "::senha = " + this.senha + "}";
     }
 }

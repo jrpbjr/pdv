@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.inosystem.pdv.view;
 
-import controller.ControllerProdutos;
+import com.inosystem.pdv.contoller.ProdutoController;
+import com.inosystem.pdv.model.Produto;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import model.ModelProdutos;
 
 /**
  *
@@ -155,8 +149,8 @@ public class ViewEstoquePDV extends javax.swing.JFrame {
 
     private void jtfCodigoProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCodigoProdutoKeyReleased
         // TODO add your handling code here:
-        ControllerProdutos controllerProdutos = new ControllerProdutos();
-        ModelProdutos modelProdutos = new ModelProdutos();
+        ProdutoController controllerProdutos = new ProdutoController();
+        Produto modelProdutos = new Produto();
         modelProdutos = controllerProdutos.getProdutosController(Integer.parseInt(this.jtfCodigoProduto.getText()));
 
         this.jcbProdutos.setSelectedItem(modelProdutos.getNome());
@@ -165,8 +159,8 @@ public class ViewEstoquePDV extends javax.swing.JFrame {
 
     private void jcbProdutosPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jcbProdutosPopupMenuWillBecomeInvisible
         if (this.jcbProdutos.isPopupVisible()) {
-            ControllerProdutos controllerProdutos = new ControllerProdutos();
-            ModelProdutos modelProdutos = new ModelProdutos();
+            ProdutoController controllerProdutos = new ProdutoController();
+            Produto modelProdutos = new Produto();
             String nomeRepresentante = "";
             
             nomeRepresentante = this.jcbProdutos.getSelectedItem().toString();
@@ -184,8 +178,8 @@ public class ViewEstoquePDV extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void listarProdutos(){
-        ControllerProdutos controllerProdutos = new ControllerProdutos();
-        ArrayList<ModelProdutos> listaProdutoses = new ArrayList<>();
+        ProdutoController controllerProdutos = new ProdutoController();
+        ArrayList<Produto> listaProdutoses = new ArrayList<>();
         
         listaProdutoses = controllerProdutos.getListaProdutosController();
         jcbProdutos.removeAllItems();

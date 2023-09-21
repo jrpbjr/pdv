@@ -5,12 +5,12 @@
  */
 package com.inosystem.pdv.view;
 
-import controller.ControllerCFOP;
+import com.inosystem.pdv.contoller.CfopController;
+import com.inosystem.pdv.model.Cfop;
+import com.inosystem.pdv.util.Mascara;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.ModelCFOP;
-import util.BLMascaras;
 
 /**
  *
@@ -18,11 +18,11 @@ import util.BLMascaras;
  */
 public class ViewCFOP extends javax.swing.JFrame {
 
-    ControllerCFOP controllerCFOP = new ControllerCFOP();
-    ModelCFOP modelCFOP = new ModelCFOP();
-    ArrayList<ModelCFOP> listaModelCFOPs = new ArrayList<>();
+    CfopController controllerCFOP = new CfopController();
+    Cfop modelCFOP = new Cfop();
+    ArrayList<Cfop> listaCFOPs = new ArrayList<>();
     String tipoCadastro = "novo";
-    BLMascaras bLMascaras = new BLMascaras();
+    Mascara bLMascaras = new Mascara();
     /**
      * Creates new form ViewCFOP
      */
@@ -284,7 +284,7 @@ public class ViewCFOP extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Você deve selecionar um item na tabela antes de clicar no botão!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
         } else {
             limparTela();
-            modelCFOP = new ModelCFOP();
+            modelCFOP = new Cfop();
             modelCFOP = controllerCFOP.getCFOPController(codigo);
             jtfCodigo.setText(modelCFOP.getCodigo() + "");
             jtfCodigoOperacao.setText(modelCFOP.getCfop() + "");
@@ -362,7 +362,7 @@ public class ViewCFOP extends javax.swing.JFrame {
     }
 
     private void alterar() {
-        modelCFOP = new ModelCFOP();
+        modelCFOP = new Cfop();
         modelCFOP.setCodigo(Integer.parseInt(jtfCodigo.getText()));
         modelCFOP.setCfop(Integer.parseInt(jtfCodigoOperacao.getText()));
         modelCFOP.setSequeCfop(Integer.parseInt(jtfSequencia.getText()));
@@ -393,7 +393,7 @@ public class ViewCFOP extends javax.swing.JFrame {
     }
 
     private void salvar() {
-        modelCFOP = new ModelCFOP();
+        modelCFOP = new Cfop();
         modelCFOP.setCfop(Integer.parseInt(jtfCodigoOperacao.getText()));
         modelCFOP.setSequeCfop(Integer.parseInt(jtfSequencia.getText()));
         if (jrEstadual.isSelected()) {
@@ -423,16 +423,16 @@ public class ViewCFOP extends javax.swing.JFrame {
     }
 
     private void carregarCFOP() {
-        listaModelCFOPs = controllerCFOP.getListaCFOPController();
+        listaCFOPs = controllerCFOP.getListaCFOPController();
         DefaultTableModel modelo = (DefaultTableModel) jtCFOP.getModel();
         modelo.setNumRows(0);
         //CARREGA OS DADOS DA LISTA NA TABELA
-        int cont = listaModelCFOPs.size();
+        int cont = listaCFOPs.size();
         for (int i = 0; i < cont; i++) {
             modelo.addRow(new Object[]{
-                listaModelCFOPs.get(i).getCodigo(),
-                listaModelCFOPs.get(i).getCfop(),
-                listaModelCFOPs.get(i).getDescricao()
+                listaCFOPs.get(i).getCodigo(),
+                listaCFOPs.get(i).getCfop(),
+                listaCFOPs.get(i).getDescricao()
             });
         }
     }

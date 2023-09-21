@@ -1,16 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
-import controller.ControllerFornecedor;
-import controller.ControllerProdutos;
-import controller.ControllerUnidadeMedia;
+import com.inosystem.pdv.contoller.FornecedorController;
+import com.inosystem.pdv.contoller.ProdutoController;
+import com.inosystem.pdv.contoller.UnidadeMedidaController;
+import com.inosystem.pdv.model.Fornecedor;
+import com.inosystem.pdv.model.Produto;
+import com.inosystem.pdv.model.UnidadeMedida;
+import com.inosystem.pdv.util.Mascara;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -19,26 +19,21 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import model.ModelFornecedor;
-import model.ModelProdutos;
-import model.ModelUnidadeMedia;
-import util.BLMascaras;
-import util.BrFileChooser;
 
 /**
  * @author Jrpbjr * jrpbjr *
  */
 public class ViewProduto extends javax.swing.JFrame {
 
-    ModelProdutos modelProdutos = new ModelProdutos();
-    ControllerProdutos controllerProdutos = new ControllerProdutos();
-    ControllerFornecedor controllerFornecedor = new ControllerFornecedor();
-    ControllerUnidadeMedia controllerUnidadeMedia = new ControllerUnidadeMedia();
-    ModelUnidadeMedia modelUnidadeMedia = new ModelUnidadeMedia();
-    ArrayList<ModelUnidadeMedia> listaModelUnidadeMedias = new ArrayList<>();
-    ArrayList<ModelProdutos> listamModelProdutos = new ArrayList<ModelProdutos>();
-    ArrayList<ModelFornecedor> listaFornecedor = new ArrayList<ModelFornecedor>();
-    BLMascaras bLMascaras = new BLMascaras();
+    Produto modelProdutos = new Produto();
+    ProdutoController controllerProdutos = new ProdutoController();
+    FornecedorController controllerFornecedor = new FornecedorController();
+    UnidadeMedidaController controllerUnidadeMedia = new UnidadeMedidaController();
+    UnidadeMedida modelUnidadeMedia = new UnidadeMedida();
+    ArrayList<UnidadeMedida> listaUnidadeMedidas = new ArrayList<>();
+    ArrayList<Produto> listamProduto = new ArrayList<Produto>();
+    ArrayList<Fornecedor> listaFornecedor = new ArrayList<Fornecedor>();
+    Mascara bLMascaras = new Mascara();
     String tipoCadastro, codigoDeBarras, nomeImagem, caminhoImagem;
     private File arquivoImagem;
     private java.awt.Image imagemB = null;
@@ -426,14 +421,14 @@ public class ViewProduto extends javax.swing.JFrame {
 
     private void jtfPesoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPesoKeyReleased
         // TODO add your handling code here:
-        this.jtfPeso.setText(new BLMascaras().converterVirgulaParaPonto(this.jtfPeso.getText()));
+        this.jtfPeso.setText(new Mascara().converterVirgulaParaPonto(this.jtfPeso.getText()));
     }//GEN-LAST:event_jtfPesoKeyReleased
 
     private void listarUnidadeMedidas() {
-        listaModelUnidadeMedias = controllerUnidadeMedia.getListaUnidadeMediaController();
+        listaUnidadeMedidas = controllerUnidadeMedia.getListaUnidadeMediaController();
         cbUnidadeMedida.removeAllItems();
-        for (int i = 0; i < listaModelUnidadeMedias.size(); i++) {
-            cbUnidadeMedida.addItem(listaModelUnidadeMedias.get(i).getAbreviacao());
+        for (int i = 0; i < listaUnidadeMedidas.size(); i++) {
+            cbUnidadeMedida.addItem(listaUnidadeMedidas.get(i).getAbreviacao());
         }
     }
 
@@ -517,7 +512,7 @@ public class ViewProduto extends javax.swing.JFrame {
         modelProdutos.setAtivo(jcbAtivo.getSelectedIndex());
         modelProdutos.setOrigem(jcbOrigem.getSelectedIndex());
         modelProdutos.setDiasGarantia(Integer.parseInt(jtfGarantia.getText()));
-        modelProdutos.setPeso(Double.parseDouble(jtfPeso.getText()));
+        modelProdutos.setPeso(new BigDecimal(jtfPeso.getText()));
         
         if (verificarExistenciaIMG()) {
             modelProdutos.setImagemProduto(jtfCaminhoImagem.getText().replace("\\", "\\\\"));
@@ -538,26 +533,26 @@ public class ViewProduto extends javax.swing.JFrame {
     }
 
     private void carregarProdutos() {
-        listamModelProdutos = controllerProdutos.getListaProdutosController();
+        listamProduto = controllerProdutos.getListaProdutosController();
         DefaultTableModel modelo = (DefaultTableModel) tbProdutos.getModel();
         modelo.setNumRows(0);
         String ativo = "";
         String fornecedor = "";
         //CARREGA OS DADOS DA LISTA NA TABELA
-        int cont = listamModelProdutos.size();
+        int cont = listamProduto.size();
         for (int i = 0; i < cont; i++) {
-            if (listamModelProdutos.get(i).getAtivo() == 1) {
+            if (listamProduto.get(i).getAtivo() == 1) {
                 ativo = "SIM";
             } else {
                 ativo = "NAO";
             }
-            fornecedor = controllerFornecedor.getFornecedorController(listamModelProdutos.get(i).getFornecedoresCodigo()).getNome();
+            fornecedor = controllerFornecedor.getFornecedorController(listamProduto.get(i).getFornecedoresCodigo()).getNome();
             modelo.addRow(new Object[]{
-                listamModelProdutos.get(i).getCodigo(),
-                listamModelProdutos.get(i).getCodigoBarrasEan(),
-                listamModelProdutos.get(i).getNome(),
-                listamModelProdutos.get(i).getDiasGarantia(),
-                listamModelProdutos.get(i).getPeso(),
+                listamProduto.get(i).getCodigo(),
+                listamProduto.get(i).getCodigoBarrasEan(),
+                listamProduto.get(i).getNome(),
+                listamProduto.get(i).getDiasGarantia(),
+                listamProduto.get(i).getPeso(),
                 ativo,
                 fornecedor
             });
@@ -585,20 +580,20 @@ public class ViewProduto extends javax.swing.JFrame {
         modelProdutos.setDescricaoProduto(this.jtfDescricao.getText());
         modelProdutos.setNcm("");
         modelProdutos.setTipoNcm("");
-        modelProdutos.setSubTribut(0);
-        modelProdutos.setIcmsCst(0);
-        modelProdutos.setIcms(0);
-        modelProdutos.setIcmsRed(0);
+        modelProdutos.setSubTribut(new BigDecimal(0));
+        modelProdutos.setIcmsCst(new BigDecimal(0));
+        modelProdutos.setIcms(new BigDecimal(0));
+        modelProdutos.setIcmsRed(new BigDecimal(0));
         modelProdutos.setIpiCst("");
-        modelProdutos.setIpi(0);
+        modelProdutos.setIpi(new BigDecimal(0));
         modelProdutos.setPisCst("");
-        modelProdutos.setPis(0);
+        modelProdutos.setPis(new BigDecimal(0));
         modelProdutos.setCofinsCst("");
-        modelProdutos.setCofins(0);
+        modelProdutos.setCofins(new BigDecimal(0));
         modelProdutos.setValor(0.0);
         modelProdutos.setValorCusto(0.0);
         modelProdutos.setFornecedoresCodigo(controllerFornecedor.getFornecedorController(this.cbFornecedores.getSelectedItem().toString()).getCodigo());
-        modelProdutos.setEstoque(0);
+        modelProdutos.setEstoque(0f);
         if (tfCodigoBarras.getText().equals("")) {
             modelProdutos.setCodigoBarrasEan("0");
         } else {
@@ -613,9 +608,9 @@ public class ViewProduto extends javax.swing.JFrame {
             modelProdutos.setDiasGarantia(0);
         }
         try {
-            modelProdutos.setPeso(Double.parseDouble(bLMascaras.converterVirgulaParaPonto(jtfPeso.getText())));
+            modelProdutos.setPeso(new BigDecimal((bLMascaras.converterVirgulaParaPonto(jtfPeso.getText()))));
         } catch (Exception e) {
-            modelProdutos.setPeso(0.0);
+            modelProdutos.setPeso(new BigDecimal(0));
         }
         if (verificarExistenciaIMG()) {
             modelProdutos.setImagemProduto(jtfCaminhoImagem.getText().replace("\\", "\\\\"));

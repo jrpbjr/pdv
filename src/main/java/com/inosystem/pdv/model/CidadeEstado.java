@@ -25,51 +25,51 @@ public class CidadeEstado {
     /**
      * seta o valor de modelCidade
      *
-     * @param pModelCidade
+     * @param pCidade
      */
-    public void setModelCidade(Cidade pModelCidade) {
-        this.modelCidade = pModelCidade;
+    public void setCidade(Cidade pCidade) {
+        this.modelCidade = pCidade;
     }
 
     /**
      * return modelCidade
      */
-    public Cidade getModelCidade() {
+    public Cidade getCidade() {
         return this.modelCidade;
     }
 
     /**
      * seta o valor de modelEstado
      *
-     * @param pModelEstado
+     * @param pEstado
      */
-    public void setModelEstado(Estado pModelEstado) {
-        this.modelEstado = pModelEstado;
+    public void setEstado(Estado pEstado) {
+        this.modelEstado = pEstado;
     }
 
     /**
      * return modelEstado
      */
-    public Estado getModelEstado() {
+    public Estado getEstado() {
         return this.modelEstado;
     }
 
     @Override
     public String toString() {
-        return "ModelCidadeEstado {" + "::modelCidade = " + this.modelCidade + "::modelEstado = " + this.modelEstado + "}";
+        return "CidadeEstado {" + "::modelCidade = " + this.modelCidade + "::modelEstado = " + this.modelEstado + "}";
     }
 
     /**
      * @return the listaCidadeEstados
      */
-    public ArrayList<CidadeEstado> getListaModelCidadeEstados() {
+    public ArrayList<CidadeEstado> getListaCidadeEstados() {
         return listaCidadeEstados;
     }
 
     /**
      * @param listaCidadeEstados the listaCidadeEstados to set
      */
-    public void setListaModelCidadeEstados(ArrayList<CidadeEstado> listaCidadeEstados) {
+    public void setListaCidadeEstados(ArrayList<CidadeEstado> listaCidadeEstados) {
         this.listaCidadeEstados = listaCidadeEstados;
     }
 }

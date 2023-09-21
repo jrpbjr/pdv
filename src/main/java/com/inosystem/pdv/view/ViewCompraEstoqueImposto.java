@@ -1,26 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
-import controller.ControllerCompras;
-import controller.ControllerComprasProdutos;
-import controller.ControllerFornecedor;
-import controller.ControllerProdutos;
+import com.inosystem.pdv.contoller.CompraProdutoController;
+import com.inosystem.pdv.contoller.ComprasController;
+import com.inosystem.pdv.contoller.FornecedorController;
+import com.inosystem.pdv.contoller.ProdutoController;
+import com.inosystem.pdv.model.CompraProduto;
+import com.inosystem.pdv.model.Compras;
+import com.inosystem.pdv.model.Fornecedor;
+import com.inosystem.pdv.model.Produto;
+import com.inosystem.pdv.util.AguardeGerandoRelatorio;
+import com.inosystem.pdv.util.Mascara;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.ModelCompras;
-import model.ModelComprasProdutos;
-import model.ModelFornecedor;
-import model.ModelProdutos;
-import util.AguardeGerandoRelatorio;
-import util.BLMascaras;
 
 /**
  *
@@ -28,18 +24,18 @@ import util.BLMascaras;
  */
 public class ViewCompraEstoqueImposto extends javax.swing.JFrame {
 
-    ModelProdutos modelProdutos = new ModelProdutos();
-    ControllerProdutos controllerProdutos = new ControllerProdutos();
-    ArrayList<ModelProdutos> listaModelProdutos = new ArrayList<>();
-    ArrayList<ModelFornecedor> listaFornecedor = new ArrayList<ModelFornecedor>();
-    ControllerFornecedor controllerFornecedor = new ControllerFornecedor();
-    BLMascaras bLMascaras = new BLMascaras();
-    ControllerCompras controllerCompras = new ControllerCompras();
-    ModelCompras modelCompras = new ModelCompras();
-    ControllerComprasProdutos controllerComprasProdutos = new ControllerComprasProdutos();
-    ModelComprasProdutos modelComprasProdutos = new ModelComprasProdutos();
-    ArrayList<ModelComprasProdutos> listaModelComprasProdutoses = new ArrayList<>();
-    ArrayList<ModelCompras> listaModelComprases = new ArrayList<>();
+    Produto modelProdutos = new Produto();
+    ProdutoController controllerProdutos = new ProdutoController();
+    ArrayList<Produto> listaProduto = new ArrayList<>();
+    ArrayList<Fornecedor> listaFornecedor = new ArrayList<Fornecedor>();
+    FornecedorController controllerFornecedor = new FornecedorController();
+    Mascara bLMascaras = new Mascara();
+    ComprasController controllerCompras = new ComprasController();
+    Compras modelCompras = new Compras();
+    CompraProdutoController controllerComprasProdutos = new CompraProdutoController();
+    CompraProduto modelComprasProdutos = new CompraProduto();
+    ArrayList<CompraProduto> listaComprasProdutoses = new ArrayList<>();
+    ArrayList<Compras> listaComprases = new ArrayList<>();
 
     /**
      * Creates new form ViewComprasProdutos
@@ -650,8 +646,8 @@ public class ViewCompraEstoqueImposto extends javax.swing.JFrame {
         if (tbProdutos.getRowCount() < 1) {
             JOptionPane.showMessageDialog(this, "Você deve preencher inserir dados na tabela para salvar!", "ATENÇÂO", JOptionPane.WARNING_MESSAGE);
         } else {
-            modelCompras = new ModelCompras();
-            listaModelProdutos = new ArrayList<>();
+            modelCompras = new Compras();
+            listaProduto = new ArrayList<>();
 
             modelCompras.setValorTotal(Double.parseDouble(tfValorTotalCompra.getText()));
             try {
@@ -661,40 +657,40 @@ public class ViewCompraEstoqueImposto extends javax.swing.JFrame {
             }
 
             for (int i = 0; i < tbProdutos.getRowCount(); i++) {
-                modelProdutos = new ModelProdutos();
-                modelComprasProdutos = new ModelComprasProdutos();
+                modelProdutos = new Produto();
+                modelComprasProdutos = new CompraProduto();
                 modelProdutos.setCodigo(Integer.parseInt(tbProdutos.getValueAt(i, 0).toString()));
                 modelProdutos.setValorCusto(Double.parseDouble(tbProdutos.getValueAt(i, 2).toString()));
                 modelProdutos.setValor(Double.parseDouble(tbProdutos.getValueAt(i, 3).toString()));
                 modelProdutos.setEstoque(Float.parseFloat(tbProdutos.getValueAt(i, 4).toString()));
                 modelProdutos.setNcm(String.valueOf(tbProdutos.getValueAt(i, 6).toString()));
                 modelProdutos.setTipoNcm(String.valueOf(tbProdutos.getValueAt(i, 7).toString()));
-                modelProdutos.setSubTribut(Double.parseDouble(tbProdutos.getValueAt(i, 8).toString()));
-                modelProdutos.setIcmsCst(Double.parseDouble(tbProdutos.getValueAt(i, 9).toString()));
-                modelProdutos.setIcms(Double.parseDouble(tbProdutos.getValueAt(i, 10).toString()));
-                modelProdutos.setIcmsRed(Double.parseDouble(tbProdutos.getValueAt(i, 11).toString()));
+                modelProdutos.setSubTribut(new BigDecimal(tbProdutos.getValueAt(i, 8).toString()));
+                modelProdutos.setIcmsCst(new BigDecimal(tbProdutos.getValueAt(i, 9).toString()));
+                modelProdutos.setIcms(new BigDecimal(tbProdutos.getValueAt(i, 10).toString()));
+                modelProdutos.setIcmsRed(new BigDecimal(tbProdutos.getValueAt(i, 11).toString()));
                 modelProdutos.setIpiCst(String.valueOf(tbProdutos.getValueAt(i, 12).toString()));
-                modelProdutos.setIpi(Double.parseDouble(tbProdutos.getValueAt(i, 13).toString()));
+                modelProdutos.setIpi(new BigDecimal(tbProdutos.getValueAt(i, 13).toString()));
                 modelProdutos.setPisCst(String.valueOf(tbProdutos.getValueAt(i, 14).toString()));
-                modelProdutos.setPis(Double.parseDouble(tbProdutos.getValueAt(i, 15).toString()));
+                modelProdutos.setPis(new BigDecimal(tbProdutos.getValueAt(i, 15).toString()));
                 modelProdutos.setCofinsCst(String.valueOf(tbProdutos.getValueAt(i, 16).toString()));
-                modelProdutos.setCofins(Double.parseDouble(tbProdutos.getValueAt(i, 17).toString()));
+                modelProdutos.setCofins(new BigDecimal(tbProdutos.getValueAt(i, 17).toString()));
                 //add o estoque
                 modelProdutos.setAddEstoque(controllerProdutos.getProdutosController(modelProdutos.getCodigo()).getEstoque() + modelProdutos.getEstoque());
-                modelComprasProdutos.setModelProdutos(modelProdutos);
+                modelComprasProdutos.setProduto(modelProdutos);
 
-                listaModelComprasProdutoses.add(modelComprasProdutos);
+                listaComprasProdutoses.add(modelComprasProdutos);
             }
-            modelComprasProdutos.setListaModelComprasProdutos(listaModelComprasProdutoses);
+            modelComprasProdutos.setListaCompraProduto(listaComprasProdutoses);
 
             //salvar venda
-            int codigoCompra = controllerCompras.salvarComprasController(modelCompras);
+            int codigoCompra = controllerCompras.salvarComprassController(modelCompras);
             if (codigoCompra > 0) {
                 modelComprasProdutos.setCodCompras(codigoCompra);
                 //salvar lista de produtos
                 controllerComprasProdutos.salvarcompras_produtosController(modelComprasProdutos);
                 //adicionar produtos ao estoque
-                controllerProdutos.atualizarProdutosQuantidadeValorController(listaModelComprasProdutoses);
+                controllerProdutos.atualizarProdutosQuantidadeValorController(listaComprasProdutoses);
                 JOptionPane.showMessageDialog(this, "Registro gravado com sucesso!");
                 //limpar dados e preparar tela
                 limparDados();
@@ -715,18 +711,18 @@ public class ViewCompraEstoqueImposto extends javax.swing.JFrame {
     private void btExcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluir1ActionPerformed
         int linha = tbCompras.getSelectedRow();
         int codigo = (int) tbCompras.getValueAt(linha, 0);
-        listaModelComprasProdutoses = new ArrayList<>();
+        listaComprasProdutoses = new ArrayList<>();
 
         //pegunta se realmente deseja excluir
         int opcao = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja"
                 + " excluir o registro:\n" + "\n " + 0 + "?", "Atenção", JOptionPane.YES_NO_OPTION);
         //se sim exclui, se não não faz nada    
         if (opcao == JOptionPane.OK_OPTION) {
-            if (controllerCompras.excluirComprasController(codigo)) {
-                listaModelComprasProdutoses = controllerComprasProdutos.getListacompras_produtosController(codigo);
+            if (controllerCompras.excluirComprassController(codigo)) {
+                listaComprasProdutoses = controllerComprasProdutos.getListacompras_produtosController(codigo);
                 if (controllerComprasProdutos.excluircompras_produtosController(codigo)) {
                     JOptionPane.showMessageDialog(this, "Registro excluido com suscesso!");
-                    removeEstoque(listaModelComprasProdutoses);
+                    removeEstoque(listaComprasProdutoses);
                     //remover produtos do estoque
                 } else {
                     JOptionPane.showMessageDialog(this, "Erro ao excluir os dados!", "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -791,20 +787,20 @@ public class ViewCompraEstoqueImposto extends javax.swing.JFrame {
     }//GEN-LAST:event_tfEstoqueFocusLost
 
     private void tfValorCustoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfValorCustoKeyReleased
-        this.tfValorCusto.setText(new BLMascaras().converterVirgulaParaPonto(this.tfValorCusto.getText()));
+        this.tfValorCusto.setText(new Mascara().converterVirgulaParaPonto(this.tfValorCusto.getText()));
     }//GEN-LAST:event_tfValorCustoKeyReleased
 
     private void tfValorVendaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfValorVendaKeyReleased
-        this.tfValorVenda.setText(new BLMascaras().converterVirgulaParaPonto(this.tfValorVenda.getText()));
+        this.tfValorVenda.setText(new Mascara().converterVirgulaParaPonto(this.tfValorVenda.getText()));
     }//GEN-LAST:event_tfValorVendaKeyReleased
 
     private void tfEstoqueKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfEstoqueKeyReleased
-        this.tfEstoque.setText(new BLMascaras().converterVirgulaParaPonto(this.tfEstoque.getText()));
+        this.tfEstoque.setText(new Mascara().converterVirgulaParaPonto(this.tfEstoque.getText()));
     }//GEN-LAST:event_tfEstoqueKeyReleased
 
     private void jbimprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbimprimirActionPerformed
         final AguardeGerandoRelatorio carregando = new AguardeGerandoRelatorio();
-        final ControllerCompras controllerCompras = new ControllerCompras();
+        final ComprasController controllerCompras = new ComprasController();
         carregando.setVisible(true);
         Thread t = new Thread() {
             @Override
@@ -812,7 +808,7 @@ public class ViewCompraEstoqueImposto extends javax.swing.JFrame {
                 // imprimir
                 int linha = tbCompras.getSelectedRow();
                 int codigo = (int) tbCompras.getValueAt(linha, 0);
-                controllerCompras.gerarRelatorioCompraController(codigo);
+                controllerCompras.gerarRelatorioComprasController(codigo);
                 carregando.dispose();
             }
         };
@@ -824,21 +820,21 @@ public class ViewCompraEstoqueImposto extends javax.swing.JFrame {
      *
      * @param pCodigoProduto
      */
-    private void removeEstoque(ArrayList<ModelComprasProdutos> pListaComprasProdutos) {
+    private void removeEstoque(ArrayList<CompraProduto> pListaComprasProdutos) {
         float quantidade;
-        listaModelProdutos = new ArrayList<>();
+        listaProduto = new ArrayList<>();
         System.err.println(pListaComprasProdutos.size());
         int cont = pListaComprasProdutos.size();
         for (int i = 0; i < cont; i++) {
-            modelProdutos = new ModelProdutos();
+            modelProdutos = new Produto();
             modelProdutos.setCodigo(pListaComprasProdutos.get(i).getCodProduto());
             quantidade = controllerProdutos.getProdutosController(modelProdutos.getCodigo()).getEstoque() - pListaComprasProdutos.get(i).getQuantidade();
             modelProdutos.setEstoque(quantidade);
             modelProdutos.setValorCusto(pListaComprasProdutos.get(i).getValorCusto());
             modelProdutos.setValor(pListaComprasProdutos.get(i).getValorVenda());
-            listaModelProdutos.add(modelProdutos);
+            listaProduto.add(modelProdutos);
         }
-        modelProdutos.setListaModelProdutoses(listaModelProdutos);
+        modelProdutos.setListaProdutoes(listaProduto);
         controllerProdutos.atualizarProdutosEstoqueController(modelProdutos);
     }
 
@@ -851,31 +847,31 @@ public class ViewCompraEstoqueImposto extends javax.swing.JFrame {
     }
 
     private void carregarCompras() {
-        listaModelComprases = controllerCompras.getListaComprasController();
+        listaComprases = controllerCompras.getListaComprassController();
         DefaultTableModel modelo = (DefaultTableModel) tbCompras.getModel();
         modelo.setNumRows(0);
         //CARREGA OS DADOS DA LISTA NA TABELA
-        int cont = listaModelComprases.size();
+        int cont = listaComprases.size();
         for (int i = 0; i < cont; i++) {
             modelo.addRow(new Object[]{
-                listaModelComprases.get(i).getCodigo(),
-                bLMascaras.formatarData(listaModelComprases.get(i).getData()),
-                listaModelComprases.get(i).getValorTotal()
+                listaComprases.get(i).getCodigo(),
+                bLMascaras.formatarData(listaComprases.get(i).getData()),
+                listaComprases.get(i).getValorTotal()
             });
         }
     }
 
     // calcula o valor total do produto com quantidade
     private String calcularValorproduto(String pValorUnitario, String pQuantidade) {
-        Double valorTotal, valorUnitario = null, quantidade = null;
+        BigDecimal valorTotal, valorUnitario = null, quantidade = null;
         try {
-            valorUnitario = Double.parseDouble(pValorUnitario);
-            quantidade = Double.parseDouble(pQuantidade);
+            valorUnitario = new BigDecimal(pValorUnitario);
+            quantidade = new BigDecimal(pQuantidade);
         } catch (NumberFormatException e) {
             System.err.println(e + "Erro");
         }
-        valorTotal = valorUnitario * quantidade;
-        return bLMascaras.arredondamentoDoubleComPontoDuasCasasString(valorTotal);
+        valorTotal = valorUnitario.multiply(quantidade);
+        return bLMascaras.arredondamentoDoubleComPontoDuasCasasString(valorTotal.doubleValue());
     }
 
     /**
@@ -895,18 +891,18 @@ public class ViewCompraEstoqueImposto extends javax.swing.JFrame {
     }
 
     private void listarProdutos() {
-        listaModelProdutos = controllerProdutos.getListaProdutosAtivosController();
+        listaProduto = controllerProdutos.getListaProdutosAtivosController();
         cbProdutos.removeAllItems();
-        for (int i = 0; i < listaModelProdutos.size(); i++) {
-            cbProdutos.addItem(listaModelProdutos.get(i).getNome());
+        for (int i = 0; i < listaProduto.size(); i++) {
+            cbProdutos.addItem(listaProduto.get(i).getNome());
         }
     }
 
     private void listarCodigoProdutos() {
-        listaModelProdutos = controllerProdutos.getListaProdutosAtivosController();
+        listaProduto = controllerProdutos.getListaProdutosAtivosController();
         cbCodProduto.removeAllItems();
-        for (int i = 0; i < listaModelProdutos.size(); i++) {
-            cbCodProduto.addItem(listaModelProdutos.get(i).getCodigo());
+        for (int i = 0; i < listaProduto.size(); i++) {
+            cbCodProduto.addItem(listaProduto.get(i).getCodigo());
         }
     }
 

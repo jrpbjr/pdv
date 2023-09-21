@@ -81,7 +81,7 @@ private Integer codigo;
 
     @Override
     public String toString(){
-        return "ModelVendasProdutos {" + "::codigo = " + this.codigo + "::codigo_produto = " + this.codigoProduto + "::codigo_venda = " + this.codigoVenda + "::quantidade = " + this.quantidade +  "}";
+        return "VendaProdutos {" + "::codigo = " + this.codigo + "::codigo_produto = " + this.codigoProduto + "::codigo_venda = " + this.codigoVenda + "::quantidade = " + this.quantidade +  "}";
     }
 
     /**

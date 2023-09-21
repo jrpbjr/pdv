@@ -22,48 +22,48 @@ public class FornecedorCidadeEstado {
 
     /**
     * seta o valor de modelCidade
-    * @param pModelCidade
+    * @param pCidade
     */
-    public void setModelCidade(Cidade pModelCidade){
-        this.cidade = pModelCidade;
+    public void setCidade(Cidade pCidade){
+        this.cidade = pCidade;
     }
     /**
     * return modelCidade
     */
-    public Cidade getModelCidade(){
+    public Cidade getCidade(){
         return this.cidade;
     }
 
     /**
     * seta o valor de modelEstado
-    * @param pModelEstado
+    * @param pEstado
     */
-    public void setModelEstado(Estado pModelEstado){
-        this.estado = pModelEstado;
+    public void setEstado(Estado pEstado){
+        this.estado = pEstado;
     }
     /**
     * return modelEstado
     */
-    public Estado getModelEstado(){
+    public Estado getEstado(){
         return this.estado;
     }
 
     @Override
     public String toString(){
-        return "ModelCidadeEstado {" + "::modelCidade = " + this.cidade + "::modelEstado = " + this.estado +  "}";
+        return "CidadeEstado {" + "::modelCidade = " + this.cidade + "::modelEstado = " + this.estado +  "}";
     }
 
     /**
      * @return the modelCliente
      */
-    public  Fornecedor getModelFornecedor() {
+    public  Fornecedor getFornecedor() {
         return fornecedor;
     }
 
     /**
      * @param modelFornecedor the modelCliente to set
      */
-    public void setModelFornecedor(Fornecedor modelFornecedor) {
+    public void setFornecedor(Fornecedor modelFornecedor) {
         this.fornecedor = modelFornecedor;
     }
 }

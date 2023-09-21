@@ -87,6 +87,6 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "ModelUsuario {" + "::codigo = " + this.codigo + "::nome = " + this.nome + "::login = " + this.login + "::senha = " + this.senha + "}";
+        return "Usuario {" + "::codigo = " + this.codigo + "::nome = " + this.nome + "::login = " + this.login + "::senha = " + this.senha + "}";
     }
 }

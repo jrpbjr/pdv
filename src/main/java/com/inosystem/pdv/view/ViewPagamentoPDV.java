@@ -1,12 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
-import controller.ControllerFormaPagamento;
-import controller.ControllerPermissaousuario;
+import com.inosystem.pdv.contoller.FormaPagamentoController;
+import com.inosystem.pdv.contoller.PermissaoUsuarioController;
+import com.inosystem.pdv.model.FormaPagamento;
+import com.inosystem.pdv.model.SessaoUsuario;
+import com.inosystem.pdv.util.Mascara;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -17,9 +15,6 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
-import model.ModelFormaPagamento;
-import model.ModelSessaoUsuario;
-import util.BLMascaras;
 
 /**
  *
@@ -38,8 +33,8 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
     private float cheque;
     private float convenio;
     private String tipoPagamento;
-    ControllerFormaPagamento controllerTipoPagamento = new ControllerFormaPagamento();
-    ArrayList<ModelFormaPagamento> listaModelTipoPagamentos = new ArrayList<>();
+    FormaPagamentoController controllerTipoPagamento = new FormaPagamentoController();
+    ArrayList<FormaPagamento> listaModelTipoPagamentos = new ArrayList<>();
     private ViewVerificarPermissao viewVerificarPermissao;
 
     /**
@@ -429,48 +424,48 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
 
     private void jtfValorRecebidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfValorRecebidoFocusLost
         // TODO add your handling code here:
-        this.jlfValorPagar.setText(new BLMascaras().arredondamentoComPontoDuasCasas(this.calcularDesconto()) + "");
-        this.jtfTroco.setText(new BLMascaras().arredondamentoComPontoDuasCasas(this.calcularTroco()) + "");
+        this.jlfValorPagar.setText(new Mascara().arredondamentoComPontoDuasCasas(this.calcularDesconto()) + "");
+        this.jtfTroco.setText(new Mascara().arredondamentoComPontoDuasCasas(this.calcularTroco()) + "");
     }//GEN-LAST:event_jtfValorRecebidoFocusLost
 
     private void jtfValorRecebidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfValorRecebidoKeyReleased
         // TODO add your handling code here:
-        this.jtfValorRecebido.setText(new BLMascaras().converterVirgulaParaPonto(this.jtfValorRecebido.getText()));
+        this.jtfValorRecebido.setText(new Mascara().converterVirgulaParaPonto(this.jtfValorRecebido.getText()));
     }//GEN-LAST:event_jtfValorRecebidoKeyReleased
 
     private void jtfDescontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfDescontoFocusLost
         // TODO add your handling code here:
-        this.jlfValorPagar.setText(new BLMascaras().arredondamentoComPontoDuasCasas(this.calcularDesconto()) + "");
-        this.jtfTroco.setText(new BLMascaras().arredondamentoComPontoDuasCasas(this.calcularTroco()) + "");
+        this.jlfValorPagar.setText(new Mascara().arredondamentoComPontoDuasCasas(this.calcularDesconto()) + "");
+        this.jtfTroco.setText(new Mascara().arredondamentoComPontoDuasCasas(this.calcularTroco()) + "");
     }//GEN-LAST:event_jtfDescontoFocusLost
 
     private void jtfDescontoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDescontoKeyReleased
         // TODO add your handling code here:
-        this.jtfDesconto.setText(new BLMascaras().converterVirgulaParaPonto(this.jtfDesconto.getText()));
+        this.jtfDesconto.setText(new Mascara().converterVirgulaParaPonto(this.jtfDesconto.getText()));
     }//GEN-LAST:event_jtfDescontoKeyReleased
 
     private void jtfDinheiroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDinheiroKeyReleased
         // TODO add your handling code here:
-        this.jtfValorRecebido.setText(new BLMascaras().arredondamentoComPontoDuasCasas(this.calcularValorRecebido()) + "");
-        this.jtfTroco.setText(new BLMascaras().arredondamentoComPontoDuasCasas(this.calcularTroco()) + "");
+        this.jtfValorRecebido.setText(new Mascara().arredondamentoComPontoDuasCasas(this.calcularValorRecebido()) + "");
+        this.jtfTroco.setText(new Mascara().arredondamentoComPontoDuasCasas(this.calcularTroco()) + "");
     }//GEN-LAST:event_jtfDinheiroKeyReleased
 
     private void jtfCartaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCartaoKeyReleased
         // TODO add your handling code here:
-        this.jtfValorRecebido.setText(new BLMascaras().arredondamentoComPontoDuasCasas(this.calcularValorRecebido()) + "");
-        this.jtfTroco.setText(new BLMascaras().arredondamentoComPontoDuasCasas(this.calcularTroco()) + "");
+        this.jtfValorRecebido.setText(new Mascara().arredondamentoComPontoDuasCasas(this.calcularValorRecebido()) + "");
+        this.jtfTroco.setText(new Mascara().arredondamentoComPontoDuasCasas(this.calcularTroco()) + "");
     }//GEN-LAST:event_jtfCartaoKeyReleased
 
     private void jtfChequeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfChequeKeyReleased
         // TODO add your handling code here:
-        this.jtfValorRecebido.setText(new BLMascaras().arredondamentoComPontoDuasCasas(this.calcularValorRecebido()) + "");
-        this.jtfTroco.setText(new BLMascaras().arredondamentoComPontoDuasCasas(this.calcularTroco()) + "");
+        this.jtfValorRecebido.setText(new Mascara().arredondamentoComPontoDuasCasas(this.calcularValorRecebido()) + "");
+        this.jtfTroco.setText(new Mascara().arredondamentoComPontoDuasCasas(this.calcularTroco()) + "");
     }//GEN-LAST:event_jtfChequeKeyReleased
 
     private void jtfConvenioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfConvenioKeyReleased
         // TODO add your handling code here:
-        this.jtfValorRecebido.setText(new BLMascaras().arredondamentoComPontoDuasCasas(this.calcularValorRecebido()) + "");
-        this.jtfTroco.setText(new BLMascaras().arredondamentoComPontoDuasCasas(this.calcularTroco()) + "");
+        this.jtfValorRecebido.setText(new Mascara().arredondamentoComPontoDuasCasas(this.calcularValorRecebido()) + "");
+        this.jtfTroco.setText(new Mascara().arredondamentoComPontoDuasCasas(this.calcularTroco()) + "");
     }//GEN-LAST:event_jtfConvenioKeyReleased
 
     private void doClose(int retStatus) {
@@ -482,7 +477,7 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
     //verificar permissão do usuário
     public boolean retornarCodigoUsuarioLogado() {
         try {
-            String permissao = new ControllerPermissaousuario().getPermissaousuarioCodUsuController(new ModelSessaoUsuario().codigo).getPermissao();
+            String permissao = new PermissaoUsuarioController().getPermissaousuarioCodUsuController(new SessaoUsuario().codigo).getPermissao();
             if (permissao.equals("compras")) {
                 return true;
             } else {
@@ -629,7 +624,7 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
 
     public void setTextFildValorTotal() {
         //setar valor total
-        this.jtfSubtotal.setText(new BLMascaras().arredondamentoComPontoDuasCasas(this.valorTotal) + "");
+        this.jtfSubtotal.setText(new Mascara().arredondamentoComPontoDuasCasas(this.valorTotal) + "");
         jlfValorPagar.setText(jtfSubtotal.getText());
         //limpar interface
         jtfDesconto.setText("0");

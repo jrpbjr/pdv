@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
-import controller.ControllerItensPedidoMesa;
-import model.ModelItensPedidoMesa;
+import com.inosystem.pdv.contoller.ItensPedidoMesaController;
+import com.inosystem.pdv.model.ItensPedidoMesa;
 
 /**
  *
@@ -17,8 +12,8 @@ public class ViewAlterStatus extends javax.swing.JDialog {
     private String status;
     private int mesa;
     private int item;
-    ControllerItensPedidoMesa controllerItensPedidoMesa = new ControllerItensPedidoMesa();
-    ModelItensPedidoMesa modelItensPedidoMesa = new ModelItensPedidoMesa();
+    ItensPedidoMesaController controllerItensPedidoMesa = new ItensPedidoMesaController();
+    ItensPedidoMesa modelItensPedidoMesa = new ItensPedidoMesa();
 
     /**
      * Creates new form ViewAlterStatus
@@ -116,7 +111,7 @@ public class ViewAlterStatus extends javax.swing.JDialog {
     private void jbConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmarActionPerformed
         // TODO add your handling code here:
         status = jcbNovoStatus.getSelectedItem().toString();
-        modelItensPedidoMesa = new ModelItensPedidoMesa();
+        modelItensPedidoMesa = new ItensPedidoMesa();
         modelItensPedidoMesa.setStatusPedido(status);
         modelItensPedidoMesa.setCodigo(item);
         

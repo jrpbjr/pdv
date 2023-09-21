@@ -5,15 +5,16 @@
  */
 package com.inosystem.pdv.view;
 
-import controller.ControllerCaixa;
+import com.inosystem.pdv.contoller.CaixaController;
+import com.inosystem.pdv.model.Caixa;
+import com.inosystem.pdv.model.SessaoUsuario;
+import com.inosystem.pdv.util.AtualizadorHorario;
+import com.inosystem.pdv.util.Mascara;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import model.ModelCaixa;
-import model.ModelSessaoUsuario;
-import util.AtualizadorHorario;
-import util.BLMascaras;
+
 
 /**
  *
@@ -21,9 +22,9 @@ import util.BLMascaras;
  */
 public class ViewABCaixa extends javax.swing.JFrame {
 
-    ControllerCaixa controllerCaixa = new ControllerCaixa();
-    ModelCaixa modelCaixa = new ModelCaixa();
-    BLMascaras bLMascaras = new BLMascaras();
+    CaixaController controllerCaixa = new CaixaController();
+    Caixa modelCaixa = new Caixa();
+    Mascara bLMascaras = new Mascara();
     private int numeroCaixa;
     ViewPdv viewPdv = new ViewPdv();
 
@@ -328,7 +329,7 @@ public class ViewABCaixa extends javax.swing.JFrame {
             //selecione um caixa   
             JOptionPane.showMessageDialog(this, "Você deve selecionar o número do caixa!");
         } else {
-            modelCaixa = new ModelCaixa();
+            modelCaixa = new Caixa();
             //Abrir ou fechar um caixa
             modelCaixa = controllerCaixa.verificarRetorarCaixaControler(getNumeroCaixa());
 
@@ -339,7 +340,7 @@ public class ViewABCaixa extends javax.swing.JFrame {
                 modelCaixa.setCartao(Double.parseDouble(jtfCartao.getText()));
                 modelCaixa.setCheque(Double.parseDouble(jtfCheque.getText()));
                 modelCaixa.setConvenio(Double.parseDouble(jtfVale.getText()));
-                modelCaixa.setCodigoUsuario(ModelSessaoUsuario.codigo);
+                modelCaixa.setCodigoUsuario(SessaoUsuario.codigo);
                 modelCaixa.setStatus(1);
                 try {
                     modelCaixa.setDataAbertura(bLMascaras.converterDataParaDateUS(jtfDataAbertura.getDate()));
@@ -418,25 +419,25 @@ public class ViewABCaixa extends javax.swing.JFrame {
 
     private void jtfDinheiroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDinheiroKeyReleased
         // TODO add your handling code here:
-        this.jtfDinheiro.setText(new BLMascaras().converterVirgulaParaPonto(this.jtfDinheiro.getText()));
+        this.jtfDinheiro.setText(new Mascara().converterVirgulaParaPonto(this.jtfDinheiro.getText()));
         somarValorTotal();
     }//GEN-LAST:event_jtfDinheiroKeyReleased
 
     private void jtfCartaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCartaoKeyReleased
         // TODO add your handling code here:
-        this.jtfCartao.setText(new BLMascaras().converterVirgulaParaPonto(this.jtfCartao.getText()));
+        this.jtfCartao.setText(new Mascara().converterVirgulaParaPonto(this.jtfCartao.getText()));
         somarValorTotal();
     }//GEN-LAST:event_jtfCartaoKeyReleased
 
     private void jtfChequeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfChequeKeyReleased
         // TODO add your handling code here:
-        this.jtfCheque.setText(new BLMascaras().converterVirgulaParaPonto(this.jtfCheque.getText()));
+        this.jtfCheque.setText(new Mascara().converterVirgulaParaPonto(this.jtfCheque.getText()));
         somarValorTotal();
     }//GEN-LAST:event_jtfChequeKeyReleased
 
     private void jtfValeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfValeKeyReleased
         // TODO add your handling code here:
-        this.jtfVale.setText(new BLMascaras().converterVirgulaParaPonto(this.jtfVale.getText()));
+        this.jtfVale.setText(new Mascara().converterVirgulaParaPonto(this.jtfVale.getText()));
         somarValorTotal();
     }//GEN-LAST:event_jtfValeKeyReleased
 
@@ -451,7 +452,7 @@ public class ViewABCaixa extends javax.swing.JFrame {
 
     private void carregarCaixa() {
         // TODO add your handling code here:
-        modelCaixa = new ModelCaixa();
+        modelCaixa = new Caixa();
         setNumeroCaixa(jcbCaixas.getSelectedIndex());
         //verifica se o caixa ta aberto se tiver retorna os dados
         modelCaixa = controllerCaixa.verificarRetorarCaixaControler(getNumeroCaixa());
@@ -520,7 +521,7 @@ public class ViewABCaixa extends javax.swing.JFrame {
     }
 
     private void carregarConfiguracoes() {
-        jlUsuario.setText(ModelSessaoUsuario.nome);
+        jlUsuario.setText(SessaoUsuario.nome);
         AtualizadorHorario ah = new AtualizadorHorario(jlDataHora);
         ah.mostrarData(true);
         Thread thHora = ah;

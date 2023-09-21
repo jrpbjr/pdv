@@ -1,17 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
-import controller.ControllerProdutos;
+import com.inosystem.pdv.contoller.ProdutoController;
+import com.inosystem.pdv.model.Produto;
+import com.inosystem.pdv.util.Mascara;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.ModelProdutos;
-import util.BLMascaras;
 
 /**
  *
@@ -19,10 +15,10 @@ import util.BLMascaras;
  */
 public class ViewPrecosProdutos extends javax.swing.JFrame {
 
-    BLMascaras bLMascaras = new BLMascaras();
-    ControllerProdutos controllerProdutos = new ControllerProdutos();
-    ArrayList<ModelProdutos> listamModelProdutos = new ArrayList<>();
-    ModelProdutos modelProdutos = new ModelProdutos();
+    Mascara bLMascaras = new Mascara();
+    ProdutoController controllerProdutos = new ProdutoController();
+    ArrayList<Produto> listamProduto = new ArrayList<>();
+    Produto modelProdutos = new Produto();
 
     /**
      * Creates new form ViewPrecosProdutos
@@ -383,11 +379,11 @@ public class ViewPrecosProdutos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfValorCustoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfValorCustoKeyReleased
-        this.tfValorCusto.setText(new BLMascaras().converterVirgulaParaPonto(this.tfValorCusto.getText()));
+        this.tfValorCusto.setText(new Mascara().converterVirgulaParaPonto(this.tfValorCusto.getText()));
     }//GEN-LAST:event_tfValorCustoKeyReleased
 
     private void tfValorVendaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfValorVendaKeyReleased
-        this.tfValorVenda.setText(new BLMascaras().converterVirgulaParaPonto(this.tfValorVenda.getText()));
+        this.tfValorVenda.setText(new Mascara().converterVirgulaParaPonto(this.tfValorVenda.getText()));
     }//GEN-LAST:event_tfValorVendaKeyReleased
 
     private void tfAddEstoqueKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfAddEstoqueKeyReleased
@@ -397,20 +393,20 @@ public class ViewPrecosProdutos extends javax.swing.JFrame {
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
         // TODO add your handling code here:
         try {
-            modelProdutos = new ModelProdutos();
+            modelProdutos = new Produto();
             modelProdutos.setCodigo(Integer.parseInt(jtfCodigoProduto.getText()));
             modelProdutos.setNcm(jtfNCM.getText());
             modelProdutos.setTipoNcm(jtfTipoNCM.getText());
-            modelProdutos.setSubTribut(Double.parseDouble(jtfCodEspecSit.getText()));
-            modelProdutos.setIcmsCst(Double.parseDouble(jtfCstICMS.getText()));
-            modelProdutos.setIcms(Double.parseDouble(jtfICMS.getText()));
-            modelProdutos.setIcmsRed(Double.parseDouble(jtfICMSRED.getText()));
+            modelProdutos.setSubTribut(new BigDecimal(jtfCodEspecSit.getText()));
+            modelProdutos.setIcmsCst(new BigDecimal(jtfCstICMS.getText()));
+            modelProdutos.setIcms(new BigDecimal(jtfICMS.getText()));
+            modelProdutos.setIcmsRed(new BigDecimal(jtfICMSRED.getText()));
             modelProdutos.setIpiCst(jtfCstIPI.getText());
-            modelProdutos.setIpi(Double.parseDouble(jtfIPI.getText()));
+            modelProdutos.setIpi(new BigDecimal(jtfIPI.getText()));
             modelProdutos.setPisCst(jtfCtsPis.getText());
-            modelProdutos.setPis(Double.parseDouble(jtfPis.getText()));
+            modelProdutos.setPis(new BigDecimal(jtfPis.getText()));
             modelProdutos.setCofinsCst(jtfCSTCofins.getText());
-            modelProdutos.setCofins(Double.parseDouble(jtfCofins.getText()));
+            modelProdutos.setCofins(new BigDecimal(jtfCofins.getText()));
             modelProdutos.setValorCusto(Double.parseDouble(tfValorCusto.getText()));
             modelProdutos.setValor(Double.parseDouble(tfValorVenda.getText()));
             modelProdutos.setEstoque(Float.parseFloat(jtfEstoque.getText()) + Float.parseFloat(tfAddEstoque.getText()));
@@ -460,31 +456,31 @@ public class ViewPrecosProdutos extends javax.swing.JFrame {
     }
     
     private void carregarProdutos() {
-        listamModelProdutos = controllerProdutos.getListaProdutosController();
+        listamProduto = controllerProdutos.getListaProdutosController();
         DefaultTableModel modelo = (DefaultTableModel) tbProdutos.getModel();
         modelo.setNumRows(0);
         //CARREGA OS DADOS DA LISTA NA TABELA
-        int cont = listamModelProdutos.size();
+        int cont = listamProduto.size();
         for (int i = 0; i < cont; i++) {
             modelo.addRow(new Object[]{
-                listamModelProdutos.get(i).getCodigo(),
-                listamModelProdutos.get(i).getCodigoBarrasEan(),
-                listamModelProdutos.get(i).getNome(),
-                listamModelProdutos.get(i).getValorCusto(),
-                listamModelProdutos.get(i).getValor(),
-                listamModelProdutos.get(i).getEstoque(),
-                listamModelProdutos.get(i).getNcm(),
-                listamModelProdutos.get(i).getTipoNcm(),
-                listamModelProdutos.get(i).getSubTribut(),
-                listamModelProdutos.get(i).getIcmsCst(),
-                listamModelProdutos.get(i).getIcms(),
-                listamModelProdutos.get(i).getIcmsRed(),
-                listamModelProdutos.get(i).getIpiCst(),
-                listamModelProdutos.get(i).getIpi(),
-                listamModelProdutos.get(i).getPisCst(),
-                listamModelProdutos.get(i).getPis(),
-                listamModelProdutos.get(i).getCofinsCst(),
-                listamModelProdutos.get(i).getCofins()
+                listamProduto.get(i).getCodigo(),
+                listamProduto.get(i).getCodigoBarrasEan(),
+                listamProduto.get(i).getNome(),
+                listamProduto.get(i).getValorCusto(),
+                listamProduto.get(i).getValor(),
+                listamProduto.get(i).getEstoque(),
+                listamProduto.get(i).getNcm(),
+                listamProduto.get(i).getTipoNcm(),
+                listamProduto.get(i).getSubTribut(),
+                listamProduto.get(i).getIcmsCst(),
+                listamProduto.get(i).getIcms(),
+                listamProduto.get(i).getIcmsRed(),
+                listamProduto.get(i).getIpiCst(),
+                listamProduto.get(i).getIpi(),
+                listamProduto.get(i).getPisCst(),
+                listamProduto.get(i).getPis(),
+                listamProduto.get(i).getCofinsCst(),
+                listamProduto.get(i).getCofins()
             });
         }
     }

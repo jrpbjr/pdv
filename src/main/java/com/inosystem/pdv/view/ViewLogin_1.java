@@ -1,16 +1,15 @@
-/**
- * @author  jrpbjr
- *
- * *
- */
 package com.inosystem.pdv.view;
 
-import blserial.BLCriptografiaReversivel;
-import blserial.BLSerial;
-import blserial.ConfigXML;
-import controller.ControllerBanco;
-import controller.ControllerEmpresa;
-import controller.ControllerUsuario;
+import com.inosystem.pdv.contoller.BancoController;
+import com.inosystem.pdv.contoller.EmpresaController;
+import com.inosystem.pdv.contoller.UsuarioController;
+import com.inosystem.pdv.model.Config;
+import com.inosystem.pdv.model.Empresa;
+import com.inosystem.pdv.model.SessaoUsuario;
+import com.inosystem.pdv.model.Usuario;
+import com.inosystem.pdv.serial.ConfigXML;
+import com.inosystem.pdv.serial.CriptografiaReversivel;
+import com.inosystem.pdv.util.ManipularXML;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -20,21 +19,16 @@ import javax.swing.JOptionPane;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import model.ModelConfig;
-import model.ModelEmpresa;
-import model.ModelSessaoUsuario;
-import model.ModelUsuario;
-import util.ManipularXML;
 
 public class ViewLogin_1 extends javax.swing.JFrame {
 
-    ModelConfig modelConfig = new ModelConfig();
+    Config modelConfig = new Config();
     ManipularXML manipularXML = new ManipularXML();
     ConfigXML configXML = new ConfigXML();
-    BLCriptografiaReversivel criptografiaReversivel = new BLCriptografiaReversivel();
-    ControllerEmpresa controllerEmpresa = new ControllerEmpresa();
-    ModelEmpresa modelEmpresa = new ModelEmpresa();
-    ArrayList<ModelEmpresa> listaModelEmpresas = new ArrayList<>();
+    CriptografiaReversivel criptografiaReversivel = new CriptografiaReversivel();
+    EmpresaController controllerEmpresa = new EmpresaController();
+    Empresa modelEmpresa = new Empresa();
+    ArrayList<Empresa> listaEmpresas = new ArrayList<>();
 
     public ViewLogin_1() throws Exception {
         initComponents();
@@ -320,9 +314,9 @@ public class ViewLogin_1 extends javax.swing.JFrame {
 
     private void retornarEmpresa() {
         try {
-            listaModelEmpresas = controllerEmpresa.getListaEmpresaController();
-            for (int i = 0; i < listaModelEmpresas.size(); i++) {
-                jtfNomeEmpresa.setText(listaModelEmpresas.get(i).getRazaoSocial());
+            listaEmpresas = controllerEmpresa.getListaEmpresaController();
+            for (int i = 0; i < listaEmpresas.size(); i++) {
+                jtfNomeEmpresa.setText(listaEmpresas.get(i).getRazaoSocial());
             }
         } catch (Exception e) {
             System.err.println("ERRO. -> Empresa não cadastrada!");
@@ -331,28 +325,28 @@ public class ViewLogin_1 extends javax.swing.JFrame {
     }
 
     private void carregarDadosDoBanco() {
-        modelConfig = new ModelConfig();
+        modelConfig = new Config();
         modelConfig = manipularXML.lerXmlConfig();
-        ModelSessaoUsuario.ipServidor = modelConfig.getIp();
-        ModelSessaoUsuario.nomeDoBanco = modelConfig.getNomeBanco();
-        ModelSessaoUsuario.usuarioBanco = modelConfig.getUsuario();
-        ModelSessaoUsuario.senhaBanco = modelConfig.getSenha();
-        ModelSessaoUsuario.caminhoMySQL = modelConfig.getCaminhoMySQL();
-        ModelSessaoUsuario.quantidadeMesas = modelConfig.getQuantidadeMesas();
+        SessaoUsuario.ipServidor = modelConfig.getIp();
+        SessaoUsuario.nomeDoBanco = modelConfig.getNomeBanco();
+        SessaoUsuario.usuarioBanco = modelConfig.getUsuario();
+        SessaoUsuario.senhaBanco = modelConfig.getSenha();
+        SessaoUsuario.caminhoMySQL = modelConfig.getCaminhoMySQL();
+        SessaoUsuario.quantidadeMesas = modelConfig.getQuantidadeMesas();
     }
 
     private void autenticar() {
-        ModelUsuario modelUsuario = new ModelUsuario();
-        ControllerUsuario controllerUsuario = new ControllerUsuario();
+        Usuario modelUsuario = new Usuario();
+        UsuarioController controllerUsuario = new UsuarioController();
         modelUsuario.setLogin(this.jtfUsuario.getText());
         modelUsuario.setSenha(new String(this.jtfSenha.getPassword()));
 
         try {
             if (controllerUsuario.getUsuarioController(modelUsuario)) {
                 modelUsuario = controllerUsuario.getUsuarioController(modelUsuario.getLogin());
-                ModelSessaoUsuario.nome = modelUsuario.getNome();
-                ModelSessaoUsuario.codigo = modelUsuario.getCodigo();
-                ModelSessaoUsuario.login = modelUsuario.getLogin();
+                SessaoUsuario.nome = modelUsuario.getNome();
+                SessaoUsuario.codigo = modelUsuario.getCodigo();
+                SessaoUsuario.login = modelUsuario.getLogin();
 
                 ViewPrincipal viewPrincipal = new ViewPrincipal();
                 viewPrincipal.setVisible(true);
@@ -362,7 +356,7 @@ public class ViewLogin_1 extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             try {
-                ControllerBanco controllerBanco = new ControllerBanco();
+                BancoController controllerBanco = new BancoController();
                 if (controllerBanco.criarBancoCtrl()) {
                     new ViewBackup().setVisible(true);
                 } else {

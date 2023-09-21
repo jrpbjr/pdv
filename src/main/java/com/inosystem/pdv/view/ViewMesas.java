@@ -1,6 +1,27 @@
 package com.inosystem.pdv.view;
 
-
+import com.inosystem.pdv.contoller.CaixaController;
+import com.inosystem.pdv.contoller.ClienteCidadeEstadoController;
+import com.inosystem.pdv.contoller.EmpresaCidadeEstadoController;
+import com.inosystem.pdv.contoller.FormaPagamentoController;
+import com.inosystem.pdv.contoller.GarcomController;
+import com.inosystem.pdv.contoller.ItensPedidoMesaController;
+import com.inosystem.pdv.contoller.ProdutoController;
+import com.inosystem.pdv.contoller.VendaController;
+import com.inosystem.pdv.contoller.VendaProdutoController;
+import com.inosystem.pdv.model.Caixa;
+import com.inosystem.pdv.model.ClienteCidadeEstado;
+import com.inosystem.pdv.model.Config;
+import com.inosystem.pdv.model.EmpresaCidadeEstado;
+import com.inosystem.pdv.model.Garcom;
+import com.inosystem.pdv.model.ItensPedidoMesa;
+import com.inosystem.pdv.model.Mesas;
+import com.inosystem.pdv.model.Produto;
+import com.inosystem.pdv.model.SessaoUsuario;
+import com.inosystem.pdv.model.Venda;
+import com.inosystem.pdv.util.AguardeGerandoRelatorio;
+import com.inosystem.pdv.util.ManipularXML;
+import com.inosystem.pdv.util.Mascara;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -8,6 +29,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,22 +45,6 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import model.ModelCaixa;
-import model.ModelClienteCidadeEstado;
-import model.ModelConfig;
-import model.ModelEmpresaCidadeEstado;
-import model.ModelGarcom;
-import model.ModelItensPedidoMesa;
-import model.ModelMesas;
-import model.ModelProdutos;
-import model.ModelSessaoUsuario;
-import model.ModelVendas;
-import model.ModelVendasProdutos;
-import util.AguardeGerandoRelatorio;
-import util.BLMascaras;
-import util.GerarCupom;
-import util.Impressora;
-import util.ManipularXML;
 
 /**
  *
@@ -46,20 +52,20 @@ import util.ManipularXML;
  */
 public class ViewMesas extends javax.swing.JFrame {
 
-    ArrayList<ModelProdutos> listaProdutoses = new ArrayList<>();
-    ModelProdutos modelProdutos = new ModelProdutos();
-    ControllerProdutos controllerProdutos = new ControllerProdutos();
-    ModelItensPedidoMesa modelItensPedidoMesa = new ModelItensPedidoMesa();
-    ControllerItensPedidoMesa controllerItensPedidoMesa = new ControllerItensPedidoMesa();
-    ArrayList<ModelItensPedidoMesa> listaModelItensPedidoMesas = new ArrayList<>();
-    ArrayList<ModelMesas> listaModelMesases = new ArrayList<>();
-    ModelMesas modelMesas = new ModelMesas();
-    ArrayList<ModelVendas> listaModelVendas = new ArrayList<>();
-    ControllerVendas controllerVendas = new ControllerVendas();
-    ModelCaixa modelCaixa = new ModelCaixa();
-    ControllerCaixa controllerCaixa = new ControllerCaixa();
-    ModelVendas modelVendas = new ModelVendas();
-    ControllerFormaPagamento controllerFormaPagamento = new ControllerFormaPagamento();
+    ArrayList<Produto> listaProdutoses = new ArrayList<>();
+    Produto modelProdutos = new Produto();
+    ProdutoController controllerProdutos = new ProdutoController();
+    ItensPedidoMesa modelItensPedidoMesa = new ItensPedidoMesa();
+    ItensPedidoMesaController controllerItensPedidoMesa = new ItensPedidoMesaController();
+    ArrayList<ItensPedidoMesa> listaItensPedidoMesas = new ArrayList<>();
+    ArrayList<Mesas> listaMesases = new ArrayList<>();
+    Mesas modelMesas = new Mesas();
+    ArrayList<Venda> listaVenda = new ArrayList<>();
+    VendaController controllerVendas = new VendaController();
+    Caixa modelCaixa = new Caixa();
+    CaixaController controllerCaixa = new CaixaController();
+    Venda modelVendas = new Venda();
+    FormaPagamentoController controllerFormaPagamento = new FormaPagamentoController();
     private ViewPagamentoPDV viewPagamentoPDV;
     private ViewQuantidadeProdutoMesa viewQuantMesas;
     private ViewAlterStatus viewAlterStatus;
@@ -68,18 +74,18 @@ public class ViewMesas extends javax.swing.JFrame {
     ArrayList<JRadioButton> listadeBotoes = new ArrayList<>();
     int mesaParaImprimir;
     String nomeImpressora;
-    BLMascaras bLMascaras = new BLMascaras();
+    Mascara bLMascaras = new Mascara();
     ArrayList<Integer> listaMesasOcupadas = new ArrayList<>();
-    ModelConfig modelConfig = new ModelConfig();
+    Config modelConfig = new Config();
     ManipularXML manipularXML = new ManipularXML();
-    ControllerVendasProdutos controllerVendasProdutos = new ControllerVendasProdutos();
-    ControllerEmpresaCidadeEstado controllerEmpresaCidadeEstado = new ControllerEmpresaCidadeEstado();
-    ArrayList<ModelVendasProdutos> listaModelVendasProdutoses = new ArrayList<>();
-    ModelEmpresaCidadeEstado modelEmpresaCidadeEstado = new ModelEmpresaCidadeEstado();
-    ModelClienteCidadeEstado modelClienteCidadeEstado = new ModelClienteCidadeEstado();
-    ControllerClienteCidadeEstado controllerClienteCidadeEstado = new ControllerClienteCidadeEstado();
-    ArrayList<ModelGarcom> listaModelGarcoms = new ArrayList<>();
-    ControllerGarcom controllerGarcom = new ControllerGarcom();
+    VendaProdutoController controllerVendasProdutos = new VendaProdutoController();
+    EmpresaCidadeEstadoController controllerEmpresaCidadeEstado = new EmpresaCidadeEstadoController();
+    ArrayList<VendaProdutos> listaVendaProdutoses = new ArrayList<>();
+    EmpresaCidadeEstado modelEmpresaCidadeEstado = new EmpresaCidadeEstado();
+    ClienteCidadeEstado modelClienteCidadeEstado = new ClienteCidadeEstado();
+    ClienteCidadeEstadoController controllerClienteCidadeEstado = new ClienteCidadeEstadoController();
+    ArrayList<Garcom> listaGarcoms = new ArrayList<>();
+    GarcomController GarcomController = new GarcomController();
     int codigoGarcom;
 
     /**
@@ -104,7 +110,7 @@ public class ViewMesas extends javax.swing.JFrame {
     }
 
     private void retornarGarcom() {
-        codigoGarcom = controllerGarcom.getGarcomController(jcbGarcom.getSelectedItem().toString()).getCodigo();
+        codigoGarcom = GarcomController.getGarcomController(jcbGarcom.getSelectedItem().toString()).getCodigo();
     }
 
     private void redimesionar() {
@@ -623,7 +629,7 @@ public class ViewMesas extends javax.swing.JFrame {
 
     private void jmiVizualizarpedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVizualizarpedActionPerformed
         final AguardeGerandoRelatorio carregando = new AguardeGerandoRelatorio();
-        final ControllerVendas controllerVendas = new ControllerVendas();
+        final VendaController controllerVendas = new VendaController();
         carregando.setVisible(true);
         Thread t = new Thread() {
             @Override
@@ -660,7 +666,7 @@ public class ViewMesas extends javax.swing.JFrame {
         if (tbProdutos.getRowCount() < 1) {
             JOptionPane.showMessageDialog(this, "Você deve adicioar ao menos um produto para prosseguir!");
         } else {
-            modelMesas = new ModelMesas();
+            modelMesas = new Mesas();
             //fechar conta da mesa
 
             //setar os dados da mesa
@@ -731,23 +737,23 @@ public class ViewMesas extends javax.swing.JFrame {
         } else {
             this.jlNumeroMesa.setText(mesa + "");
             //retornar todos os produtos do pedido da mesa
-            listaModelItensPedidoMesas = controllerItensPedidoMesa.getListaItensPedidoMesaController(mesa);
+            listaItensPedidoMesas = controllerItensPedidoMesa.getListaItensPedidoMesaController(mesa);
 
             //preencher a tabela com os itens retornados
             DefaultTableModel modelo = (DefaultTableModel) tbProdutos.getModel();
             modelo.setNumRows(0);
             //CARREGA OS DADOS DA LISTA NA TABELA
-            int cont = listaModelItensPedidoMesas.size();
+            int cont = listaItensPedidoMesas.size();
             for (int i = 0; i < cont; i++) {
-                modelProdutos = controllerProdutos.getProdutosController(listaModelItensPedidoMesas.get(i).getCodigoProduto());
+                modelProdutos = controllerProdutos.getProdutosController(listaItensPedidoMesas.get(i).getCodigoProduto());
                 modelo.addRow(new Object[]{
-                    listaModelItensPedidoMesas.get(i).getCodigoProduto(),
+                    listaItensPedidoMesas.get(i).getCodigoProduto(),
                     modelProdutos.getNome(),
-                    listaModelItensPedidoMesas.get(i).getQuantidade(),
+                    listaItensPedidoMesas.get(i).getQuantidade(),
                     modelProdutos.getValor(),
-                    modelProdutos.getValor() * listaModelItensPedidoMesas.get(i).getQuantidade(),
-                    listaModelItensPedidoMesas.get(i).getStatusPedido(),
-                    listaModelItensPedidoMesas.get(i).getObservacao()
+                    modelProdutos.getValor() * listaItensPedidoMesas.get(i).getQuantidade(),
+                    listaItensPedidoMesas.get(i).getStatusPedido(),
+                    listaItensPedidoMesas.get(i).getObservacao()
                 });
             }
             //SOMA VALOR TOTAL 
@@ -777,12 +783,12 @@ public class ViewMesas extends javax.swing.JFrame {
     }
 
     private void salarArquivoXML(int pquantMesas) {
-        modelConfig = new ModelConfig();
+        modelConfig = new Config();
         modelConfig = manipularXML.lerXmlConfig();
 
         try {
             modelConfig.setQuantidadeMesas(pquantMesas);
-            ModelSessaoUsuario.quantidadeMesas = modelConfig.getQuantidadeMesas();
+            SessaoUsuario.quantidadeMesas = modelConfig.getQuantidadeMesas();
             manipularXML.gravaXML(modelConfig);
             JOptionPane.showMessageDialog(this, "Registro salvo com sucesso!", "Atenção", JOptionPane.WARNING_MESSAGE);
         } catch (Exception e) {
@@ -808,22 +814,22 @@ public class ViewMesas extends javax.swing.JFrame {
 
     private void carregarItensStatusMesa() {
         //retornar todos os produtos do pedido da mesa
-        listaModelItensPedidoMesas = controllerItensPedidoMesa.getListaItensPedidoMesaController();
+        listaItensPedidoMesas = controllerItensPedidoMesa.getListaItensPedidoMesaController();
 
         //preencher a tabela com os itens retornados
         DefaultTableModel modelo = (DefaultTableModel) jtProdutosStatus.getModel();
         modelo.setNumRows(0);
         //CARREGA OS DADOS DA LISTA NA TABELA
-        int cont = listaModelItensPedidoMesas.size();
+        int cont = listaItensPedidoMesas.size();
         for (int i = 0; i < cont; i++) {
-            modelProdutos = controllerProdutos.getProdutosController(listaModelItensPedidoMesas.get(i).getCodigoProduto());
+            modelProdutos = controllerProdutos.getProdutosController(listaItensPedidoMesas.get(i).getCodigoProduto());
             modelo.addRow(new Object[]{
-                listaModelItensPedidoMesas.get(i).getCodigoMesa(),
-                listaModelItensPedidoMesas.get(i).getStatusPedido(),
+                listaItensPedidoMesas.get(i).getCodigoMesa(),
+                listaItensPedidoMesas.get(i).getStatusPedido(),
                 modelProdutos.getNome(),
-                listaModelItensPedidoMesas.get(i).getQuantidade(),
-                listaModelItensPedidoMesas.get(i).getObservacao(),
-                listaModelItensPedidoMesas.get(i).getCodigo()
+                listaItensPedidoMesas.get(i).getQuantidade(),
+                listaItensPedidoMesas.get(i).getObservacao(),
+                listaItensPedidoMesas.get(i).getCodigo()
             });
         }
     }
@@ -895,19 +901,19 @@ public class ViewMesas extends javax.swing.JFrame {
 
     //salvar uma venda de mesa
     private boolean salvarVenda() {
-        listaModelVendas = new ArrayList<>();
+        listaVenda = new ArrayList<>();
         listaProdutoses = new ArrayList<>();
         int codigoProduto;
         float quantidade = 0;
 
         for (int i = 0; i < tbProdutos.getRowCount(); i++) {
-            modelVendas = new ModelVendas();
-            modelProdutos = new ModelProdutos();
+            modelVendas = new Venda();
+            modelProdutos = new Produto();
             modelVendas.setClientesCodigo(1);
-            modelVendas.setDesconto(viewPagamentoPDV.getDesconto());
-            modelVendas.setTaxaEntrega(0f);
-            modelVendas.setValorTotal(viewPagamentoPDV.getValorTotal());
-            modelVendas.setCodigoUsuario(ModelSessaoUsuario.codigo);
+            modelVendas.setDesconto(new BigDecimal(viewPagamentoPDV.getDesconto()));
+            modelVendas.setTaxaEntrega(new BigDecimal(0f));
+            modelVendas.setValorTotal(new BigDecimal(viewPagamentoPDV.getValorTotal()));
+            modelVendas.setCodigoUsuario(SessaoUsuario.codigo);
             modelVendas.setTipo(1);
             try {
                 modelVendas.setDataVenda(bLMascaras.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
@@ -916,27 +922,27 @@ public class ViewMesas extends javax.swing.JFrame {
             }
             codigoProduto = Integer.parseInt(tbProdutos.getValueAt(i, 0).toString());
             modelVendas.setProdutosCodigo(codigoProduto);
-            modelVendas.setQuantidade(Float.parseFloat(tbProdutos.getValueAt(i, 2).toString()));
+            modelVendas.setQuantidade(new BigDecimal(tbProdutos.getValueAt(i, 2).toString()));
             modelVendas.setTipoPagamento(controllerFormaPagamento.getFormaPagamentoController(viewPagamentoPDV.getTipoPagamento()).getCodigo());
-            modelVendas.setValor(Double.parseDouble(tbProdutos.getValueAt(i, 3).toString()));
+            modelVendas.setValor(new BigDecimal(tbProdutos.getValueAt(i, 3).toString()));
             modelProdutos.setCodigo(codigoProduto);
             quantidade = Float.parseFloat(tbProdutos.getValueAt(i, 2).toString());
             modelProdutos.setEstoque(quantidade);
             modelProdutos.setValor(Double.parseDouble(tbProdutos.getValueAt(i, 3).toString()));
-            listaModelVendas.add(modelVendas);
+            listaVenda.add(modelVendas);
             listaProdutoses.add(modelProdutos);
         }
-        modelVendas.setListamModelVendases(listaModelVendas);
-        modelProdutos.setListaModelProdutoses(listaProdutoses);
+        modelVendas.setListamVendaes(listaVenda);
+        modelProdutos.setListaProdutoes(listaProdutoses);
 
         //salvar venda
         codigoVenda = controllerVendas.salvarVendasController(modelVendas);
         if (codigoVenda > 0) {
             modelVendas.setCodigo(codigoVenda);
             //da baixa no estoque
-            for (int i = 0; i < modelProdutos.getListaModelProdutoses().size(); i++) {
-                codigoProduto = modelProdutos.getListaModelProdutoses().get(i).getCodigo();
-                quantidade = controllerProdutos.getProdutosController(codigoProduto).getEstoque() - modelProdutos.getListaModelProdutoses().get(i).getEstoque();
+            for (int i = 0; i < modelProdutos.getListaProdutoes().size(); i++) {
+                codigoProduto = modelProdutos.getListaProdutoes().get(i).getCodigo();
+                quantidade = controllerProdutos.getProdutosController(codigoProduto).getEstoque() - modelProdutos.getListaProdutoes().get(i).getEstoque();
                 controllerProdutos.atualizarProdutosQuantidadeUmController(codigoProduto, quantidade);
             }
 
@@ -972,19 +978,19 @@ public class ViewMesas extends javax.swing.JFrame {
 
     //adicionar valor ao caixa
     private void adicionarValorCaixa() {
-        modelCaixa = new ModelCaixa();
+        modelCaixa = new Caixa();
         modelCaixa = controllerCaixa.getCaixaController(1);
         if (modelVendas.getTipoPagamento() == 1) {
-            valorDinheiro = modelVendas.getValorTotal();
+            valorDinheiro = modelVendas.getValorTotal().floatValue();
             modelCaixa.setDinheiro(modelCaixa.getDinheiro() + valorDinheiro);
         } else if (modelVendas.getTipoPagamento() == 2) {
-            valorCartao = modelVendas.getValorTotal();
+            valorCartao = modelVendas.getValorTotal().floatValue();
             modelCaixa.setCartao(modelCaixa.getCartao() + valorCartao);
         } else if (modelVendas.getTipoPagamento() == 3) {
-            valorCheque = modelVendas.getValorTotal();
+            valorCheque = modelVendas.getValorTotal().floatValue();
             modelCaixa.setCheque(modelCaixa.getCheque() + valorCheque);
         } else if (modelVendas.getTipoPagamento() == 4) {
-            valorVale = modelVendas.getValorTotal();
+            valorVale = modelVendas.getValorTotal().floatValue();
             modelCaixa.setConvenio(modelCaixa.getConvenio() + valorVale);
         }
         controllerCaixa.atualizarCaixaController(modelCaixa);
@@ -1018,10 +1024,10 @@ public class ViewMesas extends javax.swing.JFrame {
      * Preencher combobox estados
      */
     private void listaGarcom() {
-        listaModelGarcoms = controllerGarcom.getListaGarcomController();
+        listaGarcoms = GarcomController.getListaGarcomController();
         jcbGarcom.removeAllItems();
-        for (int i = 0; i < listaModelGarcoms.size(); i++) {
-            jcbGarcom.addItem(listaModelGarcoms.get(i).getNome());
+        for (int i = 0; i < listaGarcoms.size(); i++) {
+            jcbGarcom.addItem(listaGarcoms.get(i).getNome());
         }
     }
 
@@ -1093,10 +1099,10 @@ public class ViewMesas extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Você deve adicionar ao menos um produto para salvar!", "ATENÇÂO", JOptionPane.WARNING_MESSAGE);
                 return false;
             } else {
-                listaModelItensPedidoMesas = new ArrayList<>();
+                listaItensPedidoMesas = new ArrayList<>();
 
                 for (int i = 0; i < tbProdutos.getRowCount(); i++) {
-                    modelItensPedidoMesa = new ModelItensPedidoMesa();
+                    modelItensPedidoMesa = new ItensPedidoMesa();
                     modelItensPedidoMesa.setCodigoMesa(numeroMesa);
                     modelItensPedidoMesa.setCodigoProduto(Integer.parseInt(tbProdutos.getValueAt(i, 0).toString()));
                     modelItensPedidoMesa.setQuantidade(Float.parseFloat(tbProdutos.getValueAt(i, 2).toString()));
@@ -1105,15 +1111,15 @@ public class ViewMesas extends javax.swing.JFrame {
                     modelItensPedidoMesa.setCodigoGarcom(codigoGarcom);
                     modelItensPedidoMesa.setStatusPedido("Em aberto");
                     
-                    listaModelItensPedidoMesas.add(modelItensPedidoMesa);
+                    listaItensPedidoMesas.add(modelItensPedidoMesa);
                 }
 
-                modelProdutos.setListaModelProdutoses(listaProdutoses);
+                modelProdutos.setListaProdutoes(listaProdutoses);
 
                 //exclui registros anteriores se ouver
                 controllerItensPedidoMesa.excluirItensPedidoMesaController(modelItensPedidoMesa.getCodigoMesa());
                 //salvar
-                controllerItensPedidoMesa.salvarItensPedidoMesaController(listaModelItensPedidoMesas);
+                controllerItensPedidoMesa.salvarItensPedidoMesaController(listaItensPedidoMesas);
                 return true;
             }
         } catch (Exception e) {
@@ -1135,7 +1141,7 @@ public class ViewMesas extends javax.swing.JFrame {
             valor = Float.parseFloat(String.valueOf(tbProdutos.getValueAt(i, 4)));
             soma = valor + soma;
         }
-        return new BLMascaras().arredondamentoComPontoDuasCasas(soma);
+        return new Mascara().arredondamentoComPontoDuasCasas(soma);
     }
 
 

@@ -1,13 +1,14 @@
-/*
- * ViewClientes.java
- *
- */
 package com.inosystem.pdv.view;
 
-import controller.ControllerCidade;
-import controller.ControllerEmpresa;
-import controller.ControllerEmpresaCidadeEstado;
-import controller.ControllerEstado;
+import com.inosystem.pdv.contoller.CidadeController;
+import com.inosystem.pdv.contoller.EmpresaCidadeEstadoController;
+import com.inosystem.pdv.contoller.EmpresaController;
+import com.inosystem.pdv.contoller.EstadoController;
+import com.inosystem.pdv.model.Cidade;
+import com.inosystem.pdv.model.Empresa;
+import com.inosystem.pdv.model.EmpresaCidadeEstado;
+import com.inosystem.pdv.model.Estado;
+import com.inosystem.pdv.util.Mascara;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -17,28 +18,23 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.ModelCidade;
-import model.ModelEmpresa;
-import model.ModelEmpresaCidadeEstado;
-import model.ModelEstado;
-import util.BLMascaras;
 
 /**
  * @author Jrpbjr * jrpbjr *
  */
 public class ViewEmpresa extends javax.swing.JFrame {
 
-    ModelEmpresa modelEmpresa = new ModelEmpresa();
-    ControllerEmpresa controllerEmpresa = new ControllerEmpresa();
-    ControllerEstado controllerEstado = new ControllerEstado();
-    ControllerCidade controllerCidade = new ControllerCidade();
-    ControllerEmpresaCidadeEstado controllerEmpresaCidadeEstado = new ControllerEmpresaCidadeEstado();
-    ArrayList<ModelCidade> listaModelCidades = new ArrayList<>();
-    ArrayList<ModelEstado> listaModelEstados = new ArrayList<>();
-    ArrayList<ModelEmpresa> listaModelEmpresas = new ArrayList<>();
-    ArrayList<ModelEmpresaCidadeEstado> listaEmpresaCidadeEstados = new ArrayList<>();
-    ModelEmpresaCidadeEstado modelEmpresaCidadeEstado = new ModelEmpresaCidadeEstado();
-    BLMascaras bLMascaras = new BLMascaras();
+    Empresa modelEmpresa = new Empresa();
+    EmpresaController controllerEmpresa = new EmpresaController();
+    EstadoController EstadoController = new EstadoController();
+    CidadeController controllerCidade = new CidadeController();
+    EmpresaCidadeEstadoController controllerEmpresaCidadeEstado = new EmpresaCidadeEstadoController();
+    ArrayList<Cidade> listaCidades = new ArrayList<>();
+    ArrayList<Estado> listaEstados = new ArrayList<>();
+    ArrayList<Empresa> listaEmpresas = new ArrayList<>();
+    ArrayList<EmpresaCidadeEstado> listaEmpresaCidadeEstados = new ArrayList<>();
+    EmpresaCidadeEstado modelEmpresaCidadeEstado = new EmpresaCidadeEstado();
+    Mascara bLMascaras = new Mascara();
 
     /**
      * Creates new form Empresas
@@ -479,10 +475,10 @@ public class ViewEmpresa extends javax.swing.JFrame {
      * Preencher combobox estados
      */
     private void listarEstados() {
-        listaModelEstados = controllerEstado.getListaEstadoController();
+        listaEstados = EstadoController.getListaEstadoController();
         cbEstado.removeAllItems();
-        for (int i = 0; i < listaModelEstados.size(); i++) {
-            cbEstado.addItem(listaModelEstados.get(i).getUf());
+        for (int i = 0; i < listaEstados.size(); i++) {
+            cbEstado.addItem(listaEstados.get(i).getUf());
         }
     }
 
@@ -490,10 +486,10 @@ public class ViewEmpresa extends javax.swing.JFrame {
      * Preencher combobox cidades
      */
     private void listarCidades() {
-        listaModelCidades = controllerCidade.getListaCidadePorEstadoController(controllerEstado.getEstadoUFController(this.cbEstado.getSelectedItem().toString()).getCodigo());
+        listaCidades = controllerCidade.getListaCidadePorEstadoController(EstadoController.getEstadoUFController(this.cbEstado.getSelectedItem().toString()).getCodigo());
         cbCidade.removeAllItems();
-        for (int i = 0; i < listaModelCidades.size(); i++) {
-            cbCidade.addItem(listaModelCidades.get(i).getNome());
+        for (int i = 0; i < listaCidades.size(); i++) {
+            cbCidade.addItem(listaCidades.get(i).getNome());
         }
     }
 
@@ -543,22 +539,22 @@ public class ViewEmpresa extends javax.swing.JFrame {
             //recupera os dados do banco
             modelEmpresaCidadeEstado = controllerEmpresa.getEmpresaController(codigo);
             //seta os dados na interface
-            this.tfCodigo.setText(String.valueOf(modelEmpresaCidadeEstado.getModelEmpresa().getCodigo()));
-            this.tfRazaoSocial.setText(modelEmpresaCidadeEstado.getModelEmpresa().getRazaoSocial());
-            this.jtfInscricaoEstadual.setText(modelEmpresaCidadeEstado.getModelEmpresa().getInscEstad());
-            this.jtfCrt.setText(modelEmpresaCidadeEstado.getModelEmpresa().getCrt());
-            this.tfNomeFantasia.setText(modelEmpresaCidadeEstado.getModelEmpresa().getNomeFantasia());
-            this.tfCNPJ.setText(modelEmpresaCidadeEstado.getModelEmpresa().getCnpj());
-            this.jtfPais.setText(modelEmpresaCidadeEstado.getModelEmpresa().getCodPais() + "");
-            this.tfEndereco.setText(modelEmpresaCidadeEstado.getModelEmpresa().getEndereco());
-            this.jtfNumero.setText(modelEmpresaCidadeEstado.getModelEmpresa().getEnderecoNumero());
-            this.jtfComplemento.setText(modelEmpresaCidadeEstado.getModelEmpresa().getEnderecoComplemento());
-            this.tfBairro.setText(modelEmpresaCidadeEstado.getModelEmpresa().getBairro());
-            this.cbEstado.setSelectedItem(controllerEstado.getEstadoController(modelEmpresaCidadeEstado.getModelEstado().getUf()));
+            this.tfCodigo.setText(String.valueOf(modelEmpresaCidadeEstado.getEmpresa().getCodigo()));
+            this.tfRazaoSocial.setText(modelEmpresaCidadeEstado.getEmpresa().getRazaoSocial());
+            this.jtfInscricaoEstadual.setText(modelEmpresaCidadeEstado.getEmpresa().getInscEstad());
+            this.jtfCrt.setText(modelEmpresaCidadeEstado.getEmpresa().getCrt());
+            this.tfNomeFantasia.setText(modelEmpresaCidadeEstado.getEmpresa().getNomeFantasia());
+            this.tfCNPJ.setText(modelEmpresaCidadeEstado.getEmpresa().getCnpj());
+            this.jtfPais.setText(modelEmpresaCidadeEstado.getEmpresa().getCodPais() + "");
+            this.tfEndereco.setText(modelEmpresaCidadeEstado.getEmpresa().getEndereco());
+            this.jtfNumero.setText(modelEmpresaCidadeEstado.getEmpresa().getEnderecoNumero());
+            this.jtfComplemento.setText(modelEmpresaCidadeEstado.getEmpresa().getEnderecoComplemento());
+            this.tfBairro.setText(modelEmpresaCidadeEstado.getEmpresa().getBairro());
+            this.cbEstado.setSelectedItem(EstadoController.getEstadoController(modelEmpresaCidadeEstado.getestado().getUf()));
             this.listarCidades();
-            this.cbCidade.setSelectedItem(controllerCidade.getCidadeController(modelEmpresaCidadeEstado.getModelCidade().getNome()));
-            this.tfCep.setText(modelEmpresaCidadeEstado.getModelEmpresa().getCep());
-            this.tfTelefone.setText(modelEmpresaCidadeEstado.getModelEmpresa().getTelefone());
+            this.cbCidade.setSelectedItem(controllerCidade.getCidadeController(modelEmpresaCidadeEstado.getCidade().getNome()));
+            this.tfCep.setText(modelEmpresaCidadeEstado.getEmpresa().getCep());
+            this.tfTelefone.setText(modelEmpresaCidadeEstado.getEmpresa().getTelefone());
             return true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Código inválido ou nenhum registro selecionado", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -572,10 +568,10 @@ public class ViewEmpresa extends javax.swing.JFrame {
         modelo.setNumRows(0);
         //CARREGA OS DADOS DA LISTA NA TABELA
         modelo.addRow(new Object[]{
-            modelEmpresaCidadeEstado.getModelEmpresa().getCodigo(),
-            modelEmpresaCidadeEstado.getModelEmpresa().getNomeFantasia(),
-            modelEmpresaCidadeEstado.getModelCidade().getNome(),
-            modelEmpresaCidadeEstado.getModelEstado().getUf()
+            modelEmpresaCidadeEstado.getEmpresa().getCodigo(),
+            modelEmpresaCidadeEstado.getEmpresa().getNomeFantasia(),
+            modelEmpresaCidadeEstado.getCidade().getNome(),
+            modelEmpresaCidadeEstado.getEmpresa().getUf()
         });
     }
 

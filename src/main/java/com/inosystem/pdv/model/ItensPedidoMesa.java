@@ -107,7 +107,7 @@ public class ItensPedidoMesa {
 
     @Override
     public String toString() {
-        return "ModelItensPedidoMesa {" + "::codigo = " + this.codigo + "::codigoMesa = " + this.codigoMesa + "::codigoProduto = " + this.codigoProduto + "::statusPedido = " + this.statusPedido + "::observacao = " + this.observacao + "}";
+        return "ItensPedidoMesa {" + "::codigo = " + this.codigo + "::codigoMesa = " + this.codigoMesa + "::codigoProduto = " + this.codigoProduto + "::statusPedido = " + this.statusPedido + "::observacao = " + this.observacao + "}";
     }
 
     /**

@@ -23,32 +23,32 @@ public class TransportadoraCidEst {
     /**
      * seta o valor de cidade
      *
-     * @param pModelCidade
+     * @param pCidade
      */
-    public void setModelCidade(Cidade pModelCidade) {
-        this.cidade = pModelCidade;
+    public void setCidade(Cidade pCidade) {
+        this.cidade = pCidade;
     }
 
     /**
      * return cidade
      */
-    public Cidade getModelCidade() {
+    public Cidade getCidade() {
         return this.cidade;
     }
 
     /**
      * seta o valor de estado
      *
-     * @param pModelEstado
+     * @param pEstado
      */
-    public void setModelEstado(Estado pModelEstado) {
-        this.estado = pModelEstado;
+    public void setEstado(Estado pEstado) {
+        this.estado = pEstado;
     }
 
     /**
      * return estado
      */
-    public Estado getModelEstado() {
+    public Estado getEstado() {
         return this.estado;
     }
 

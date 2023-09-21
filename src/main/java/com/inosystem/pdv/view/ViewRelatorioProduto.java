@@ -1,15 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
+import com.inosystem.pdv.contoller.CidadeController;
+import com.inosystem.pdv.contoller.ClienteCidadeEstadoController;
+import com.inosystem.pdv.contoller.EstadoController;
+import com.inosystem.pdv.contoller.RelatorioProdutoController;
+import com.inosystem.pdv.model.Cidade;
+import com.inosystem.pdv.model.Estado;
+import com.inosystem.pdv.model.RelatorioProduto;
+import com.inosystem.pdv.util.AguardeGerandoRelatorio;
+import com.inosystem.pdv.util.Mascara;
 import static com.sun.corba.se.impl.util.Utility.printStackTrace;
-import controller.ControllerCidade;
-import controller.ControllerClienteCidadeEstado;
-import controller.ControllerEstado;
-import controller.ControllerRelatorioProdutos;
 import java.awt.Desktop;
 import java.io.File;
 import java.sql.Date;
@@ -18,17 +18,12 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.ModelCidade;
-import model.ModelEstado;
-import model.ModelRelatorioProdutos;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRTableModelDataSource;
-import util.AguardeGerandoRelatorio;
-import util.BLMascaras;
 
 /**
  *
@@ -36,15 +31,15 @@ import util.BLMascaras;
  */
 public class ViewRelatorioProduto extends javax.swing.JFrame {
 
-    ControllerEstado controllerEstado = new ControllerEstado();
-    ControllerCidade controllerCidade = new ControllerCidade();
-    ControllerClienteCidadeEstado controllerClienteCidadeEstado = new ControllerClienteCidadeEstado();
-    ArrayList<ModelCidade> listaModelCidades = new ArrayList<>();
-    ArrayList<ModelEstado> listaModelEstados = new ArrayList<>();
-    ModelRelatorioProdutos modelRelatorioProdutos = new ModelRelatorioProdutos();
-    ArrayList<ModelRelatorioProdutos> listaModelRelatorioProdutoses = new ArrayList<>();
-    ControllerRelatorioProdutos controllerRelatorioProdutos = new ControllerRelatorioProdutos();
-    BLMascaras bLMascaras = new BLMascaras();
+    EstadoController EstadoController = new EstadoController();
+    CidadeController controllerCidade = new CidadeController();
+    ClienteCidadeEstadoController controllerClienteCidadeEstado = new ClienteCidadeEstadoController();
+    ArrayList<Cidade> listaCidades = new ArrayList<>();
+    ArrayList<Estado> listaEstados = new ArrayList<>();
+    RelatorioProduto modelRelatorioProdutos = new RelatorioProduto();
+    ArrayList<RelatorioProduto> listaRelatorioProdutoses = new ArrayList<>();
+    RelatorioProdutoController controllerRelatorioProdutos = new RelatorioProdutoController();
+    Mascara bLMascaras = new Mascara();
 
     /**
      * Creates new form ViewRelatorioProduto
@@ -244,7 +239,7 @@ public class ViewRelatorioProduto extends javax.swing.JFrame {
             file.deleteOnExit();
 
         } catch (Exception e) {
-            printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -272,7 +267,7 @@ public class ViewRelatorioProduto extends javax.swing.JFrame {
             file.deleteOnExit();
 
         } catch (Exception e) {
-            printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -311,37 +306,37 @@ public class ViewRelatorioProduto extends javax.swing.JFrame {
             }
 
             if (jrbCidade.isSelected()) {
-                listaModelRelatorioProdutoses = controllerRelatorioProdutos.retornarProdutosCidadeController(codigoCidade, dataInicial, dataFinal);
+                listaRelatorioProdutoses = controllerRelatorioProdutos.retornarProdutosCidadeController(codigoCidade, dataInicial, dataFinal);
 
                 DefaultTableModel modelo = (DefaultTableModel) jtProdutos.getModel();
                 modelo.setNumRows(0);
                 //CARREGA OS DADOS DA LISTA NA TABELA
-                int cont = listaModelRelatorioProdutoses.size();
+                int cont = listaRelatorioProdutoses.size();
                 for (int i = 0; i < cont; i++) {
                     modelo.addRow(new Object[]{
-                        listaModelRelatorioProdutoses.get(i).getCodigoProduto(),
-                        listaModelRelatorioProdutoses.get(i).getNomeProduto(),
-                        listaModelRelatorioProdutoses.get(i).getUnidadeMedida(),
-                        listaModelRelatorioProdutoses.get(i).getQuantidadeProduto(),
+                        listaRelatorioProdutoses.get(i).getCodigoProduto(),
+                        listaRelatorioProdutoses.get(i).getNomeProduto(),
+                        listaRelatorioProdutoses.get(i).getUnidadeMedida(),
+                        listaRelatorioProdutoses.get(i).getQuantidadeProduto(),
                         "AGRUPADOS",
                         "AGRUPADOS"
                     });
                 }
             } else {
-                listaModelRelatorioProdutoses = controllerRelatorioProdutos.retornarProdutosTodasCidadeController(codigoCidade, dataInicial, dataFinal);
+                listaRelatorioProdutoses = controllerRelatorioProdutos.retornarProdutosTodasCidadeController(codigoCidade, dataInicial, dataFinal);
 
                 DefaultTableModel modelo = (DefaultTableModel) jtProdutos.getModel();
                 modelo.setNumRows(0);
                 //CARREGA OS DADOS DA LISTA NA TABELA
-                int cont = listaModelRelatorioProdutoses.size();
+                int cont = listaRelatorioProdutoses.size();
                 for (int i = 0; i < cont; i++) {
                     modelo.addRow(new Object[]{
-                        listaModelRelatorioProdutoses.get(i).getCodigoProduto(),
-                        listaModelRelatorioProdutoses.get(i).getNomeProduto(),
-                        listaModelRelatorioProdutoses.get(i).getUnidadeMedida(),
-                        listaModelRelatorioProdutoses.get(i).getQuantidadeProduto(),
-                        listaModelRelatorioProdutoses.get(i).getCidade(),
-                        listaModelRelatorioProdutoses.get(i).getEstado()
+                        listaRelatorioProdutoses.get(i).getCodigoProduto(),
+                        listaRelatorioProdutoses.get(i).getNomeProduto(),
+                        listaRelatorioProdutoses.get(i).getUnidadeMedida(),
+                        listaRelatorioProdutoses.get(i).getQuantidadeProduto(),
+                        listaRelatorioProdutoses.get(i).getCidade(),
+                        listaRelatorioProdutoses.get(i).getEstado()
                     });
                 }
             }

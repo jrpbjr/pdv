@@ -1,17 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
+import com.inosystem.pdv.contoller.ClienteController;
+import com.inosystem.pdv.contoller.ContaPagarController;
+import com.inosystem.pdv.contoller.ContaReceberController;
+import com.inosystem.pdv.contoller.FormaPagamentoController;
+import com.inosystem.pdv.contoller.FornecedorController;
+import com.inosystem.pdv.contoller.VendaController;
+import com.inosystem.pdv.model.Cliente;
+import com.inosystem.pdv.model.ContaPagar;
+import com.inosystem.pdv.model.ContaReceber;
+import com.inosystem.pdv.model.FormaPagamento;
+import com.inosystem.pdv.model.Fornecedor;
+import com.inosystem.pdv.model.Venda;
+import com.inosystem.pdv.util.AguardeGerandoRelatorio;
+import com.inosystem.pdv.util.Mascara;
 import static com.sun.corba.se.impl.util.Utility.printStackTrace;
-import controller.ControllerCliente;
-import controller.ControllerContaPagar;
-import controller.ControllerContaReceber;
-import controller.ControllerFormaPagamento;
-import controller.ControllerFornecedor;
-import controller.ControllerVendas;
 import java.awt.Desktop;
 import java.io.File;
 import java.util.ArrayList;
@@ -22,20 +25,12 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.ModelCliente;
-import model.ModelContaPagar;
-import model.ModelContaReceber;
-import model.ModelFormaPagamento;
-import model.ModelFornecedor;
-import model.ModelVendas;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRTableModelDataSource;
-import util.AguardeGerandoRelatorio;
-import util.BLMascaras;
 
 /**
  *
@@ -43,22 +38,22 @@ import util.BLMascaras;
  */
 public class ViewFluxoCaixa extends javax.swing.JFrame {
 
-    ModelContaPagar modelContasPagar = new ModelContaPagar();
-    ModelContaReceber modelContasReceber = new ModelContaReceber();
-    ControllerCliente controllerCliente = new ControllerCliente();
-    ControllerFornecedor controllerFornecedor = new ControllerFornecedor();
-    ArrayList<ModelContaPagar> listaModelContasPagar = new ArrayList<>();
-    ArrayList<ModelContaReceber> listaModelContasReceber = new ArrayList<>();
-    ControllerContaPagar controllerContasPagar = new ControllerContaPagar();
-    ControllerContaReceber controllerContaReceber = new ControllerContaReceber();
-    ControllerFormaPagamento controllerTipoPagamento = new ControllerFormaPagamento();
-    ArrayList<ModelFormaPagamento> listaModelTipoPagamentos = new ArrayList<>();
-    ArrayList<ModelCliente> listaModelClientes = new ArrayList<>();
-    ArrayList<ModelFornecedor> listaFornecedor = new ArrayList<>();
-    ControllerVendas controllerVendas = new ControllerVendas();
-    ArrayList<ModelVendas> listaModelVendas = new ArrayList<>();
-    BLMascaras bLMascaras = new BLMascaras();
-    ModelVendas modelVendas = new ModelVendas();
+    ContaPagar modelContasPagar = new ContaPagar();
+    ContaReceber modelContasReceber = new ContaReceber();
+    ClienteController controllerCliente = new ClienteController();
+    FornecedorController controllerFornecedor = new FornecedorController();
+    ArrayList<ContaPagar> listaModelContasPagar = new ArrayList<>();
+    ArrayList<ContaReceber> listaModelContasReceber = new ArrayList<>();
+    ContaPagarController controllerContasPagar = new ContaPagarController();
+    ContaReceberController controllerContaReceber = new ContaReceberController();
+    FormaPagamentoController controllerTipoPagamento = new FormaPagamentoController();
+    ArrayList<FormaPagamento> listaModelTipoPagamentos = new ArrayList<>();
+    ArrayList<Cliente> listaClientes = new ArrayList<>();
+    ArrayList<Fornecedor> listaFornecedor = new ArrayList<>();
+    VendaController controllerVendas = new VendaController();
+    ArrayList<Venda> listaVendas = new ArrayList<>();
+    Mascara bLMascaras = new Mascara();
+    Venda modelVendas = new Venda();
 
     /**
      * Creates new form ViewFluxoCaixa
@@ -418,7 +413,7 @@ public class ViewFluxoCaixa extends javax.swing.JFrame {
                 file.deleteOnExit();
 
             } catch (Exception e) {
-                printStackTrace();
+                e.printStackTrace();
             }
     }//GEN-LAST:event_jtRelatorioActionPerformed
 
@@ -435,7 +430,7 @@ public class ViewFluxoCaixa extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Você deve preencher as datas de inicio e fim!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
         }
         listaModelContasPagar = controllerContasPagar.getListaContasController(modelContasPagar);
-        listaModelVendas = controllerVendas.getListaPedidosController(modelVendas);
+        listaVendas = controllerVendas.getListaPedidosController(modelVendas);
         modelo.setNumRows(0);
         String nomePessoa, tipoPagamento = "";
         //CARREGA OS DADOS DA LISTA NA TABELA as contas a pagar
@@ -484,17 +479,17 @@ public class ViewFluxoCaixa extends javax.swing.JFrame {
         }
 
         //CARREGA OS DADOS DA LISTA NA TABELA as vendas
-        int cont2 = listaModelVendas.size();
+        int cont2 = listaVendas.size();
         for (int i = 0; i < cont2; i++) {
-            nomePessoa = controllerCliente.getClienteController(listaModelVendas.get(i).getClientesCodigo()).getNome();
-            tipoPagamento = controllerTipoPagamento.getFormaPagamentoController(listaModelVendas.get(i).getTipoPagamento()).getDescricao();
+            nomePessoa = controllerCliente.getClienteController(listaVendas.get(i).getClientesCodigo()).getNome();
+            tipoPagamento = controllerTipoPagamento.getFormaPagamentoController(listaVendas.get(i).getTipoPagamento()).getDescricao();
             modelo.addRow(new Object[]{
-                listaModelVendas.get(i).getCodigo(),
+                listaVendas.get(i).getCodigo(),
                 "VENDA DE PRODUTO NO CAIXA",
                 nomePessoa,
-                bLMascaras.formatarData(listaModelVendas.get(i).getDataVenda()),
-                bLMascaras.formatarData(listaModelVendas.get(i).getDataVenda()),
-                listaModelVendas.get(i).getValorTotal(),
+                bLMascaras.formatarData(listaVendas.get(i).getDataVenda()),
+                bLMascaras.formatarData(listaVendas.get(i).getDataVenda()),
+                listaVendas.get(i).getValorTotal(),
                 "CRÉDITO",
                 tipoPagamento,
                 "VENDA"

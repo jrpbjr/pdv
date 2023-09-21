@@ -1,21 +1,26 @@
-/*
- * ViewVenda.java
- *
- * Created on 2 de Fevereiro de 2008, 00:13
- */
 package com.inosystem.pdv.view;
 
-import controller.ControllerCaixa;
-import controller.ControllerCidade;
-import controller.ControllerCliente;
-import controller.ControllerComprasProdutos;
-import controller.ControllerEstado;
-import controller.ControllerFormaPagamento;
-import controller.ControllerFornecedor;
-import controller.ControllerPermissaousuario;
-import controller.ControllerProdutos;
-import controller.ControllerUnidadeMedia;
-import controller.ControllerVendas;
+import com.inosystem.pdv.contoller.CaixaController;
+import com.inosystem.pdv.contoller.CidadeController;
+import com.inosystem.pdv.contoller.ClienteController;
+import com.inosystem.pdv.contoller.CompraProdutoController;
+import com.inosystem.pdv.contoller.EstadoController;
+import com.inosystem.pdv.contoller.FormaPagamentoController;
+import com.inosystem.pdv.contoller.FornecedorController;
+import com.inosystem.pdv.contoller.PermissaoUsuarioController;
+import com.inosystem.pdv.contoller.ProdutoController;
+import com.inosystem.pdv.contoller.UnidadeMedidaController;
+import com.inosystem.pdv.contoller.VendaController;
+import com.inosystem.pdv.model.Caixa;
+import com.inosystem.pdv.model.Cliente;
+import com.inosystem.pdv.model.CompraProduto;
+import com.inosystem.pdv.model.FormaPagamento;
+import com.inosystem.pdv.model.Produto;
+import com.inosystem.pdv.model.SessaoUsuario;
+import com.inosystem.pdv.model.Venda;
+import com.inosystem.pdv.util.AguardeGerandoRelatorio;
+import com.inosystem.pdv.util.Mascara;
+import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -27,45 +32,36 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import model.ModelCaixa;
-import model.ModelCliente;
-import model.ModelComprasProdutos;
-import model.ModelFormaPagamento;
-import model.ModelProdutos;
-import model.ModelSessaoUsuario;
-import model.ModelVendas;
-import util.AguardeGerandoRelatorio;
-import util.BLMascaras;
 
 /**
  * @author Jrpbjr * jrpbjr *
  */
 public class ViewOrcamento extends javax.swing.JFrame {
 
-    ControllerVendas controllerVendas = new ControllerVendas();
-    ModelVendas modelVendas = new ModelVendas();
-    ModelProdutos modelProdutos = new ModelProdutos();
-    ControllerUnidadeMedia controllerUnidadeMedia = new ControllerUnidadeMedia();
-    ArrayList<ModelVendas> listaModelVendas = new ArrayList<>();
-    ArrayList<ModelVendas> listaModelVendasAlterar = new ArrayList<>();
-    ArrayList<ModelProdutos> listaProdutoses = new ArrayList<>();
-    ArrayList<ModelCliente> listaModelClientes = new ArrayList<>();
-    ControllerCliente controllerCliente = new ControllerCliente();
-    ModelCliente modelCliente = new ModelCliente();
-    ControllerProdutos controllerProdutos = new ControllerProdutos();
-    ModelCaixa modelCaixa = new ModelCaixa();
-    ControllerCaixa controllerCaixa = new ControllerCaixa();
-    ControllerEstado controllerEstado = new ControllerEstado();
-    ControllerCidade controllerCidade = new ControllerCidade();
-    ControllerFormaPagamento controllerTipoPagamento = new ControllerFormaPagamento();
-    ArrayList<ModelFormaPagamento> listaModelTipoPagamentos = new ArrayList<>();
-    ControllerFornecedor controllerFornecedor = new ControllerFornecedor();
-    BLMascaras bLMascaras = new BLMascaras();
+    VendaController controllerVendas = new VendaController();
+    Venda modelVendas = new Venda();
+    Produto modelProdutos = new Produto();
+    UnidadeMedidaController controllerUnidadeMedia = new UnidadeMedidaController();
+    ArrayList<Venda> listaVenda = new ArrayList<>();
+    ArrayList<Venda> listaVendaAlterar = new ArrayList<>();
+    ArrayList<Produto> listaProdutoses = new ArrayList<>();
+    ArrayList<Cliente> listaClientes = new ArrayList<>();
+    ClienteController controllerCliente = new ClienteController();
+    Cliente modelCliente = new Cliente();
+    ProdutoController controllerProdutos = new ProdutoController();
+    Caixa modelCaixa = new Caixa();
+    CaixaController controllerCaixa = new CaixaController();
+    EstadoController EstadoController = new EstadoController();
+    CidadeController controllerCidade = new CidadeController();
+    FormaPagamentoController controllerTipoPagamento = new FormaPagamentoController();
+    ArrayList<FormaPagamento> listaModelTipoPagamentos = new ArrayList<>();
+    FornecedorController controllerFornecedor = new FornecedorController();
+    Mascara bLMascaras = new Mascara();
     float valorCartao, valorCheque, valorDinheiro, valorVale;
     String tipoCadastro;
     int contVendaMenor;
-    ModelComprasProdutos modelComprasProdutos = new ModelComprasProdutos();
-    ControllerComprasProdutos controllerComprasProdutos = new ControllerComprasProdutos();
+    CompraProduto modelComprasProdutos = new CompraProduto();
+    CompraProdutoController controllerComprasProdutos = new CompraProdutoController();
     private ViewVerificarPermissao viewVerificarPermissao;
 
     /**
@@ -117,18 +113,18 @@ public class ViewOrcamento extends javax.swing.JFrame {
     }
 
     private void listarClientes() {
-        listaModelClientes = controllerCliente.getListaClienteController();
+        listaClientes = controllerCliente.getListaClienteController();
         cbClientes.removeAllItems();
-        for (int i = 0; i < listaModelClientes.size(); i++) {
-            cbClientes.addItem(listaModelClientes.get(i).getNome());
+        for (int i = 0; i < listaClientes.size(); i++) {
+            cbClientes.addItem(listaClientes.get(i).getNome());
         }
     }
 
     private void listarCodigosClientes() {
-        listaModelClientes = controllerCliente.getListaClienteController();
+        listaClientes = controllerCliente.getListaClienteController();
         cbCodCliente.removeAllItems();
-        for (int i = 0; i < listaModelClientes.size(); i++) {
-            cbCodCliente.addItem(listaModelClientes.get(i).getCodigo());
+        for (int i = 0; i < listaClientes.size(); i++) {
+            cbCodCliente.addItem(listaClientes.get(i).getCodigo());
         }
     }
 
@@ -763,7 +759,7 @@ public class ViewOrcamento extends javax.swing.JFrame {
     //verificar permissão do usuário
     public boolean retornarCodigoUsuarioLogado() {
         try {
-            String permissao = new ControllerPermissaousuario().getPermissaousuarioCodUsuController(new ModelSessaoUsuario().codigo).getPermissao();
+            String permissao = new PermissaoUsuarioController().getPermissaousuarioCodUsuController(new SessaoUsuario().codigo).getPermissao();
             if (permissao.equals("compras")) {
                 return true;
             } else {
@@ -779,20 +775,20 @@ public class ViewOrcamento extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Você deve preencher todos os campos!", "ATENÇÂO", JOptionPane.WARNING_MESSAGE);
             return false;
         } else {
-            listaModelVendas = new ArrayList<>();
+            listaVenda = new ArrayList<>();
             listaProdutoses = new ArrayList<>();
             int codigoProduto;
             float quantidade;
 
             for (int i = 0; i < tbProdutos.getRowCount(); i++) {
-                modelVendas = new ModelVendas();
-                modelProdutos = new ModelProdutos();
+                modelVendas = new Venda();
+                modelProdutos = new Produto();
                 modelVendas.setClientesCodigo(controllerCliente.getClienteController(cbClientes.getSelectedItem().toString()).getCodigo());
-                modelVendas.setDesconto(Float.parseFloat(this.tfDesconto.getText()));
-                modelVendas.setTaxaEntrega(0f);
-                modelVendas.setValorTotal(Float.parseFloat(this.tfValorTotal.getText()));
+                modelVendas.setDesconto(new BigDecimal(this.tfDesconto.getText()));
+                modelVendas.setTaxaEntrega(new BigDecimal(0f));
+                modelVendas.setValorTotal(new BigDecimal(this.tfValorTotal.getText()));
                 modelVendas.setObservacao(this.tfObservacao.getText());
-                modelVendas.setCodigoUsuario(ModelSessaoUsuario.codigo);
+                modelVendas.setCodigoUsuario(SessaoUsuario.codigo);
                 try {
                     modelVendas.setDataVenda(bLMascaras.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
                 } catch (Exception ex) {
@@ -802,17 +798,17 @@ public class ViewOrcamento extends javax.swing.JFrame {
                 codigoProduto = Integer.parseInt(tbProdutos.getValueAt(i, 0).toString());
                 modelVendas.setProdutosCodigo(codigoProduto);
                 modelVendas.setTipo(0);
-                modelVendas.setValor(Double.parseDouble(tbProdutos.getValueAt(i, 3).toString()));
-                modelVendas.setQuantidade(Float.parseFloat(tbProdutos.getValueAt(i, 4).toString()));
+                modelVendas.setValor(new BigDecimal(tbProdutos.getValueAt(i, 3).toString()));
+                modelVendas.setQuantidade(new BigDecimal(tbProdutos.getValueAt(i, 4).toString()));
                 modelVendas.setTipoPagamento(controllerTipoPagamento.getFormaPagamentoController(this.jcbTipoPagamento.getSelectedItem().toString()).getCodigo());
                 modelProdutos.setCodigo(codigoProduto);
                 quantidade = controllerProdutos.getProdutosController(codigoProduto).getEstoque();
                 modelProdutos.setEstoque(quantidade);
-                listaModelVendas.add(modelVendas);
+                listaVenda.add(modelVendas);
                 listaProdutoses.add(modelProdutos);
             }
-            modelVendas.setListamModelVendases(listaModelVendas);
-            modelProdutos.setListaModelProdutoses(listaProdutoses);
+            modelVendas.setListamVendaes(listaVenda);
+            modelProdutos.setListaProdutoes(listaProdutoses);
 
             //salvar venda
             int codigoVenda = controllerVendas.salvarVendasController(modelVendas);
@@ -922,7 +918,7 @@ public class ViewOrcamento extends javax.swing.JFrame {
 
     private void jbImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbImprimirActionPerformed
         final AguardeGerandoRelatorio carregando = new AguardeGerandoRelatorio();
-        final ControllerVendas controllerVendas = new ControllerVendas();
+        final VendaController controllerVendas = new VendaController();
         carregando.setVisible(true);
         Thread t = new Thread() {
             @Override
@@ -943,7 +939,7 @@ public class ViewOrcamento extends javax.swing.JFrame {
 
     private void tfDescontoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDescontoKeyReleased
         // TODO add your handling code here:
-        this.tfDesconto.setText(new BLMascaras().converterVirgulaParaPonto(this.tfDesconto.getText()));
+        this.tfDesconto.setText(new Mascara().converterVirgulaParaPonto(this.tfDesconto.getText()));
         this.tfValorTotal.setText(String.valueOf(this.somaEAtualizaValorTotal()));
     }//GEN-LAST:event_tfDescontoKeyReleased
 
@@ -962,7 +958,7 @@ public class ViewOrcamento extends javax.swing.JFrame {
 
     private void tfValorUnitarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfValorUnitarioKeyReleased
         // TODO add your handling code here:
-        this.tfValorUnitario.setText(new BLMascaras().converterVirgulaParaPonto(this.tfValorUnitario.getText()));
+        this.tfValorUnitario.setText(new Mascara().converterVirgulaParaPonto(this.tfValorUnitario.getText()));
     }//GEN-LAST:event_tfValorUnitarioKeyReleased
 
     private void tfPesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfPesquisaFocusLost
@@ -979,7 +975,7 @@ public class ViewOrcamento extends javax.swing.JFrame {
             this.cbCodCliente.setSelectedItem(modelCliente.getCodigo());
             this.tfEndereco.setText(modelCliente.getEndereco());
             this.tfBairro.setText(modelCliente.getBairro());
-            this.tfEstado.setText(controllerEstado.getEstadoController(modelCliente.getCodEstado()).getUf());
+            this.tfEstado.setText(EstadoController.getEstadoController(modelCliente.getCodEstado()).getUf());
             this.tfCidade.setText(controllerCidade.getCidadeController(modelCliente.getCodCidade()).getNome());
             this.tfTelefone.setText(modelCliente.getTelefone());
             this.tfCpfCnpj.setText(modelCliente.getCpfCNPJ());
@@ -1046,7 +1042,7 @@ public class ViewOrcamento extends javax.swing.JFrame {
         this.cbClientes.setSelectedItem(String.valueOf(modelCliente.getNome()));
         this.tfEndereco.setText(modelCliente.getEndereco());
         this.tfBairro.setText(modelCliente.getBairro());
-        this.tfEstado.setText(controllerEstado.getEstadoController(modelCliente.getCodEstado()).getUf());
+        this.tfEstado.setText(EstadoController.getEstadoController(modelCliente.getCodEstado()).getUf());
         this.tfCidade.setText(controllerCidade.getCidadeController(modelCliente.getCodCidade()).getNome());
         this.tfTelefone.setText(modelCliente.getTelefone());
         this.tfCpfCnpj.setText(modelCliente.getCpfCNPJ());
@@ -1054,19 +1050,19 @@ public class ViewOrcamento extends javax.swing.JFrame {
     }
 
     private void adicionarValorCaixa() {
-        modelCaixa = new ModelCaixa();
+        modelCaixa = new Caixa();
         modelCaixa = controllerCaixa.getCaixaController(1);
         if (modelVendas.getTipoPagamento() == 1) {
-            valorDinheiro = modelVendas.getValorTotal();
+            valorDinheiro = modelVendas.getValorTotal().floatValue();
             modelCaixa.setDinheiro(modelCaixa.getDinheiro() + valorDinheiro);
         } else if (modelVendas.getTipoPagamento() == 2) {
-            valorCartao = modelVendas.getValorTotal();
+            valorCartao = modelVendas.getValorTotal().floatValue();
             modelCaixa.setCartao(modelCaixa.getCartao() + valorCartao);
         } else if (modelVendas.getTipoPagamento() == 3) {
-            valorCheque = modelVendas.getValorTotal();
+            valorCheque = modelVendas.getValorTotal().floatValue();
             modelCaixa.setCheque(modelCaixa.getCheque() + valorCheque);
         } else if (modelVendas.getTipoPagamento() == 4) {
-            valorVale = modelVendas.getValorTotal();
+            valorVale = modelVendas.getValorTotal().floatValue();
             modelCaixa.setConvenio(modelCaixa.getConvenio() + valorVale);
         }
         controllerCaixa.atualizarCaixaController(modelCaixa);
@@ -1079,7 +1075,7 @@ public class ViewOrcamento extends javax.swing.JFrame {
         this.cbClientes.setSelectedItem(String.valueOf(modelCliente.getNome()));
         this.tfEndereco.setText(modelCliente.getEndereco());
         this.tfBairro.setText(modelCliente.getBairro());
-        this.tfEstado.setText(controllerEstado.getEstadoController(modelCliente.getCodEstado()).getUf());
+        this.tfEstado.setText(EstadoController.getEstadoController(modelCliente.getCodEstado()).getUf());
         this.tfCidade.setText(controllerCidade.getCidadeController(modelCliente.getCodCidade()).getNome());
         this.tfTelefone.setText(modelCliente.getTelefone());
         this.tfCpfCnpj.setText(modelCliente.getCpfCNPJ());
@@ -1120,15 +1116,15 @@ public class ViewOrcamento extends javax.swing.JFrame {
             this.tfObservacao.setText(modelVendas.getObservacao());
             this.jcbTipoPagamento.setSelectedItem(controllerTipoPagamento.getFormaPagamentoController(modelVendas.getTipoPagamento()).getDescricao());
             //recupera os dados do banco
-            listaModelVendasAlterar = controllerVendas.getListaVendasController(codigo);
+            listaVendaAlterar = controllerVendas.getListaVendasController(codigo);
             //carregar lista de produtos da venda
             DefaultTableModel modelo = (DefaultTableModel) tbProdutos.getModel();
             modelo.setNumRows(0);
 
             String unidadeMedida = "";
             String fornecedor = "";
-            for (int i = 0; i < listaModelVendasAlterar.size(); i++) {
-                codigoProduto = listaModelVendasAlterar.get(i).getProdutosCodigo();
+            for (int i = 0; i < listaVendaAlterar.size(); i++) {
+                codigoProduto = listaVendaAlterar.get(i).getProdutosCodigo();
                 modelProdutos = controllerProdutos.getProdutosController(codigoProduto);
                 unidadeMedida = controllerUnidadeMedia.getUnidadeMediaController(modelProdutos.getUnidadeMedida()).getAbreviacao();
                 fornecedor = controllerFornecedor.getFornecedorProdutoController(codigoProduto).getNome();
@@ -1136,9 +1132,9 @@ public class ViewOrcamento extends javax.swing.JFrame {
                     modelProdutos.getCodigo(),
                     modelProdutos.getNome(),
                     fornecedor,
-                    listaModelVendasAlterar.get(i).getValor(),
-                    listaModelVendasAlterar.get(i).getQuantidade(),
-                    listaModelVendasAlterar.get(i).getQuantidade() * listaModelVendasAlterar.get(i).getValor(),
+                    listaVendaAlterar.get(i).getValor(),
+                    listaVendaAlterar.get(i).getQuantidade(),
+                    listaVendaAlterar.get(i).getQuantidade().multiply(listaVendaAlterar.get(i).getValor()),
                     unidadeMedida
                 });
             }
@@ -1264,18 +1260,18 @@ public class ViewOrcamento extends javax.swing.JFrame {
     }
 
     private void carregarOrcamento() {
-        listaModelVendas = controllerVendas.getListaOrcamentoController();
+        listaVenda = controllerVendas.getListaOrcamentoController();
         DefaultTableModel modelo = (DefaultTableModel) tbConsultasVendas.getModel();
         modelo.setNumRows(0);
         //CARREGA OS DADOS DA LISTA NA TABELA
-        int cont = listaModelVendas.size();
+        int cont = listaVenda.size();
         for (int i = 0; i < cont; i++) {
             modelo.addRow(new Object[]{
-                listaModelVendas.get(i).getCodigo(),
-                controllerCliente.getClienteController(listaModelVendas.get(i).getClientesCodigo()).getNome(),
-                listaModelVendas.get(i).getDataVenda(),
-                listaModelVendas.get(i).getValorTotal(),
-                controllerTipoPagamento.getFormaPagamentoController(listaModelVendas.get(i).getTipoPagamento()).getDescricao()
+                listaVenda.get(i).getCodigo(),
+                controllerCliente.getClienteController(listaVenda.get(i).getClientesCodigo()).getNome(),
+                listaVenda.get(i).getDataVenda(),
+                listaVenda.get(i).getValorTotal(),
+                controllerTipoPagamento.getFormaPagamentoController(listaVenda.get(i).getTipoPagamento()).getDescricao()
             });
         }
     }
@@ -1285,21 +1281,21 @@ public class ViewOrcamento extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Você deve preencher todos os campos!", "ATENÇÂO", JOptionPane.WARNING_MESSAGE);
             return false;
         } else {
-            listaModelVendas = new ArrayList<>();
+            listaVenda = new ArrayList<>();
             listaProdutoses = new ArrayList<>();
             int codigoProduto;
             float quantidade;
 
             for (int i = 0; i < tbProdutos.getRowCount(); i++) {
-                modelVendas = new ModelVendas();
-                modelProdutos = new ModelProdutos();
-                modelVendas.setCodigo(Integer.parseInt(this.tfNumeroOrcamento.getText()));
+                modelVendas = new Venda();
+                modelProdutos = new Produto();
+                modelVendas.setCodigo(Integer.valueOf(this.tfNumeroOrcamento.getText()));
                 modelVendas.setClientesCodigo(controllerCliente.getClienteController(cbClientes.getSelectedItem().toString()).getCodigo());
-                modelVendas.setDesconto(Float.parseFloat(this.tfDesconto.getText()));
-                modelVendas.setTaxaEntrega(0f);
-                modelVendas.setValorTotal(Float.parseFloat(this.tfValorTotal.getText()));
+                modelVendas.setDesconto(new BigDecimal(this.tfDesconto.getText()));
+                modelVendas.setTaxaEntrega(new BigDecimal(0f));
+                modelVendas.setValorTotal(new BigDecimal(this.tfValorTotal.getText()));
                 modelVendas.setObservacao(this.tfObservacao.getText());
-                modelVendas.setCodigoUsuario(ModelSessaoUsuario.codigo);
+                modelVendas.setCodigoUsuario(SessaoUsuario.codigo);
                 try {
                     modelVendas.setDataVenda(bLMascaras.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
                 } catch (Exception ex) {
@@ -1309,17 +1305,17 @@ public class ViewOrcamento extends javax.swing.JFrame {
                 codigoProduto = Integer.parseInt(tbProdutos.getValueAt(i, 0).toString());
                 modelVendas.setProdutosCodigo(codigoProduto);
                 modelVendas.setTipo(0);
-                modelVendas.setValor(Double.parseDouble(tbProdutos.getValueAt(i, 3).toString()));
-                modelVendas.setQuantidade(Float.parseFloat(tbProdutos.getValueAt(i, 4).toString()));
+                modelVendas.setValor(new BigDecimal(tbProdutos.getValueAt(i, 3).toString()));
+                modelVendas.setQuantidade(new BigDecimal(tbProdutos.getValueAt(i, 4).toString()));
                 modelVendas.setTipoPagamento(controllerTipoPagamento.getFormaPagamentoController(this.jcbTipoPagamento.getSelectedItem().toString()).getCodigo());
                 modelProdutos.setCodigo(codigoProduto);
                 quantidade = controllerProdutos.getProdutosController(codigoProduto).getEstoque();
                 modelProdutos.setEstoque(quantidade);
-                listaModelVendas.add(modelVendas);
+                listaVenda.add(modelVendas);
                 listaProdutoses.add(modelProdutos);
             }
-            modelVendas.setListamModelVendases(listaModelVendas);
-            modelProdutos.setListaModelProdutoses(listaProdutoses);
+            modelVendas.setListamVendaes(listaVenda);
+            modelProdutos.setListaProdutoes(listaProdutoses);
 
             //salvar venda
             if (controllerVendas.atualizarVendasController(modelVendas)) {
@@ -1350,10 +1346,10 @@ public class ViewOrcamento extends javax.swing.JFrame {
      */
     private void retornarProdutoAoEstoque() {
         float quantidade;
-        int cont = listaModelVendasAlterar.size();
+        int cont = listaVendaAlterar.size();
         for (int i = 0; i < cont; i++) {
-            modelProdutos.setCodigo(listaModelVendasAlterar.get(i).getProdutosCodigo());
-            quantidade = controllerProdutos.getProdutosController(modelProdutos.getCodigo()).getEstoque() + listaModelVendasAlterar.get(i).getQuantidade();
+            modelProdutos.setCodigo(listaVendaAlterar.get(i).getProdutosCodigo());
+            quantidade = (new BigDecimal(controllerProdutos.getProdutosController(modelProdutos.getCodigo()).getEstoque()).add(listaVendaAlterar.get(i).getQuantidade())).floatValue();
             modelProdutos.setEstoque(quantidade);
             listaProdutoses.add(modelProdutos);
         }

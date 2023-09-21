@@ -18,7 +18,7 @@ private final EmpresaCidadeEstadoDao daoEmpresaCidadeEstado = new EmpresaCidadeE
 
     /**
     * recupera EmpresaCidadeEstado
-    * @param pModelCidade
+    * @param pCidade
     * return EmpresaCidadeEstadoDao
     */
     public EmpresaCidadeEstado getEmpresaCidadeEstadoController(int pCodigo){
@@ -29,7 +29,7 @@ private final EmpresaCidadeEstadoDao daoEmpresaCidadeEstado = new EmpresaCidadeE
 
     /**
     * recupera uma lista deEmpresaCidadeEstado
-    * @param pModelCidade
+    * @param pCidade
     * return ArrayList
     */
     public ArrayList<EmpresaCidadeEstado> getListaEmpresaCidadeEstadoController(){

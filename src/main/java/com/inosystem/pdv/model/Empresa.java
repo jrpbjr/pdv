@@ -178,7 +178,7 @@ public class Empresa {
 
     @Override
     public String toString() {
-        return "ModelEmpresa {" + "::codigo = " + this.codigo + "::razaoSocial = " + this.razaoSocial + "::nomeFantasia = " + this.nomeFantasia + "::endereco = " + this.endereco + "::bairro = " + this.bairro + "::codCidade = " + this.codCidade + "::codEstado = " + this.codEstado + "::cep = " + this.cep + "::telefone = " + this.telefone + "}";
+        return "Empresa {" + "::codigo = " + this.codigo + "::razaoSocial = " + this.razaoSocial + "::nomeFantasia = " + this.nomeFantasia + "::endereco = " + this.endereco + "::bairro = " + this.bairro + "::codCidade = " + this.codCidade + "::codEstado = " + this.codEstado + "::cep = " + this.cep + "::telefone = " + this.telefone + "}";
     }
 
     /**

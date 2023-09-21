@@ -36,7 +36,7 @@ public class ViewTransportadora extends javax.swing.JFrame {
     ArrayList<Estado> listaEstados = new ArrayList<>();
     ArrayList<Transportadora> listTransportadoras = new ArrayList<>();
     ArrayList<TransportadoraCidEst> listaTransportadoraCidadeEstados = new ArrayList<>();
-    EstadoController controllerEstado = new EstadoController();
+    EstadoController EstadoController = new EstadoController();
     String tipoCadastro;
     Mascara bLMascaras = new Mascara();
 
@@ -536,7 +536,7 @@ public class ViewTransportadora extends javax.swing.JFrame {
      * Preencher combobox estados
      */
     private void listarEstados() {
-        listaEstados = controllerEstado.getListaEstadoController();
+        listaEstados = EstadoController.getListaEstadoController();
         cbEstado.removeAllItems();
         for (int i = 0; i < listaEstados.size(); i++) {
             cbEstado.addItem(listaEstados.get(i).getUf());
@@ -548,7 +548,7 @@ public class ViewTransportadora extends javax.swing.JFrame {
      */
     private void listarCidades() {
         try {
-            listaCidades = controllerCidade.getListaCidadePorEstadoController(controllerEstado.getEstadoUFController(this.cbEstado.getSelectedItem().toString()).getCodigo());
+            listaCidades = controllerCidade.getListaCidadePorEstadoController(EstadoController.getEstadoUFController(this.cbEstado.getSelectedItem().toString()).getCodigo());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Você deve cadastrar cidades e estados primeiro!");
         }
@@ -645,8 +645,8 @@ public class ViewTransportadora extends javax.swing.JFrame {
             modelo.addRow(new Object[]{
                 listaTransportadoraCidadeEstados.get(i).getModelTransportadora().getCodigo(),
                 listaTransportadoraCidadeEstados.get(i).getModelTransportadora().getNome(),
-                listaTransportadoraCidadeEstados.get(i).getModelCidade().getNome(),
-                listaTransportadoraCidadeEstados.get(i).getModelEstado().getUf(),
+                listaTransportadoraCidadeEstados.get(i).getCidade().getNome(),
+                listaTransportadoraCidadeEstados.get(i).getEstado().getUf(),
                 listaTransportadoraCidadeEstados.get(i).getModelTransportadora().getTelefone()
 
             });

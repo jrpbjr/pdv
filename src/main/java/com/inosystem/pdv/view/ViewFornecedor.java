@@ -1,14 +1,14 @@
-/*
- * Fornecedores.java
- *
- * Created on 24 de Janeiro de 2008, 23:33
- */
 package com.inosystem.pdv.view;
 
-import controller.ControllerCidade;
-import controller.ControllerEstado;
-import controller.ControllerFornecedor;
-import controller.ControllerFornecedorCidadeEstado;
+import com.inosystem.pdv.contoller.CidadeController;
+import com.inosystem.pdv.contoller.EstadoController;
+import com.inosystem.pdv.contoller.FornecedorCidadeEstadoController;
+import com.inosystem.pdv.contoller.FornecedorController;
+import com.inosystem.pdv.model.Cidade;
+import com.inosystem.pdv.model.Estado;
+import com.inosystem.pdv.model.Fornecedor;
+import com.inosystem.pdv.model.FornecedorCidadeEstado;
+import com.inosystem.pdv.util.Mascara;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -16,28 +16,23 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import model.ModelCidade;
-import model.ModelEstado;
-import model.ModelFornecedor;
-import model.ModelFornecedorCidadeEstado;
-import util.BLMascaras;
 
 /**
  * @author Jrpbjr * jrpbjr *
  */
 public class ViewFornecedor extends javax.swing.JFrame {
 
-    ControllerEstado controllerEstado = new ControllerEstado();
-    ControllerCidade controllerCidade = new ControllerCidade();
-    ModelFornecedor modelFornecedor = new ModelFornecedor();
-    ControllerFornecedorCidadeEstado controllerFornecedorCidadeEstado = new ControllerFornecedorCidadeEstado();
-    ArrayList<ModelCidade> listaModelCidades = new ArrayList<>();
-    ArrayList<ModelEstado> listaModelEstados = new ArrayList<>();
-    ArrayList<ModelFornecedor> listModelFornecedors = new ArrayList<>();
-    ArrayList<ModelFornecedorCidadeEstado> listaModelFornecedorCidadeEstados = new ArrayList<>();
-    ControllerFornecedor controllerFornecedor = new ControllerFornecedor();
+    EstadoController EstadoController = new EstadoController();
+    CidadeController controllerCidade = new CidadeController();
+    Fornecedor modelFornecedor = new Fornecedor();
+    FornecedorCidadeEstadoController controllerFornecedorCidadeEstado = new FornecedorCidadeEstadoController();
+    ArrayList<Cidade> listaCidades = new ArrayList<>();
+    ArrayList<Estado> listaEstados = new ArrayList<>();
+    ArrayList<Fornecedor> listFornecedors = new ArrayList<>();
+    ArrayList<FornecedorCidadeEstado> listaFornecedorCidadeEstados = new ArrayList<>();
+    FornecedorController controllerFornecedor = new FornecedorController();
     String tipoCadastro;
-    BLMascaras bLMascaras = new BLMascaras();
+    Mascara bLMascaras = new Mascara();
 
     /**
      * Creates new form Fornecedores
@@ -535,10 +530,10 @@ public class ViewFornecedor extends javax.swing.JFrame {
      * Preencher combobox estados
      */
     private void listarEstados() {
-        listaModelEstados = controllerEstado.getListaEstadoController();
+        listaEstados = EstadoController.getListaEstadoController();
         cbEstado.removeAllItems();
-        for (int i = 0; i < listaModelEstados.size(); i++) {
-            cbEstado.addItem(listaModelEstados.get(i).getUf());
+        for (int i = 0; i < listaEstados.size(); i++) {
+            cbEstado.addItem(listaEstados.get(i).getUf());
         }
     }
 
@@ -547,13 +542,13 @@ public class ViewFornecedor extends javax.swing.JFrame {
      */
     private void listarCidades() {
         try {
-            listaModelCidades = controllerCidade.getListaCidadePorEstadoController(controllerEstado.getEstadoUFController(this.cbEstado.getSelectedItem().toString()).getCodigo());
+            listaCidades = controllerCidade.getListaCidadePorEstadoController(EstadoController.getEstadoUFController(this.cbEstado.getSelectedItem().toString()).getCodigo());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Você deve cadastrar cidades e estados primeiro!");
         }
         cbCidade.removeAllItems();
-        for (int i = 0; i < listaModelCidades.size(); i++) {
-            cbCidade.addItem(listaModelCidades.get(i).getNome());
+        for (int i = 0; i < listaCidades.size(); i++) {
+            cbCidade.addItem(listaCidades.get(i).getNome());
         }
     }
 
@@ -586,7 +581,7 @@ public class ViewFornecedor extends javax.swing.JFrame {
         modelFornecedor.setEndereco(this.tfEndereco.getText());
         modelFornecedor.setBairro(this.tfBairro.getText());
         modelFornecedor.setCodCidade(controllerCidade.getCidadeController(this.cbCidade.getSelectedItem().toString()).getCodigo());
-        modelFornecedor.setCodEstado(controllerEstado.getEstadoUFController(this.cbEstado.getSelectedItem().toString()).getCodigo());
+        modelFornecedor.setCodEstado(EstadoController.getEstadoUFController(this.cbEstado.getSelectedItem().toString()).getCodigo());
         modelFornecedor.setCep(this.tfCep.getText());
         modelFornecedor.setTelefone(this.tfTelefone.getText());
         modelFornecedor.setNomeFantasia(this.jtfNomeFantasia.getText());
@@ -636,18 +631,18 @@ public class ViewFornecedor extends javax.swing.JFrame {
     }
 
     private void carregarFornecedores() {
-        listaModelFornecedorCidadeEstados = controllerFornecedorCidadeEstado.getlistaFornecedorCidadeEstados();
+        listaFornecedorCidadeEstados = controllerFornecedorCidadeEstado.getlistaFornecedorCidadeEstados();
         DefaultTableModel modelo = (DefaultTableModel) tbFornecedores.getModel();
         modelo.setNumRows(0);
         //CARREGA OS DADOS DA LISTA NA TABELA
-        int cont = listaModelFornecedorCidadeEstados.size();
+        int cont = listaFornecedorCidadeEstados.size();
         for (int i = 0; i < cont; i++) {
             modelo.addRow(new Object[]{
-                listaModelFornecedorCidadeEstados.get(i).getModelFornecedor().getCodigo(),
-                listaModelFornecedorCidadeEstados.get(i).getModelFornecedor().getNome(),
-                listaModelFornecedorCidadeEstados.get(i).getModelCidade().getNome(),
-                listaModelFornecedorCidadeEstados.get(i).getModelEstado().getUf(),
-                listaModelFornecedorCidadeEstados.get(i).getModelFornecedor().getTelefone()
+                listaFornecedorCidadeEstados.get(i).getFornecedor().getCodigo(),
+                listaFornecedorCidadeEstados.get(i).getFornecedor().getNome(),
+                listaFornecedorCidadeEstados.get(i).getCidade().getNome(),
+                listaFornecedorCidadeEstados.get(i).getEstado().getUf(),
+                listaFornecedorCidadeEstados.get(i).getFornecedor().getTelefone()
 
             });
         }

@@ -51,8 +51,8 @@ public class CidadeEstadoDao extends ConexaoMySql {
                 modelEstado.setCodigo(this.getResultSet().getInt(5));
                 modelEstado.setUf(this.getResultSet().getString(6));
                 modelEstado.setNome(this.getResultSet().getString(7));
-                modelCidadeEstado.setModelCidade(modelCidade);
-                modelCidadeEstado.setModelEstado(modelEstado);
+                modelCidadeEstado.setCidade(modelCidade);
+                modelCidadeEstado.setEstado(modelEstado);
                 listamodelCidadeEstado.add(modelCidadeEstado);
             }
             

@@ -118,7 +118,7 @@ public class Venda {
 
     @Override
     public String toString() {
-        return "ModelVendas {" + "::codigo = " + this.codigo + "::produtosCodigo = " + this.produtosCodigo + "::clientesCodigo = " + this.clientesCodigo + "::dataVenda = " + this.dataVenda + "::quantidade = " + this.quantidade + "}";
+        return "Venda {" + "::codigo = " + this.codigo + "::produtosCodigo = " + this.produtosCodigo + "::clientesCodigo = " + this.clientesCodigo + "::dataVenda = " + this.dataVenda + "::quantidade = " + this.quantidade + "}";
     }
 
     /**
@@ -138,14 +138,14 @@ public class Venda {
     /**
      * @return the listaVenda
      */
-    public ArrayList<Venda> getListamModelVendases() {
+    public ArrayList<Venda> getListamVendaes() {
         return listaVenda;
     }
 
     /**
      * @param listaVenda the listaVenda to set
      */
-    public void setListamModelVendases(ArrayList<Venda> listaVenda) {
+    public void setListamVendaes(ArrayList<Venda> listaVenda) {
         this.listaVenda = listaVenda;
     }
 

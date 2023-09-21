@@ -8,16 +8,16 @@ package com.inosystem.pdv.model;
  *
  * @author jrpbj
  */
-public class Estado {
+public class UnidadeMedida {
 
     private Integer codigo;
-    private String uf;
-    private String nome;
+    private String abreviacao;
+    private String descricao;
 
     /**
      * Construtor
      */
-    public Estado() {
+    public UnidadeMedida() {
     }
 
     /**
@@ -37,39 +37,39 @@ public class Estado {
     }
 
     /**
-     * seta o valor de uf
+     * seta o valor de abreviacao
      *
-     * @param pUf
+     * @param pAbreviacao
      */
-    public void setUf(String pUf) {
-        this.uf = pUf;
+    public void setAbreviacao(String pAbreviacao) {
+        this.abreviacao = pAbreviacao;
     }
 
     /**
-     * return uf
+     * return abreviacao
      */
-    public String getUf() {
-        return this.uf;
+    public String getAbreviacao() {
+        return this.abreviacao;
     }
 
     /**
-     * seta o valor de nome
+     * seta o valor de descricao
      *
-     * @param pNome
+     * @param pDescricao
      */
-    public void setNome(String pNome) {
-        this.nome = pNome;
+    public void setDescricao(String pDescricao) {
+        this.descricao = pDescricao;
     }
 
     /**
-     * return nome
+     * return descricao
      */
-    public String getNome() {
-        return this.nome;
+    public String getDescricao() {
+        return this.descricao;
     }
 
     @Override
     public String toString() {
-        return "Estado {" + "::codigo = " + this.codigo + "::uf = " + this.uf + "::nome = " + this.nome + "}";
+        return "UnidadeMedida {" + "::codigo = " + this.codigo + "::abreviacao = " + this.abreviacao + "::descricao = " + this.descricao + "}";
     }
 }

@@ -83,9 +83,9 @@ public class FornecedorCidadeEstadoDao extends ConexaoMySql {
                 modelFornecedor.setCnpj(this.getResultSet().getString(16));
                 modelFornecedor.setInscEstadual(this.getResultSet().getString(17));
 
-                modelFornecedorCidadeEstado.setModelCidade(modelCidade);
-                modelFornecedorCidadeEstado.setModelEstado(modelEstado);
-                modelFornecedorCidadeEstado.setModelFornecedor(modelFornecedor);
+                modelFornecedorCidadeEstado.setCidade(modelCidade);
+                modelFornecedorCidadeEstado.setEstado(modelEstado);
+                modelFornecedorCidadeEstado.setFornecedor(modelFornecedor);
 
                 listaFornecedorCidadeEstado.add(modelFornecedorCidadeEstado);
             }

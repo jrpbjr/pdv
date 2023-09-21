@@ -1,18 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
-import controller.ControllerCaixa;
-import controller.ControllerCliente;
-import controller.ControllerFormaPagamento;
-import controller.ControllerProdutos;
-import controller.ControllerVendas;
+import com.inosystem.pdv.contoller.CaixaController;
+import com.inosystem.pdv.contoller.ClienteController;
+import com.inosystem.pdv.contoller.FormaPagamentoController;
+import com.inosystem.pdv.contoller.ProdutoController;
+import com.inosystem.pdv.contoller.VendaController;
+import com.inosystem.pdv.model.Caixa;
+import com.inosystem.pdv.model.Cliente;
+import com.inosystem.pdv.model.Config;
+import com.inosystem.pdv.model.FormaPagamento;
+import com.inosystem.pdv.model.Produto;
+import com.inosystem.pdv.model.SessaoUsuario;
+import com.inosystem.pdv.model.Venda;
+import com.inosystem.pdv.util.AtualizadorHorario;
+import com.inosystem.pdv.util.ManipularXML;
+import com.inosystem.pdv.util.Mascara;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,18 +27,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.ModelCaixa;
-import model.ModelCliente;
-import model.ModelConfig;
-import model.ModelFormaPagamento;
-import model.ModelProdutos;
-import model.ModelSessaoUsuario;
-import model.ModelVendas;
-import util.AtualizadorHorario;
-import util.BLMascaras;
-import util.GerarCupom;
-import util.Impressora;
-import util.ManipularXML;
 
 /**
  *
@@ -40,19 +34,19 @@ import util.ManipularXML;
  */
 public class ViewPdv extends javax.swing.JFrame {
 
-    ControllerVendas controllerVendas = new ControllerVendas();
-    ModelVendas modelVendas = new ModelVendas();
-    ModelProdutos modelProdutos = new ModelProdutos();
-    ArrayList<ModelVendas> listaModelVendas = new ArrayList<>();
-    ArrayList<ModelCliente> listaModelClientes = new ArrayList<>();
-    ArrayList<ModelProdutos> listaProdutoses = new ArrayList<>();
-    ControllerCliente controllerCliente = new ControllerCliente();
-    ControllerProdutos controllerProdutos = new ControllerProdutos();
-    ControllerFormaPagamento controllerTipoPagamento = new ControllerFormaPagamento();
-    ModelCaixa modelCaixa = new ModelCaixa();
-    ControllerCaixa controllerCaixa = new ControllerCaixa();
-    ArrayList<ModelFormaPagamento> listaModelTipoPagamentos = new ArrayList<>();
-    BLMascaras bLMascaras = new BLMascaras();
+    VendaController controllerVendas = new VendaController();
+    Venda modelVendas = new Venda();
+    Produto modelProdutos = new Produto();
+    ArrayList<Venda> listaVenda = new ArrayList<>();
+    ArrayList<Cliente> listaClientes = new ArrayList<>();
+    ArrayList<Produto> listaProdutoses = new ArrayList<>();
+    ClienteController controllerCliente = new ClienteController();
+    ProdutoController controllerProdutos = new ProdutoController();
+    FormaPagamentoController controllerTipoPagamento = new FormaPagamentoController();
+    Caixa modelCaixa = new Caixa();
+    CaixaController controllerCaixa = new CaixaController();
+    ArrayList<FormaPagamento> listaModelTipoPagamentos = new ArrayList<>();
+    Mascara bLMascaras = new Mascara();
     float valorCartao, valorCheque, valorDinheiro, valorVale;
     public float quantidadeProduto;
     public int codigoProduto;
@@ -67,7 +61,7 @@ public class ViewPdv extends javax.swing.JFrame {
     private int codigoCaixa;
     private java.awt.Image imagemB = null;
     //lerxml
-    ModelConfig modelConfig = new ModelConfig();
+    Config modelConfig = new Config();
 
     /**
      * Creates new form ViewPdv
@@ -414,7 +408,6 @@ public class ViewPdv extends javax.swing.JFrame {
         tbProdutos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tbProdutos.setRowSelectionAllowed(false);
         tbProdutos.setSelectionBackground(new java.awt.Color(0, 0, 0));
-        tbProdutos.setSelectionForeground(new java.awt.Color(0, 0, 0));
         tbProdutos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tbProdutos.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tbProdutos);
@@ -713,7 +706,7 @@ public class ViewPdv extends javax.swing.JFrame {
     private void jtfCodigoProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCodigoProdutoKeyPressed
         // TODO add your handling code here:
         keyPressed(evt);
-        this.jtfValorPagar.setText(new BLMascaras().arredondamentoComPontoDuasCasas(this.somaEAtualizaValorTotal()) + "");
+        this.jtfValorPagar.setText(new Mascara().arredondamentoComPontoDuasCasas(this.somaEAtualizaValorTotal()) + "");
         statusCaixa();
     }//GEN-LAST:event_jtfCodigoProdutoKeyPressed
 
@@ -747,7 +740,7 @@ public class ViewPdv extends javax.swing.JFrame {
             modelo.removeRow(item - 1);
             //readiciona todos
             renumerarItens();
-            this.jtfValorPagar.setText(new BLMascaras().arredondamentoComPontoDuasCasas(this.somaEAtualizaValorTotal()) + "");
+            this.jtfValorPagar.setText(new Mascara().arredondamentoComPontoDuasCasas(this.somaEAtualizaValorTotal()) + "");
         }
     }//GEN-LAST:event_jmiCancelarProdutoActionPerformed
 
@@ -776,7 +769,7 @@ public class ViewPdv extends javax.swing.JFrame {
         viewPesquisarProduto.setVisible(true);
         codigoProduto = viewPesquisarProduto.getReturnStatus();
         this.adicionarProdutoPesquisa(codigoProduto);
-        this.jtfValorPagar.setText(new BLMascaras().arredondamentoComPontoDuasCasas(this.somaEAtualizaValorTotal()) + "");
+        this.jtfValorPagar.setText(new Mascara().arredondamentoComPontoDuasCasas(this.somaEAtualizaValorTotal()) + "");
     }//GEN-LAST:event_jmiPesquisarProdutoActionPerformed
 
     private void jmiSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSairActionPerformed
@@ -833,12 +826,12 @@ public class ViewPdv extends javax.swing.JFrame {
     }
 
     private void adicionarValorCaixa() {
-        modelCaixa = new ModelCaixa();
+        modelCaixa = new Caixa();
         modelCaixa = controllerCaixa.verificarRetorarCaixaControler(numeroCaixa);
-        modelCaixa.setDinheiro(bLMascaras.arredondamentoComPontoDuasCasasDouble((float) modelCaixa.getDinheiro() + viewPagamentoPDV.getDinheiro()));
-        modelCaixa.setCartao(bLMascaras.arredondamentoComPontoDuasCasasDouble((float) modelCaixa.getCartao() + viewPagamentoPDV.getCartao()));
-        modelCaixa.setCheque(bLMascaras.arredondamentoComPontoDuasCasasDouble((float) modelCaixa.getCheque() + viewPagamentoPDV.getCheque()));
-        modelCaixa.setConvenio(bLMascaras.arredondamentoComPontoDuasCasasDouble((float) modelCaixa.getConvenio() + viewPagamentoPDV.getConvenio()));
+        modelCaixa.setDinheiro(bLMascaras.arredondamentoComPontoDuasCasasDouble(modelCaixa.getDinheiro().floatValue() + viewPagamentoPDV.getDinheiro()));
+        modelCaixa.setCartao(bLMascaras.arredondamentoComPontoDuasCasasDouble(modelCaixa.getCartao().floatValue() + viewPagamentoPDV.getCartao()));
+        modelCaixa.setCheque(bLMascaras.arredondamentoComPontoDuasCasasDouble(modelCaixa.getCheque().floatValue() + viewPagamentoPDV.getCheque()));
+        modelCaixa.setConvenio(bLMascaras.arredondamentoComPontoDuasCasasDouble(modelCaixa.getConvenio().floatValue() + viewPagamentoPDV.getConvenio()));
 
         controllerCaixa.atualizarCaixaPDVController(modelCaixa);
     }
@@ -1023,7 +1016,7 @@ public class ViewPdv extends javax.swing.JFrame {
     }
 
     public String retornarUsuarioLogado() {
-        return ModelSessaoUsuario.nome;
+        return SessaoUsuario.nome;
     }
 
     private void configurar() {
@@ -1036,39 +1029,39 @@ public class ViewPdv extends javax.swing.JFrame {
     }
 
     private boolean salvarVenda() {
-        listaModelVendas = new ArrayList<>();
+        listaVenda = new ArrayList<>();
         listaProdutoses = new ArrayList<>();
         int codigoProduto;
         float quantidade = 0;
 
         for (int i = 0; i < tbProdutos.getRowCount(); i++) {
-            modelVendas = new ModelVendas();
-            modelProdutos = new ModelProdutos();
+            modelVendas = new Venda();
+            modelProdutos = new Produto();
             modelVendas.setClientesCodigo(1);
-            modelVendas.setDesconto(viewPagamentoPDV.getDesconto());
-            modelVendas.setTaxaEntrega(0f);
-            modelVendas.setValorTotal(viewPagamentoPDV.getValorTotal());
+            modelVendas.setDesconto(new BigDecimal(viewPagamentoPDV.getDesconto()));
+            modelVendas.setTaxaEntrega(new BigDecimal(0f));
+            modelVendas.setValorTotal(new BigDecimal(viewPagamentoPDV.getValorTotal()));
             try {
                 modelVendas.setDataVenda(bLMascaras.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
             } catch (Exception ex) {
                 Logger.getLogger(ViewVenda.class.getName()).log(Level.SEVERE, null, ex);
             }
-            modelVendas.setCodigoUsuario(ModelSessaoUsuario.codigo);
+            modelVendas.setCodigoUsuario(SessaoUsuario.codigo);
             codigoProduto = Integer.parseInt(tbProdutos.getValueAt(i, 1).toString());
             modelVendas.setProdutosCodigo(codigoProduto);
             modelVendas.setTipo(1);
-            modelVendas.setQuantidade(Float.parseFloat(tbProdutos.getValueAt(i, 4).toString()));
-            modelVendas.setValor(Double.parseDouble(tbProdutos.getValueAt(i, 5).toString()));
+            modelVendas.setQuantidade(new BigDecimal(tbProdutos.getValueAt(i, 4).toString()));
+            modelVendas.setValor(new BigDecimal(tbProdutos.getValueAt(i, 5).toString()));
             modelVendas.setTipoPagamento(1);
             modelVendas.setObservacao("");
             modelProdutos.setCodigo(codigoProduto);
             quantidade = controllerProdutos.getProdutosController(codigoProduto).getEstoque() - Float.parseFloat(tbProdutos.getValueAt(i, 4).toString());
             modelProdutos.setEstoque(quantidade);
-            listaModelVendas.add(modelVendas);
+            listaVenda.add(modelVendas);
             listaProdutoses.add(modelProdutos);
         }
-        modelVendas.setListamModelVendases(listaModelVendas);
-        modelProdutos.setListaModelProdutoses(listaProdutoses);
+        modelVendas.setListamVendaes(listaVenda);
+        modelProdutos.setListaProdutoes(listaProdutoses);
 
         //salvar venda
         codigoVenda = controllerVendas.salvarVendasController(modelVendas);

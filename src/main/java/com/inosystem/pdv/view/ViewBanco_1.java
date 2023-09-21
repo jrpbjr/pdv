@@ -1,17 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
-import controller.ControllerBanco;
+import com.inosystem.pdv.contoller.BancoController;
+import com.inosystem.pdv.model.Banco;
+import com.inosystem.pdv.util.Mascara;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.ModelBanco;
-import util.BLMascaras;
-import util.ExecutarSemLogin;
 
 /**
  *
@@ -19,11 +13,11 @@ import util.ExecutarSemLogin;
  */
 public class ViewBanco_1 extends javax.swing.JFrame {
 
-    ControllerBanco controllerBanco = new ControllerBanco();
-    ModelBanco modelBanco = new ModelBanco();
-    ArrayList<ModelBanco> listaModelBancos = new ArrayList<>();
+    BancoController controllerBanco = new BancoController();
+    Banco modelBanco = new Banco();
+    ArrayList<Banco> listaBancos = new ArrayList<>();
     String tipoCadastro;
-    BLMascaras bLMascaras = new BLMascaras();
+    Mascara bLMascaras = new Mascara();
 
     /**
      * Creates new form ViewBanco
@@ -354,7 +348,7 @@ public class ViewBanco_1 extends javax.swing.JFrame {
 
     //salvar novo banco
     private boolean salvarBanco() {
-        modelBanco = new ModelBanco();
+        modelBanco = new Banco();
         modelBanco.setBanco(jtfCodigoBanco.getText());
         modelBanco.setDescricao(jtfDescricao.getText());
         modelBanco.setNomeReduzido(jtfNomeReduzido.getText());
@@ -376,7 +370,7 @@ public class ViewBanco_1 extends javax.swing.JFrame {
 
     //salvar alterações
     private boolean alterarBanco() {
-        modelBanco = new ModelBanco();
+        modelBanco = new Banco();
         modelBanco.setCodigo(Integer.parseInt(jtfCodigo.getText()));
         modelBanco.setBanco(jtfCodigoBanco.getText());
         modelBanco.setDescricao(jtfDescricao.getText());
@@ -409,17 +403,17 @@ public class ViewBanco_1 extends javax.swing.JFrame {
 
     // carregar bancos salvos
     private void carregarBanco() {
-        listaModelBancos = controllerBanco.getListaBancoController();
+        listaBancos = controllerBanco.getListaBancoController();
         DefaultTableModel modelo = (DefaultTableModel) jtBancos.getModel();
         modelo.setNumRows(0);
         //CARREGA OS DADOS DA LISTA NA TABELA
-        int cont = listaModelBancos.size();
+        int cont = listaBancos.size();
         for (int i = 0; i < cont; i++) {
             modelo.addRow(new Object[]{
-                listaModelBancos.get(i).getCodigo(),
-                listaModelBancos.get(i).getBanco(),
-                listaModelBancos.get(i).getNomeReduzido(),
-                listaModelBancos.get(i).getEmiteBoleto()
+                listaBancos.get(i).getCodigo(),
+                listaBancos.get(i).getBanco(),
+                listaBancos.get(i).getNomeReduzido(),
+                listaBancos.get(i).getEmiteBoleto()
             });
         }
     }

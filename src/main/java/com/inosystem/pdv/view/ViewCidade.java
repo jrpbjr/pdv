@@ -1,20 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
-import controller.ControllerCidade;
-import controller.ControllerCidadeEstado;
-import controller.ControllerEstado;
+import com.inosystem.pdv.contoller.CidadeController;
+import com.inosystem.pdv.contoller.CidadeEstadoController;
+import com.inosystem.pdv.contoller.EstadoController;
+import com.inosystem.pdv.model.Cidade;
+import com.inosystem.pdv.model.CidadeEstado;
+import com.inosystem.pdv.model.Estado;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.ModelCidade;
-import model.ModelCidadeEstado;
-import model.ModelEstado;
 
 /**
  *
@@ -22,14 +17,14 @@ import model.ModelEstado;
  */
 public class ViewCidade extends javax.swing.JFrame {
 
-    ControllerEstado controllerEstados = new ControllerEstado();
-    ControllerCidade controllerCidade = new ControllerCidade();
-    ControllerCidadeEstado controllerCidadeEstado = new ControllerCidadeEstado();
-    ModelEstado modelEstado = new ModelEstado();
-    ModelCidade modelCidade = new ModelCidade();
-    ArrayList<ModelCidadeEstado> listaModelCidadeEstados = new ArrayList<>();
-    ArrayList<ModelEstado> listaModelEstados = new ArrayList<>();
-    ArrayList<ModelCidade> listaModelCidades = new ArrayList<>();
+    EstadoController EstadoControllers = new EstadoController();
+    CidadeController controllerCidade = new CidadeController();
+    CidadeEstadoController controllerCidadeEstado = new CidadeEstadoController();
+    Estado modelEstado = new Estado();
+    Cidade modelCidade = new Cidade();
+    ArrayList<CidadeEstado> listaCidadeEstados = new ArrayList<>();
+    ArrayList<Estado> listaEstados = new ArrayList<>();
+    ArrayList<Cidade> listaCidades = new ArrayList<>();
     String tipoCadastro;
 
     /**
@@ -279,7 +274,7 @@ public class ViewCidade extends javax.swing.JFrame {
      * @return
      */
     private boolean salvarCidade() {
-        modelCidade.setFk_cod_estado(controllerEstados.getEstadoController(this.cbEstado.getSelectedItem().toString()).getCodigo());
+        modelCidade.setFk_cod_estado(EstadoControllers.getEstadoController(this.cbEstado.getSelectedItem().toString()).getCodigo());
         modelCidade.setNome(this.tfCidade.getText());
         try {
             modelCidade.setCodigoIBGE(Integer.parseInt(this.tfCodigoIBGE.getText()));
@@ -307,7 +302,7 @@ public class ViewCidade extends javax.swing.JFrame {
     private boolean alterarCidade() {
         modelCidade.setCodigo(Integer.parseInt(this.jtfCodigo.getText()));
         modelCidade.setCodigoIBGE(Integer.parseInt(this.tfCodigoIBGE.getText()));
-        modelCidade.setFk_cod_estado(controllerEstados.getEstadoController(this.cbEstado.getSelectedItem().toString()).getCodigo());
+        modelCidade.setFk_cod_estado(EstadoControllers.getEstadoController(this.cbEstado.getSelectedItem().toString()).getCodigo());
         modelCidade.setNome(this.tfCidade.getText());
 
         //alterar 
@@ -323,18 +318,18 @@ public class ViewCidade extends javax.swing.JFrame {
     }
 
     private void carregarCidade() {
-        listaModelCidadeEstados = controllerCidadeEstado.getListaCidadeEstadoController();
+        listaCidadeEstados = controllerCidadeEstado.getListaCidadeEstadoController();
         DefaultTableModel modelo = (DefaultTableModel) tbCidades.getModel();
         modelo.setNumRows(0);
         //CARREGA OS DADOS DA LISTA NA TABELA
-        int cont = listaModelCidadeEstados.size();
+        int cont = listaCidadeEstados.size();
         for (int i = 0; i < cont; i++) {
             modelo.addRow(new Object[]{
-                listaModelCidadeEstados.get(i).getModelCidade().getCodigo(),
-                listaModelCidadeEstados.get(i).getModelCidade().getCodigoIBGE(),
-                listaModelCidadeEstados.get(i).getModelEstado().getUf(),
-                listaModelCidadeEstados.get(i).getModelEstado().getNome(),
-                listaModelCidadeEstados.get(i).getModelCidade().getNome()
+                listaCidadeEstados.get(i).getCidade().getCodigo(),
+                listaCidadeEstados.get(i).getCidade().getCodigoIBGE(),
+                listaCidadeEstados.get(i).getEstado().getUf(),
+                listaCidadeEstados.get(i).getEstado().getNome(),
+                listaCidadeEstados.get(i).getCidade().getNome()
             });
         }
     }
@@ -352,7 +347,7 @@ public class ViewCidade extends javax.swing.JFrame {
             this.jtfCodigo.setText(String.valueOf(modelCidade.getCodigo()));
             this.tfCodigoIBGE.setText(String.valueOf(modelCidade.getCodigoIBGE()));
             this.tfCidade.setText(modelCidade.getNome());
-            this.cbEstado.setSelectedItem(controllerEstados.getEstadoController(modelCidade.getFk_cod_estado()).getNome());
+            this.cbEstado.setSelectedItem(EstadoControllers.getEstadoController(modelCidade.getFk_cod_estado()).getNome());
             return true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Código inválido ou nenhum registro selecionado", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -404,10 +399,10 @@ public class ViewCidade extends javax.swing.JFrame {
     }
 
     private void listarEstados() {
-        listaModelEstados = controllerEstados.getListaEstadoController();
+        listaEstados = EstadoControllers.getListaEstadoController();
         cbEstado.removeAllItems();
-        for (int i = 0; i < listaModelEstados.size(); i++) {
-            cbEstado.addItem(listaModelEstados.get(i).getNome());
+        for (int i = 0; i < listaEstados.size(); i++) {
+            cbEstado.addItem(listaEstados.get(i).getNome());
         }
     }
 

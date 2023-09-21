@@ -50,11 +50,11 @@ public class ViewUsuario extends javax.swing.JFrame {
 //        private void carregarDadosDoBanco() {
 //        modelConfig = new Config();
 //        modelConfig = manipularXML.lerXmlConfig();
-//        ModelSessaoUsuario.ipServidor = modelConfig.getIp();
-//        ModelSessaoUsuario.nomeDoBanco = modelConfig.getNomeBanco();
-//        ModelSessaoUsuario.usuarioBanco = modelConfig.getUsuario();
-//        ModelSessaoUsuario.senhaBanco = modelConfig.getSenha();
-//        ModelSessaoUsuario.caminhoMySQL = modelConfig.getCaminhoMySQL();
+//        SessaoUsuario.ipServidor = modelConfig.getIp();
+//        SessaoUsuario.nomeDoBanco = modelConfig.getNomeBanco();
+//        SessaoUsuario.usuarioBanco = modelConfig.getUsuario();
+//        SessaoUsuario.senhaBanco = modelConfig.getSenha();
+//        SessaoUsuario.caminhoMySQL = modelConfig.getCaminhoMySQL();
 //    }
 //    
     /**

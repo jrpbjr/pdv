@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
+import com.inosystem.pdv.util.Mascara;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -13,7 +9,6 @@ import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
-import util.BLMascaras;
 
 /**
  *
@@ -187,7 +182,7 @@ public class ViewQuantidadePDV extends javax.swing.JDialog {
     private void jtfQuantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfQuantidadeFocusLost
         // TODO add your handling code her
         try {
-            this.jtfQuantidade.setText(new BLMascaras().arredondamentoComPontoTresCasas(Float.parseFloat(jtfQuantidade.getText())) + "");
+            this.jtfQuantidade.setText(new Mascara().arredondamentoComPontoTresCasas(Float.parseFloat(jtfQuantidade.getText())) + "");
         } catch (Exception e) {
             this.jtfQuantidade.setText("1");
         }

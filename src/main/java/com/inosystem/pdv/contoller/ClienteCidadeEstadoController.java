@@ -18,7 +18,7 @@ private ClienteCidadeEstadoDao dAOClienteCidadeEstado = new ClienteCidadeEstadoD
 
     /**
     * recupera uma lista deCidadeEstado
-    * @param pModelCidade
+    * @param pCidade
     * return ArrayList
     */
     public ArrayList<ClienteCidadeEstado> getListaClienteCidadeEstadoController(){

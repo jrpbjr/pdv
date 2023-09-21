@@ -61,7 +61,7 @@ public class VendaDao extends ConexaoMySql {
     public boolean salvarProdutosVendasDAO(Venda pVenda) {
         try {
             this.conectar();
-            int sizeLista = pVenda.getListamModelVendases().size();
+            int sizeLista = pVenda.getListamVendaes().size();
             for (int i = 0; i < sizeLista; i++) {
                 this.insertSQL(
                         "insert into VENDAS_PRODUTO( "
@@ -70,10 +70,10 @@ public class VendaDao extends ConexaoMySql {
                         + "QUANTIDADE, "
                         + "VALOR_UNITARIO) "
                         + " VALUES ("
-                        + "'" + pVenda.getListamModelVendases().get(i).getProdutosCodigo() + "',"
+                        + "'" + pVenda.getListamVendaes().get(i).getProdutosCodigo() + "',"
                         + "'" + pVenda.getCodigo() + "',"
-                        + "'" + pVenda.getListamModelVendases().get(i).getQuantidade() + "',"
-                        + "'" + pVenda.getListamModelVendases().get(i).getValor() + "'"
+                        + "'" + pVenda.getListamVendaes().get(i).getQuantidade() + "',"
+                        + "'" + pVenda.getListamVendaes().get(i).getValor() + "'"
                         + ");"
                 );
             }

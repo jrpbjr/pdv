@@ -5,9 +5,15 @@
  */
 package com.inosystem.pdv.view;
 
-import controller.ControllerCliente;
-import controller.ControllerContaReceber;
-import controller.ControllerFormaPagamento;
+import com.inosystem.pdv.contoller.ClienteController;
+import com.inosystem.pdv.contoller.ContaReceberController;
+import com.inosystem.pdv.contoller.FormaPagamentoController;
+import com.inosystem.pdv.model.Cliente;
+import com.inosystem.pdv.model.ContaReceber;
+import com.inosystem.pdv.model.FormaPagamento;
+import com.inosystem.pdv.util.AguardeGerandoRelatorio;
+import com.inosystem.pdv.util.Mascara;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,11 +23,6 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import model.ModelCliente;
-import model.ModelContaReceber;
-import model.ModelFormaPagamento;
-import util.AguardeGerandoRelatorio;
-import util.BLMascaras;
 
 /**
  *
@@ -29,16 +30,16 @@ import util.BLMascaras;
  */
 public class ViewContasReceber extends javax.swing.JFrame {
 
-    ModelContaReceber modelContaReceber = new ModelContaReceber();
-    ControllerCliente controllerCliente = new ControllerCliente();
-    ArrayList<ModelContaReceber> listaModelConta = new ArrayList<>();
-    ControllerContaReceber controllerContaReceber = new ControllerContaReceber();
-    ControllerFormaPagamento controllerTipoPagamento = new ControllerFormaPagamento();
-    ArrayList<ModelFormaPagamento> listaModelTipoPagamentos = new ArrayList<>();
-    ArrayList<ModelCliente> listaModelClientes = new ArrayList<>();
-    ModelCliente modelCliente = new ModelCliente();
+    ContaReceber modelContaReceber = new ContaReceber();
+    ClienteController controllerCliente = new ClienteController();
+    ArrayList<ContaReceber> listaModelConta = new ArrayList<>();
+    ContaReceberController controllerContaReceber = new ContaReceberController();
+    FormaPagamentoController controllerTipoPagamento = new FormaPagamentoController();
+    ArrayList<FormaPagamento> listaModelTipoPagamentos = new ArrayList<>();
+    ArrayList<Cliente> listaClientes = new ArrayList<>();
+    Cliente modelCliente = new Cliente();
     String tipoCadastro;
-    BLMascaras bLMascaras = new BLMascaras();
+    Mascara bLMascaras = new Mascara();
 
     /**
      * Creates new form ViewContasPagar
@@ -693,7 +694,7 @@ public class ViewContasReceber extends javax.swing.JFrame {
     }//GEN-LAST:event_jbVisualizarPagar2ActionPerformed
 
     private void jbReceberContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbReceberContaActionPerformed
-        modelContaReceber = new ModelContaReceber();
+        modelContaReceber = new ContaReceber();
         try {
             int linha = tbContasReceber.getSelectedRow();
             int codigo = (int) tbContasReceber.getValueAt(linha, 0);
@@ -720,7 +721,7 @@ public class ViewContasReceber extends javax.swing.JFrame {
     }//GEN-LAST:event_jbReceberContaActionPerformed
 
     private void jpRevorgarContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpRevorgarContaActionPerformed
-        modelContaReceber = new ModelContaReceber();
+        modelContaReceber = new ContaReceber();
         try {
             int linha = tbContasRecebidas.getSelectedRow();
             int codigo = (int) tbContasRecebidas.getValueAt(linha, 0);
@@ -748,12 +749,12 @@ public class ViewContasReceber extends javax.swing.JFrame {
 
     private void jtfValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfValorKeyReleased
         // converte virgula em ponto
-        this.jtfValor.setText(new BLMascaras().converterVirgulaParaPonto(this.jtfValor.getText()));
+        this.jtfValor.setText(new Mascara().converterVirgulaParaPonto(this.jtfValor.getText()));
     }//GEN-LAST:event_jtfValorKeyReleased
 
     private void jtfValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfValorFocusLost
         //formatar campo
-        this.jtfValor.setText(new BLMascaras().addPonto(this.jtfValor.getText()));
+        this.jtfValor.setText(new Mascara().addPonto(this.jtfValor.getText()));
     }//GEN-LAST:event_jtfValorFocusLost
 
     private void cbCodClientePopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cbCodClientePopupMenuWillBecomeInvisible
@@ -808,7 +809,7 @@ public class ViewContasReceber extends javax.swing.JFrame {
      * @return
      */
     private boolean recuperarConta(int pCodigoConta) {
-        modelContaReceber = new ModelContaReceber();
+        modelContaReceber = new ContaReceber();
         modelContaReceber = controllerContaReceber.getContaPagarController(pCodigoConta);
         this.cbClientes.setSelectedItem(controllerCliente.getClienteController(modelContaReceber.getCodigoPessoa()).getNome());
         this.jtfCodigoConta.setText(String.valueOf(pCodigoConta));
@@ -861,7 +862,7 @@ public class ViewContasReceber extends javax.swing.JFrame {
             modelContaReceber.setVencimento(bLMascaras.converterDataParaDateUS(jdVencimento.getDate()));
             modelContaReceber.setPagamento(bLMascaras.converterDataParaDateUS(jdPagamento.getDate()));
             modelContaReceber.setSituacao(0);
-            modelContaReceber.setValor(Float.parseFloat(this.jtfValor.getText()));
+            modelContaReceber.setValor(new BigDecimal(this.jtfValor.getText()));
             modelContaReceber.setTipoPagamento(controllerTipoPagamento.getFormaPagamentoController(this.jcbTipoPagamento.getSelectedItem().toString()).getCodigo());
             modelContaReceber.setObservacao(this.jtfObservacao.getText());
 
@@ -891,7 +892,7 @@ public class ViewContasReceber extends javax.swing.JFrame {
     private boolean alterar() {
         modelContaReceber.setCodigoPessoa(controllerCliente.getClienteController(this.cbClientes.getSelectedItem().toString()).getCodigo());
         modelContaReceber.setDescricao(this.jtfDescricao.getText());
-        modelContaReceber.setCodigo(Integer.parseInt(this.jtfCodigoConta.getText()));
+        modelContaReceber.setCodigo(Integer.valueOf(this.jtfCodigoConta.getText()));
         try {
             modelContaReceber.setData(bLMascaras.converterDataParaDateUS(jdData.getDate()));
             modelContaReceber.setVencimento(bLMascaras.converterDataParaDateUS(jdVencimento.getDate()));
@@ -901,7 +902,7 @@ public class ViewContasReceber extends javax.swing.JFrame {
         }
 
         modelContaReceber.setSituacao(0);
-        modelContaReceber.setValor(Float.parseFloat(this.jtfValor.getText()));
+        modelContaReceber.setValor(new BigDecimal(this.jtfValor.getText()));
         modelContaReceber.setTipoPagamento(controllerTipoPagamento.getFormaPagamentoController(this.jcbTipoPagamento.getSelectedItem().toString()).getCodigo());
         modelContaReceber.setObservacao(this.jtfObservacao.getText());
 
@@ -960,12 +961,12 @@ public class ViewContasReceber extends javax.swing.JFrame {
     }
 
     private void listarClientes() {
-        listaModelClientes = controllerCliente.getListaClienteController();
+        listaClientes = controllerCliente.getListaClienteController();
         cbClientes.removeAllItems();
         cbCodCliente.removeAllItems();
-        for (int i = 0; i < listaModelClientes.size(); i++) {
-            cbClientes.addItem(listaModelClientes.get(i).getNome());
-            cbCodCliente.addItem(listaModelClientes.get(i).getCodigo());
+        for (int i = 0; i < listaClientes.size(); i++) {
+            cbClientes.addItem(listaClientes.get(i).getNome());
+            cbCodCliente.addItem(listaClientes.get(i).getCodigo());
         }
     }
 

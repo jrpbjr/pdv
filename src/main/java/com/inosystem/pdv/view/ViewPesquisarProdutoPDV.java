@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
-import controller.ControllerProdutos;
+import com.inosystem.pdv.contoller.ProdutoController;
+import com.inosystem.pdv.model.Produto;
+import com.inosystem.pdv.util.Mascara;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -19,8 +16,6 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import model.ModelProdutos;
-import util.BLMascaras;
 
 /**
  *
@@ -28,7 +23,7 @@ import util.BLMascaras;
  */
 public class ViewPesquisarProdutoPDV extends javax.swing.JDialog {
 
-    BLMascaras bLMascaras = new BLMascaras();
+    Mascara bLMascaras = new Mascara();
 
     /**
      * A return status code - returned if Cancel button has been pressed
@@ -244,17 +239,17 @@ public class ViewPesquisarProdutoPDV extends javax.swing.JDialog {
     }
 
     private void carregarProdutos() {
-        ControllerProdutos controllerProdutos = new ControllerProdutos();
-        ArrayList<ModelProdutos> listamModelProdutos = new ArrayList<>();
-        listamModelProdutos = controllerProdutos.getListaProdutosController();
+        ProdutoController controllerProdutos = new ProdutoController();
+        ArrayList<Produto> listamProduto = new ArrayList<>();
+        listamProduto = controllerProdutos.getListaProdutosController();
         DefaultTableModel modelo = (DefaultTableModel) jtProdutos.getModel();
         modelo.setNumRows(0);
         //CARREGA OS DADOS DA LISTA NA TABELA
-        int cont = listamModelProdutos.size();
+        int cont = listamProduto.size();
         for (int i = 0; i < cont; i++) {
             modelo.addRow(new Object[]{
-                listamModelProdutos.get(i).getCodigo(),
-                listamModelProdutos.get(i).getNome()
+                listamProduto.get(i).getCodigo(),
+                listamProduto.get(i).getNome()
             });
         }
     }

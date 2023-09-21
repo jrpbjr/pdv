@@ -55,21 +55,21 @@ public class EmpresaCidadeEstado {
     /**
      * seta o valor de empresa
      *
-     * @param pModelEmpresa
+     * @param pEmpresa
      */
-    public void setModelEmpresa(Empresa pModelEmpresa) {
-        this.empresa = pModelEmpresa;
+    public void setEmpresa(Empresa pEmpresa) {
+        this.empresa = pEmpresa;
     }
 
     /**
      * return empresa
      */
-    public Empresa getModelEmpresa() {
+    public Empresa getEmpresa() {
         return this.empresa;
     }
 
     @Override
     public String toString() {
-        return "ModelEmpresaCidadeestado {" + "::cidade = " + this.cidade + "::empresa = " + this.empresa + "::empresa = " + this.empresa + "}";
+        return "EmpresaCidadeestado {" + "::cidade = " + this.cidade + "::empresa = " + this.empresa + "::empresa = " + this.empresa + "}";
     }
 }

@@ -1,12 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
-import controller.ControllerCliente;
-import controller.ControllerVendas;
+import com.inosystem.pdv.contoller.ClienteController;
+import com.inosystem.pdv.contoller.VendaController;
+import com.inosystem.pdv.model.Config;
+import com.inosystem.pdv.model.Venda;
+import com.inosystem.pdv.util.ManipularXML;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -15,11 +13,6 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import model.ModelConfig;
-import model.ModelVendas;
-import util.GerarCupom;
-import util.Impressora;
-import util.ManipularXML;
 
 /**
  *
@@ -27,11 +20,11 @@ import util.ManipularXML;
  */
 public class ViewImprimirPDV extends javax.swing.JDialog {
 
-    ControllerVendas controllerVendas = new ControllerVendas();
-    ModelVendas modelVendas = new ModelVendas();
-    ArrayList<ModelVendas> listaModelVendas = new ArrayList<>();
-    ControllerCliente controllerCliente = new ControllerCliente();
-    ModelConfig modelConfig = new ModelConfig();
+    VendaController controllerVendas = new VendaController();
+    Venda modelVendas = new Venda();
+    ArrayList<Venda> listaVenda = new ArrayList<>();
+    ClienteController controllerCliente = new ClienteController();
+    Config modelConfig = new Config();
 
     /**
      * Creates new form ViewImprimirPDV
@@ -227,15 +220,15 @@ public class ViewImprimirPDV extends javax.swing.JDialog {
     }
 
     private void carregarVendas() {
-        listaModelVendas = controllerVendas.getListaPedidosController();
+        listaVenda = controllerVendas.getListaPedidosController();
         DefaultTableModel modelo = (DefaultTableModel) tbConsultasVendas.getModel();
         modelo.setNumRows(0);
         //CARREGA OS DADOS DA LISTA NA TABELA
-        int cont = listaModelVendas.size();
+        int cont = listaVenda.size();
         for (int i = 0; i < cont; i++) {
             modelo.addRow(new Object[]{
-                listaModelVendas.get(i).getCodigo(),
-                controllerCliente.getClienteController(listaModelVendas.get(i).getClientesCodigo()).getNome()
+                listaVenda.get(i).getCodigo(),
+                controllerCliente.getClienteController(listaVenda.get(i).getClientesCodigo()).getNome()
             });
         }
     }

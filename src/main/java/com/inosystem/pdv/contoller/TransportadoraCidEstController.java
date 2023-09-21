@@ -19,7 +19,7 @@ private TransportadoraCidEstDao daoTransportadoraCidEst = new TransportadoraCidE
     /**
      * recupera uma lista deTransportadoraCidEst
      *
-     * @param pModelCidade return ArrayList
+     * @param pCidade return ArrayList
      */
     public ArrayList<TransportadoraCidEst> getListaTransportadoraCidadeEstadoController() {
         return this.daoTransportadoraCidEst.getListaTransportadoraCidadeEstadoDAO();

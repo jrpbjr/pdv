@@ -100,7 +100,7 @@ public class Caixa {
 
     @Override
     public String toString(){
-        return "ModelCaixa {" + "::codigo = " + this.codigo + "::dinheiro = " + this.dinheiro + "::cheque = " + this.cheque + "::cartao = " + this.cartao + "::vale = " + this.convenio +  "}";
+        return "Caixa {" + "::codigo = " + this.codigo + "::dinheiro = " + this.dinheiro + "::cheque = " + this.cheque + "::cartao = " + this.cartao + "::vale = " + this.convenio +  "}";
     }
 
     /**

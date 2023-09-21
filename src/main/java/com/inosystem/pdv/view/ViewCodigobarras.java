@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
+import com.inosystem.pdv.contoller.ProdutoController;
+import com.inosystem.pdv.model.Produto;
 import java.io.FileOutputStream;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
@@ -15,14 +12,12 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.BarcodeEAN;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfWriter;
-import controller.ControllerProdutos;
 import java.awt.Desktop;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.ModelProdutos;
 
 /**
  *
@@ -30,10 +25,10 @@ import model.ModelProdutos;
  */
 public class ViewCodigobarras extends javax.swing.JFrame {
 
-    ArrayList<ModelProdutos> listaModelProdutos = new ArrayList<>();
-    ModelProdutos modelProdutos = new ModelProdutos();
+    ArrayList<Produto> listaProduto = new ArrayList<>();
+    Produto modelProduto = new Produto();
     ArrayList<String> listaTipos = new ArrayList<>();
-    ControllerProdutos controllerProdutos = new ControllerProdutos();
+    ProdutoController controllerProduto = new ProdutoController();
 
     /**
      * Creates new form ViewCodigobarras
@@ -45,14 +40,14 @@ public class ViewCodigobarras extends javax.swing.JFrame {
     }
 
     private void carregarprodutos() {
-        listaModelProdutos = new ArrayList<>();
-        listaModelProdutos = controllerProdutos.getListaProdutosController();
+        listaProduto = new ArrayList<>();
+        listaProduto = controllerProduto.getListaProdutosController();
         DefaultTableModel modelo = (DefaultTableModel) jtProdutos.getModel();
-        int contPagar = listaModelProdutos.size();
+        int contPagar = listaProduto.size();
         for (int i = 0; i < contPagar; i++) {
             modelo.addRow(new Object[]{
-                listaModelProdutos.get(i).getNome(),
-                listaModelProdutos.get(i).getCodigoBarrasEan()
+                listaProduto.get(i).getNome(),
+                listaProduto.get(i).getCodigoBarrasEan()
             });
         }
 
@@ -260,16 +255,16 @@ public class ViewCodigobarras extends javax.swing.JFrame {
 
     private void jbgerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbgerarActionPerformed
 //        zerar a lista
-        listaModelProdutos = new ArrayList<>();
+        listaProduto = new ArrayList<>();
         //adicionar os itens a lista
         for (int i = 0; i < jtCodigos.getRowCount(); i++) {
-            modelProdutos = new ModelProdutos();
-            modelProdutos.setNome(jtCodigos.getValueAt(i, 0).toString());
-            modelProdutos.setCodigoBarrasEan(jtCodigos.getValueAt(i, 1).toString());
-            listaModelProdutos.add(modelProdutos);
+            modelProduto = new Produto();
+            modelProduto.setNome(jtCodigos.getValueAt(i, 0).toString());
+            modelProduto.setCodigoBarrasEan(jtCodigos.getValueAt(i, 1).toString());
+            listaProduto.add(modelProduto);
         }
         //gerar o código
-        this.gerarCodigoBarras(listaModelProdutos);
+        this.gerarCodigoBarras(listaProduto);
     }//GEN-LAST:event_jbgerarActionPerformed
 
     private void jbAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAdicionarActionPerformed
@@ -328,7 +323,8 @@ public class ViewCodigobarras extends javax.swing.JFrame {
             //pega a quantidade de linhas e joga na variavel
             modelo.addRow(new Object[]{
                 jtProdutos.getValueAt(linhaSelecionada, 0),
-                jtProdutos.getValueAt(linhaSelecionada, 1)
+                jtProdutos
+                        .getValueAt(linhaSelecionada, 1)
             });
         }
     }//GEN-LAST:event_jtProdutosMouseClicked
@@ -369,7 +365,7 @@ public class ViewCodigobarras extends javax.swing.JFrame {
         });
     }
 
-    public void gerarCodigoBarras(ArrayList<ModelProdutos> pListaModelProdutos) {
+    public void gerarCodigoBarras(ArrayList<Produto> pListaProduto) {
 
 // criando um objeto da classe Document
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
@@ -385,8 +381,8 @@ public class ViewCodigobarras extends javax.swing.JFrame {
             document.open();
 
 //adicionando um novo paragrafo.
-            for (int i = 0; i < pListaModelProdutos.size(); i++) {
-                document.add(new Paragraph(pListaModelProdutos.get(i).getNome()));
+            for (int i = 0; i < pListaProduto.size(); i++) {
+                document.add(new Paragraph(pListaProduto.get(i).getNome()));
 
                 document.add(new Paragraph("    "));
 
@@ -407,7 +403,7 @@ public class ViewCodigobarras extends javax.swing.JFrame {
                     codeEAN.setCodeType(codeEAN.UPCE);
                 }
 
-                codeEAN.setCode(pListaModelProdutos.get(i).getCodigoBarrasEan());
+                codeEAN.setCode(pListaProduto.get(i).getCodigoBarrasEan());
 
                 Image imageEAN = codeEAN.createImageWithBarcode(cb, null, null);
 

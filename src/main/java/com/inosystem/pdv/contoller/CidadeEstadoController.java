@@ -18,7 +18,7 @@ private CidadeEstadoDao daoCidadeEstado = new CidadeEstadoDao();
 
     /**
     * recupera uma lista deCidadeEstado
-    * @param pModelCidade
+    * @param pCidade
     * return ArrayList
     */
     public ArrayList<CidadeEstado> getListaCidadeEstadoController(){

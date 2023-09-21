@@ -1,27 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
-import controller.ControllerContaPagar;
-import controller.ControllerFormaPagamento;
-import controller.ControllerFornecedor;
+import com.inosystem.pdv.contoller.ContaPagarController;
+import com.inosystem.pdv.contoller.FormaPagamentoController;
+import com.inosystem.pdv.contoller.FornecedorController;
+import com.inosystem.pdv.model.ContaPagar;
+import com.inosystem.pdv.model.FormaPagamento;
+import com.inosystem.pdv.model.Fornecedor;
+import com.inosystem.pdv.util.AguardeGerandoRelatorio;
+import com.inosystem.pdv.util.Mascara;
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import model.ModelContaPagar;
-import model.ModelFormaPagamento;
-import model.ModelFornecedor;
-import util.AguardeGerandoRelatorio;
-import util.BLMascaras;
 
 /**
  *
@@ -29,16 +23,16 @@ import util.BLMascaras;
  */
 public class ViewContasPagar extends javax.swing.JFrame {
 
-    ModelContaPagar modelContaPagar = new ModelContaPagar();
-    ControllerFornecedor controllerFornecedor = new ControllerFornecedor();
-    ArrayList<ModelContaPagar> listamModelContaPagar = new ArrayList<>();
-    ControllerContaPagar controllerContaPagar = new ControllerContaPagar();
-    ControllerFormaPagamento controllerFormaPagamento = new ControllerFormaPagamento();
-    ArrayList<ModelFormaPagamento> listaModelFormaPagamentos = new ArrayList<>();
-    ArrayList<ModelFornecedor> listaModelFornecedor = new ArrayList<>();
-    ModelFornecedor modelFornecedor = new ModelFornecedor();
+    ContaPagar modelContaPagar = new ContaPagar();
+    FornecedorController controllerFornecedor = new FornecedorController();
+    ArrayList<ContaPagar> listamContaPagar = new ArrayList<>();
+    ContaPagarController controllerContaPagar = new ContaPagarController();
+    FormaPagamentoController controllerFormaPagamento = new FormaPagamentoController();
+    ArrayList<FormaPagamento> listaFormaPagamentos = new ArrayList<>();
+    ArrayList<Fornecedor> listaFornecedor = new ArrayList<>();
+    Fornecedor modelFornecedor = new Fornecedor();
     String tipoCadastro;
-    BLMascaras bLMascaras = new BLMascaras();
+    Mascara bLMascaras = new Mascara();
 
     /**
      * Creates new form ViewContasPagar
@@ -695,7 +689,7 @@ public class ViewContasPagar extends javax.swing.JFrame {
     }//GEN-LAST:event_jbVisualizarPagar1ActionPerformed
 
     private void jbPagarContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPagarContaActionPerformed
-        modelContaPagar = new ModelContaPagar();
+        modelContaPagar = new ContaPagar();
         try {
             int linha = tbContasPagar.getSelectedRow();
             int codigo = (int) tbContasPagar.getValueAt(linha, 0);
@@ -722,7 +716,7 @@ public class ViewContasPagar extends javax.swing.JFrame {
     }//GEN-LAST:event_jbPagarContaActionPerformed
 
     private void jpRevorgarContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpRevorgarContaActionPerformed
-        modelContaPagar = new ModelContaPagar();
+        modelContaPagar = new ContaPagar();
         try {
             int linha = tbContasPagas.getSelectedRow();
             int codigo = (int) tbContasPagas.getValueAt(linha, 0);
@@ -750,12 +744,12 @@ public class ViewContasPagar extends javax.swing.JFrame {
 
     private void jtfValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfValorFocusLost
         //formatar campo
-        this.jtfValor.setText(new BLMascaras().addPonto(this.jtfValor.getText()));
+        this.jtfValor.setText(new Mascara().addPonto(this.jtfValor.getText()));
     }//GEN-LAST:event_jtfValorFocusLost
 
     private void jtfValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfValorKeyReleased
         // converte virgula em ponto
-        this.jtfValor.setText(new BLMascaras().converterVirgulaParaPonto(this.jtfValor.getText()));
+        this.jtfValor.setText(new Mascara().converterVirgulaParaPonto(this.jtfValor.getText()));
     }//GEN-LAST:event_jtfValorKeyReleased
 
     private void cbCodFornecedorPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cbCodFornecedorPopupMenuWillBecomeInvisible
@@ -810,7 +804,7 @@ public class ViewContasPagar extends javax.swing.JFrame {
      * @return
      */
     private boolean recuperarConta(int pCodigoConta) {
-        modelContaPagar = new ModelContaPagar();
+        modelContaPagar = new ContaPagar();
         modelContaPagar = controllerContaPagar.getContaPagarController(pCodigoConta);
         this.cbFornecedor.setSelectedItem(controllerFornecedor.getFornecedorController(modelContaPagar.getCodigoPessoa()).getNome());
         this.jtfCodigoConta.setText(String.valueOf(pCodigoConta));
@@ -864,7 +858,7 @@ public class ViewContasPagar extends javax.swing.JFrame {
             modelContaPagar.setVencimento(bLMascaras.converterDataParaDateUS(jdVencimento.getDate()));
             modelContaPagar.setPagamento(bLMascaras.converterDataParaDateUS(jdPagamento.getDate()));
             modelContaPagar.setSituacao(0);
-            modelContaPagar.setValor(Float.parseFloat(this.jtfValor.getText()));
+            modelContaPagar.setValor(new BigDecimal(this.jtfValor.getText()));
             modelContaPagar.setTipoPagamento(controllerFormaPagamento.getFormaPagamentoController(this.jcbTipoPagamento.getSelectedItem().toString()).getCodigo());
             modelContaPagar.setObservacao(this.jtfObservacao.getText());
 
@@ -895,13 +889,13 @@ public class ViewContasPagar extends javax.swing.JFrame {
         modelContaPagar.setTipoConta("PAGAR");
         modelContaPagar.setCodigoPessoa(controllerFornecedor.getFornecedorController(this.cbFornecedor.getSelectedItem().toString()).getCodigo());
         modelContaPagar.setDescricao(this.jtfDescricao.getText());
-        modelContaPagar.setCodigo(Integer.parseInt(this.jtfCodigoConta.getText()));
+        modelContaPagar.setCodigo(Integer.valueOf(this.jtfCodigoConta.getText()));
         try {
             modelContaPagar.setData(bLMascaras.converterDataParaDateUS(jdData.getDate()));
             modelContaPagar.setVencimento(bLMascaras.converterDataParaDateUS(jdVencimento.getDate()));
             modelContaPagar.setPagamento(bLMascaras.converterDataParaDateUS(jdPagamento.getDate()));
             modelContaPagar.setSituacao(0);
-            modelContaPagar.setValor(Float.parseFloat(this.jtfValor.getText()));
+            modelContaPagar.setValor(new BigDecimal(this.jtfValor.getText()));
             modelContaPagar.setTipoPagamento(controllerFormaPagamento.getFormaPagamentoController(this.jcbTipoPagamento.getSelectedItem().toString()).getCodigo());
             modelContaPagar.setObservacao(this.jtfObservacao.getText());
 
@@ -924,60 +918,60 @@ public class ViewContasPagar extends javax.swing.JFrame {
     }
 
     private void carregarContasPagar() {
-        listamModelContaPagar = controllerContaPagar.getListaContaPagarController(0);
+        listamContaPagar = controllerContaPagar.getListaContaPagarController(0);
         DefaultTableModel modelo = (DefaultTableModel) tbContasPagar.getModel();
         modelo.setNumRows(0);
         String nomeCliente;
         //CARREGA OS DADOS DA LISTA NA TABELA
-        int cont = listamModelContaPagar.size();
+        int cont = listamContaPagar.size();
         for (int i = 0; i < cont; i++) {
-            nomeCliente = controllerFornecedor.getFornecedorController(listamModelContaPagar.get(i).getCodigoPessoa()).getNome();
+            nomeCliente = controllerFornecedor.getFornecedorController(listamContaPagar.get(i).getCodigoPessoa()).getNome();
             modelo.addRow(new Object[]{
-                listamModelContaPagar.get(i).getCodigo(),
-                listamModelContaPagar.get(i).getDescricao(),
+                listamContaPagar.get(i).getCodigo(),
+                listamContaPagar.get(i).getDescricao(),
                 nomeCliente,
-                listamModelContaPagar.get(i).getData(),
-                listamModelContaPagar.get(i).getVencimento(),
-                listamModelContaPagar.get(i).getValor()
+                listamContaPagar.get(i).getData(),
+                listamContaPagar.get(i).getVencimento(),
+                listamContaPagar.get(i).getValor()
             });
         }
     }
 
     private void carregarContasPagas() {
-        listamModelContaPagar = controllerContaPagar.getListaContaPagarController(1);
+        listamContaPagar = controllerContaPagar.getListaContaPagarController(1);
         DefaultTableModel modelo = (DefaultTableModel) tbContasPagas.getModel();
         modelo.setNumRows(0);
         String nomeCliente;
         //CARREGA OS DADOS DA LISTA NA TABELA
-        int cont = listamModelContaPagar.size();
+        int cont = listamContaPagar.size();
         for (int i = 0; i < cont; i++) {
-            nomeCliente = controllerFornecedor.getFornecedorController(listamModelContaPagar.get(i).getCodigoPessoa()).getNome();
+            nomeCliente = controllerFornecedor.getFornecedorController(listamContaPagar.get(i).getCodigoPessoa()).getNome();
             modelo.addRow(new Object[]{
-                listamModelContaPagar.get(i).getCodigo(),
-                listamModelContaPagar.get(i).getDescricao(),
+                listamContaPagar.get(i).getCodigo(),
+                listamContaPagar.get(i).getDescricao(),
                 nomeCliente,
-                listamModelContaPagar.get(i).getData(),
-                listamModelContaPagar.get(i).getVencimento(),
-                listamModelContaPagar.get(i).getValor()
+                listamContaPagar.get(i).getData(),
+                listamContaPagar.get(i).getVencimento(),
+                listamContaPagar.get(i).getValor()
             });
         }
     }
 
     private void listarFornecedores() {
-        listaModelFornecedor = controllerFornecedor.getListaFornecedorController();
+        listaFornecedor = controllerFornecedor.getListaFornecedorController();
         cbFornecedor.removeAllItems();
         cbCodFornecedor.removeAllItems();
-        for (int i = 0; i < listaModelFornecedor.size(); i++) {
-            cbCodFornecedor.addItem(listaModelFornecedor.get(i).getCodigo());
-            cbFornecedor.addItem(listaModelFornecedor.get(i).getNome());
+        for (int i = 0; i < listaFornecedor.size(); i++) {
+            cbCodFornecedor.addItem(listaFornecedor.get(i).getCodigo());
+            cbFornecedor.addItem(listaFornecedor.get(i).getNome());
         }
     }
 
     private void listarTipoPagamento() {
-        listaModelFormaPagamentos = controllerFormaPagamento.getListaFormaPagamentoController();
+        listaFormaPagamentos = controllerFormaPagamento.getListaFormaPagamentoController();
         jcbTipoPagamento.removeAllItems();
-        for (int i = 0; i < listaModelFormaPagamentos.size(); i++) {
-            jcbTipoPagamento.addItem(listaModelFormaPagamentos.get(i).getDescricao());
+        for (int i = 0; i < listaFormaPagamentos.size(); i++) {
+            jcbTipoPagamento.addItem(listaFormaPagamentos.get(i).getDescricao());
         }
     }
 

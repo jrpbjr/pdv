@@ -1,21 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
-import controller.ControllerCidade;
-import controller.ControllerEstado;
-import controller.ControllerGarcom;
+import com.inosystem.pdv.contoller.CidadeController;
+import com.inosystem.pdv.contoller.EstadoController;
+import com.inosystem.pdv.contoller.GarcomController;
+import com.inosystem.pdv.model.Cidade;
+import com.inosystem.pdv.model.Estado;
+import com.inosystem.pdv.model.Garcom;
+import com.inosystem.pdv.util.Mascara;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.ModelCidade;
-import model.ModelEstado;
-import model.ModelGarcom;
-import util.BLMascaras;
 
 /**
  *
@@ -23,17 +19,17 @@ import util.BLMascaras;
  */
 public class ViewGarcom extends javax.swing.JFrame {
 
-    ModelEstado modelEstado = new ModelEstado();
-    ControllerEstado controllerEstados = new ControllerEstado();
-    ArrayList<ModelEstado> listaModelEstados = new ArrayList<>();
-    ModelGarcom modelGarcom = new ModelGarcom();
-    ModelCidade modelCidade = new ModelCidade();
-    ControllerCidade controllerCidade = new ControllerCidade();
-    ArrayList<ModelCidade> listaModelCidades = new ArrayList<>();
-    ControllerGarcom controllerGarcom = new ControllerGarcom();
-    ArrayList<ModelGarcom> listaModelGarcoms = new ArrayList<>();
+    Estado modelEstado = new Estado();
+    EstadoController EstadoControllers = new EstadoController();
+    ArrayList<Estado> listaEstados = new ArrayList<>();
+    Garcom modelGarcom = new Garcom();
+    Cidade modelCidade = new Cidade();
+    CidadeController controllerCidade = new CidadeController();
+    ArrayList<Cidade> listaCidades = new ArrayList<>();
+    GarcomController GarcomController = new GarcomController();
+    ArrayList<Garcom> listaGarcoms = new ArrayList<>();
     String tipoCadastro = "novo";
-    BLMascaras bLMascaras = new BLMascaras();
+    Mascara bLMascaras = new Mascara();
 
     /**
      * Creates new form ViewGarcom
@@ -390,12 +386,12 @@ public class ViewGarcom extends javax.swing.JFrame {
 
         try {
             //recupera os dados do banco
-            modelGarcom = controllerGarcom.getGarcomController(codigo);
+            modelGarcom = GarcomController.getGarcomController(codigo);
             //seta os dados na interface
             this.jtfCodigoGarcom.setText(String.valueOf(modelGarcom.getCodigo()));
             this.jtfNomeGarcom.setText(modelGarcom.getNome());
             this.jtfEndereco.setText(modelGarcom.getEndereco());
-            this.jcbUf.setSelectedItem(controllerEstados.getEstadoController(modelGarcom.getCodEstado()).getUf());
+            this.jcbUf.setSelectedItem(EstadoControllers.getEstadoController(modelGarcom.getCodEstado()).getUf());
             listarCidades();
             this.jcbCidade.setSelectedItem(controllerCidade.getCidadeController(modelGarcom.getCodCidade()).getNome());
             this.jtfCep.setText(modelGarcom.getCep());
@@ -421,7 +417,7 @@ public class ViewGarcom extends javax.swing.JFrame {
                 + nome + " ?", "Atenção", JOptionPane.YES_NO_OPTION);
         //se sim exclui, se não não faz nada    
         if (opcao == JOptionPane.OK_OPTION) {
-            if (controllerGarcom.excluirGarcomController(codigo)) {
+            if (GarcomController.excluirGarcomController(codigo)) {
                 JOptionPane.showMessageDialog(this, "Registro excluido com suscesso!");
                 carregarGarcom();
             } else {
@@ -452,26 +448,26 @@ public class ViewGarcom extends javax.swing.JFrame {
      * Preencher combobox cidades
      */
     private void listarCidades() {
-        listaModelCidades = controllerCidade.getListaCidadePorEstadoController(controllerEstados.getEstadoUFController(this.jcbUf.getSelectedItem().toString()).getCodigo());
+        listaCidades = controllerCidade.getListaCidadePorEstadoController(EstadoControllers.getEstadoUFController(this.jcbUf.getSelectedItem().toString()).getCodigo());
         jcbCidade.removeAllItems();
-        for (int i = 0; i < listaModelCidades.size(); i++) {
-            jcbCidade.addItem(listaModelCidades.get(i).getNome());
+        for (int i = 0; i < listaCidades.size(); i++) {
+            jcbCidade.addItem(listaCidades.get(i).getNome());
         }
     }
 
     //Salvar dados
     private boolean salvar() {
-        modelGarcom = new ModelGarcom();
+        modelGarcom = new Garcom();
         modelGarcom.setNome(jtfNomeGarcom.getText());
         modelGarcom.setEndereco(jtfEndereco.getText());
-        modelGarcom.setCodEstado(controllerEstados.getEstadoUFController(this.jcbUf.getSelectedItem().toString()).getCodigo());
+        modelGarcom.setCodEstado(EstadoControllers.getEstadoUFController(this.jcbUf.getSelectedItem().toString()).getCodigo());
         modelGarcom.setCodCidade(controllerCidade.getCidadeController(this.jcbCidade.getSelectedItem().toString()).getCodigo());
         modelGarcom.setCep(jtfCep.getText());
-        modelGarcom.setComissao(Float.parseFloat(jtfComissao.getText()));
+        modelGarcom.setComissao(new BigDecimal(jtfComissao.getText()));
         modelGarcom.setTelefone(jtfTelefone.getText());
         modelGarcom.setSenha(new String(this.jtfSenha1.getPassword()));
         //salvar 
-        if (controllerGarcom.salvarGarcomController(modelGarcom) > 0) {
+        if (GarcomController.salvarGarcomController(modelGarcom) > 0) {
             JOptionPane.showMessageDialog(this, "Registro gravado com sucesso!");
             this.novoGarcom();
             this.carregarGarcom();
@@ -484,18 +480,18 @@ public class ViewGarcom extends javax.swing.JFrame {
 
     //alterar dados
     private boolean alterar() {
-        modelGarcom = new ModelGarcom();
+        modelGarcom = new Garcom();
         modelGarcom.setCodigo(Integer.parseInt(jtfCodigoGarcom.getText()));
         modelGarcom.setNome(jtfNomeGarcom.getText());
         modelGarcom.setEndereco(jtfEndereco.getText());
-        modelGarcom.setCodEstado(controllerEstados.getEstadoUFController(this.jcbUf.getSelectedItem().toString()).getCodigo());
+        modelGarcom.setCodEstado(EstadoControllers.getEstadoUFController(this.jcbUf.getSelectedItem().toString()).getCodigo());
         modelGarcom.setCodCidade(controllerCidade.getCidadeController(this.jcbCidade.getSelectedItem().toString()).getCodigo());
         modelGarcom.setCep(jtfCep.getText());
-        modelGarcom.setComissao(Float.parseFloat(jtfComissao.getText()));
+        modelGarcom.setComissao(new BigDecimal(jtfComissao.getText()));
         modelGarcom.setTelefone(jtfTelefone.getText());
         modelGarcom.setSenha(new String(this.jtfSenha1.getPassword()));
         //salvar 
-        if (controllerGarcom.atualizarGarcomController(modelGarcom)) {
+        if (GarcomController.atualizarGarcomController(modelGarcom)) {
             JOptionPane.showMessageDialog(this, "Registro alterado com sucesso!");
             novoGarcom();
             this.carregarGarcom();
@@ -508,27 +504,27 @@ public class ViewGarcom extends javax.swing.JFrame {
 
     //carregar lista de garço na tabvela
     private void carregarGarcom() {
-        listaModelGarcoms = controllerGarcom.getListaGarcomController();
+        listaGarcoms = GarcomController.getListaGarcomController();
         DefaultTableModel modelo = (DefaultTableModel) jtGarcom.getModel();
         modelo.setNumRows(0);
         //CARREGA OS DADOS DA LISTA NA TABELA
-        int cont = listaModelGarcoms.size();
+        int cont = listaGarcoms.size();
         for (int i = 0; i < cont; i++) {
             modelo.addRow(new Object[]{
-                listaModelGarcoms.get(i).getCodigo(),
-                listaModelGarcoms.get(i).getNome(),
-                listaModelGarcoms.get(i).getTelefone(),
-                listaModelGarcoms.get(i).getComissao()
+                listaGarcoms.get(i).getCodigo(),
+                listaGarcoms.get(i).getNome(),
+                listaGarcoms.get(i).getTelefone(),
+                listaGarcoms.get(i).getComissao()
             });
         }
     }
 
     //carregar estado no combobox
     private void listarEstados() {
-        listaModelEstados = controllerEstados.getListaEstadoController();
+        listaEstados = EstadoControllers.getListaEstadoController();
         jcbUf.removeAllItems();
-        for (int i = 0; i < listaModelEstados.size(); i++) {
-            jcbUf.addItem(listaModelEstados.get(i).getUf());
+        for (int i = 0; i < listaEstados.size(); i++) {
+            jcbUf.addItem(listaEstados.get(i).getUf());
         }
     }
 

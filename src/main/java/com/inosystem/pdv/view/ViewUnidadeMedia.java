@@ -7,8 +7,8 @@
 package com.inosystem.pdv.view;
 
 
-import com.inosystem.pdv.contoller.UnidadeMediaController;
-import com.inosystem.pdv.model.UnidadeMedia;
+import com.inosystem.pdv.contoller.UnidadeMedidaController;
+import com.inosystem.pdv.model.UnidadeMedida;
 import com.inosystem.pdv.util.Mascara;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -23,9 +23,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ViewUnidadeMedia extends javax.swing.JFrame {
 
-    UnidadeMediaController controllerUnidadeMedia = new UnidadeMediaController();
-    UnidadeMedia modelUnidadeMedia = new UnidadeMedia();
-    ArrayList<UnidadeMedia> listaUnidadeMedias = new ArrayList<>();
+    UnidadeMedidaController controllerUnidadeMedia = new UnidadeMedidaController();
+    UnidadeMedida modelUnidadeMedia = new UnidadeMedida();
+    ArrayList<UnidadeMedida> listaUnidadeMedias = new ArrayList<>();
     String tipoCadastro;
     Mascara bLMascaras = new Mascara();
     

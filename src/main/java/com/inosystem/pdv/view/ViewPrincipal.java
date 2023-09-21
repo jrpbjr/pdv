@@ -10,15 +10,18 @@ import com.inosystem.pdv.contoller.ClienteController;
 import com.inosystem.pdv.contoller.EstadoController;
 import com.inosystem.pdv.contoller.FormaPagamentoController;
 import com.inosystem.pdv.contoller.FornecedorController;
+import com.inosystem.pdv.contoller.PermissaoUsuarioController;
 import com.inosystem.pdv.contoller.ProdutoController;
-import com.inosystem.pdv.contoller.UnidadeMediaController;
+import com.inosystem.pdv.contoller.UnidadeMedidaController;
 import com.inosystem.pdv.model.Cidade;
 import com.inosystem.pdv.model.Cliente;
 import com.inosystem.pdv.model.Estado;
 import com.inosystem.pdv.model.FormaPagamento;
 import com.inosystem.pdv.model.Fornecedor;
+import com.inosystem.pdv.model.PermissaoUsuario;
 import com.inosystem.pdv.model.Produto;
-import com.inosystem.pdv.model.UnidadeMedia;
+import com.inosystem.pdv.model.SessaoUsuario;
+import com.inosystem.pdv.model.UnidadeMedida;
 import com.inosystem.pdv.util.AguardeGerandoRelatorio;
 import com.inosystem.pdv.util.Carregando;
 import com.inosystem.pdv.util.Mascara;
@@ -51,8 +54,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
     ClienteController controllerCliente = new ClienteController();
     ProdutoController controllerProdutos = new ProdutoController();
     CidadeController controllerCidade = new CidadeController();
-    EstadoController controllerEstado = new EstadoController();
-    UnidadeMediaController controllerUnidadeMedia = new UnidadeMediaController();
+    EstadoController EstadoController = new EstadoController();
+    UnidadeMedidaController controllerUnidadeMedia = new UnidadeMedidaController();
     FornecedorController controllerFornecedor = new FornecedorController();
     FormaPagamentoController controllerFormaPagamento = new FormaPagamentoController();
     ArrayList<Fornecedor> modelFornecedors = new ArrayList<>();
@@ -60,7 +63,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     ArrayList<Produto> modelProdutos = new ArrayList<>();
     ArrayList<Cidade> modelCidade = new ArrayList<>();
     ArrayList<Estado> modelEstado = new ArrayList<>();
-    ArrayList<UnidadeMedia> modelUnidadeMedia = new ArrayList<>();
+    ArrayList<UnidadeMedida> modelUnidadeMedia = new ArrayList<>();
     ArrayList<FormaPagamento> modelFormaPagamentos = new ArrayList<>();
     Mascara bLMascaras = new Mascara();
 
@@ -1129,7 +1132,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void jmiBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBackupActionPerformed
         //verificar se esta no servidor para abrir
-        if (ModelSessaoUsuario.ipServidor.equals("localhost")) {
+        if (SessaoUsuario.ipServidor.equals("localhost")) {
             try {
                 new ViewBackup().setVisible(true);
             } catch (Exception ex) {
@@ -1421,7 +1424,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiConfiguracoesActionPerformed
 
     public String retornarUsuarioLogado() {
-        return new ModelSessaoUsuario().nome;
+        return new SessaoUsuario().nome;
     }
 
     private void cria() {
@@ -1442,37 +1445,37 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     private void liberarModulos() {
-        ControllerPermissaousuario controllerPermissaousuario = new ControllerPermissaousuario();
-        ArrayList<ModelPermissaousuario> listaModelPermissaousuarios = new ArrayList<>();
-        listaModelPermissaousuarios = controllerPermissaousuario.getListaPermissaousuarioController(new ModelSessaoUsuario().codigo);
+        PermissaoUsuarioController controllerPermissaousuario = new PermissaoUsuarioController();
+        ArrayList<PermissaoUsuario> listaPermissaoUsuarios = new ArrayList<>();
+        listaPermissaoUsuarios = controllerPermissaousuario.getListaPermissaousuarioController(new SessaoUsuario().codigo);
         cria();
-        for (int i = 0; i < listaModelPermissaousuarios.size(); i++) {
-            if (listaModelPermissaousuarios.get(i).getPermissao().equals("cliente")) {
+        for (int i = 0; i < listaPermissaoUsuarios.size(); i++) {
+            if (listaPermissaoUsuarios.get(i).getPermissao().equals("cliente")) {
                 btClientes.setEnabled(true);
                 jmiRelClientes.setEnabled(true);
                 jmiClientes.setEnabled(true);
             }
-            if (listaModelPermissaousuarios.get(i).getPermissao().equals("produto")) {
+            if (listaPermissaoUsuarios.get(i).getPermissao().equals("produto")) {
                 btProdutos.setEnabled(true);
                 jmiRelProdutos.setEnabled(true);
                 jmiProdutos.setEnabled(true);
                 jmiCodigoBarras.setEnabled(true);
             }
-            if (listaModelPermissaousuarios.get(i).getPermissao().equals("compras")) {
+            if (listaPermissaoUsuarios.get(i).getPermissao().equals("compras")) {
                 jmiPrecosProdutos.setEnabled(true);
                 jbPrecoprodutos.setEnabled(true);
             }
-            if (listaModelPermissaousuarios.get(i).getPermissao().equals("fornecedor")) {
+            if (listaPermissaoUsuarios.get(i).getPermissao().equals("fornecedor")) {
                 btFornecedores.setEnabled(true);
                 jmiFornecedor.setEnabled(true);
                 jmiTransportadora.setEnabled(true);
                 jmiRelFornecedor.setEnabled(true);
             }
-            if (listaModelPermissaousuarios.get(i).getPermissao().equals("usuario")) {
+            if (listaPermissaoUsuarios.get(i).getPermissao().equals("usuario")) {
                 jmiUsuario.setEnabled(true);
                 jmiGarcon.setEnabled(true);
             }
-            if (listaModelPermissaousuarios.get(i).getPermissao().equals("venda")) {
+            if (listaPermissaoUsuarios.get(i).getPermissao().equals("venda")) {
                 btRegistrarVenda.setEnabled(true);
                 btMesa.setEnabled(true);
                 jmiRegistrarVenda.setEnabled(true);
@@ -1487,41 +1490,41 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jmiAberturaCaixa.setEnabled(true);
                 jmiDelivery.setEnabled(true);
             }
-            if (listaModelPermissaousuarios.get(i).getPermissao().equals("pagar")) {
+            if (listaPermissaoUsuarios.get(i).getPermissao().equals("pagar")) {
                 jmiContasPagar.setEnabled(true);
                 jmiRelatorioContasPagar.setEnabled(true);
             }
-            if (listaModelPermissaousuarios.get(i).getPermissao().equals("receber")) {
+            if (listaPermissaoUsuarios.get(i).getPermissao().equals("receber")) {
                 jmiContasReceber.setEnabled(true);
                 miRelatorioContasReceber.setEnabled(true);
             }
-            if (listaModelPermissaousuarios.get(i).getPermissao().equals("caixa")) {
+            if (listaPermissaoUsuarios.get(i).getPermissao().equals("caixa")) {
                 jmiRelatorioContasPagar.setEnabled(true);
                 btFluxoCaixa.setEnabled(true);
                 miFluxoCaixa.setEnabled(true);
                 jmiBanco.setEnabled(true);
             }
-            if (listaModelPermissaousuarios.get(i).getPermissao().equals("empresa")) {
+            if (listaPermissaoUsuarios.get(i).getPermissao().equals("empresa")) {
                 miEmpresa.setEnabled(true);
                 jmiConfiguracoes.setEnabled(true);
             }
-            if (listaModelPermissaousuarios.get(i).getPermissao().equals("fornecedor")) {
+            if (listaPermissaoUsuarios.get(i).getPermissao().equals("fornecedor")) {
                 jmiFornecedor.setEnabled(true);
             }
-            if (listaModelPermissaousuarios.get(i).getPermissao().equals("cidade")) {
+            if (listaPermissaoUsuarios.get(i).getPermissao().equals("cidade")) {
                 miCidades.setEnabled(true);
             }
-            if (listaModelPermissaousuarios.get(i).getPermissao().equals("unidade")) {
+            if (listaPermissaoUsuarios.get(i).getPermissao().equals("unidade")) {
                 miUnidadeMedida.setEnabled(true);
             }
-            if (listaModelPermissaousuarios.get(i).getPermissao().equals("pagamento")) {
+            if (listaPermissaoUsuarios.get(i).getPermissao().equals("pagamento")) {
                 miFormaPagamento.setEnabled(true);
             }
-            if (listaModelPermissaousuarios.get(i).getPermissao().equals("orcamento")) {
+            if (listaPermissaoUsuarios.get(i).getPermissao().equals("orcamento")) {
                 miOrcamento.setEnabled(true);
                 btOrcamento.setEnabled(true);
             }
-            if (listaModelPermissaousuarios.get(i).getPermissao().equals("nfe")) {
+            if (listaPermissaoUsuarios.get(i).getPermissao().equals("nfe")) {
                 jmiCFOP.setEnabled(true);
                 jmiLeitorNotaXML.setEnabled(true);
                 jmiDigitarNfe.setEnabled(true);

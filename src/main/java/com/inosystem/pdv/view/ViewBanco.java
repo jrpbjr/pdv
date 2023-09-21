@@ -5,13 +5,16 @@
  */
 package com.inosystem.pdv.view;
 
-import controller.ControllerBanco;
+//import controller.BancoController;
+import com.inosystem.pdv.contoller.BancoController;
+import com.inosystem.pdv.model.Banco;
+import com.inosystem.pdv.util.Mascara;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.ModelBanco;
-import util.BLMascaras;
-import util.ExecutarSemLogin;
+/*import model.Banco;
+import util.Mascara;
+import util.ExecutarSemLogin;*/
 
 /**
  *
@@ -19,11 +22,11 @@ import util.ExecutarSemLogin;
  */
 public class ViewBanco extends javax.swing.JFrame {
 
-    ControllerBanco controllerBanco = new ControllerBanco();
-    ModelBanco modelBanco = new ModelBanco();
-    ArrayList<ModelBanco> listaModelBancos = new ArrayList<>();
+    BancoController controllerBanco = new BancoController();
+    Banco modelBanco = new Banco();
+    ArrayList<Banco> listaModelBancos = new ArrayList<>();
     String tipoCadastro;
-    BLMascaras bLMascaras = new BLMascaras();
+    Mascara bLMascaras = new Mascara();
 
     /**
      * Creates new form ViewBanco
@@ -354,7 +357,7 @@ public class ViewBanco extends javax.swing.JFrame {
 
     //salvar novo banco
     private boolean salvarBanco() {
-        modelBanco = new ModelBanco();
+        modelBanco = new Banco();
         modelBanco.setBanco(jtfCodigoBanco.getText());
         modelBanco.setDescricao(jtfDescricao.getText());
         modelBanco.setNomeReduzido(jtfNomeReduzido.getText());
@@ -376,7 +379,7 @@ public class ViewBanco extends javax.swing.JFrame {
 
     //salvar alterações
     private boolean alterarBanco() {
-        modelBanco = new ModelBanco();
+        modelBanco = new Banco();
         modelBanco.setCodigo(Integer.parseInt(jtfCodigo.getText()));
         modelBanco.setBanco(jtfCodigoBanco.getText());
         modelBanco.setDescricao(jtfDescricao.getText());

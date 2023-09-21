@@ -1,13 +1,15 @@
-/*
- * ViewCliente.java
- *
- */
 package com.inosystem.pdv.view;
 
-import controller.ControllerCidade;
-import controller.ControllerCliente;
-import controller.ControllerClienteCidadeEstado;
-import controller.ControllerEstado;
+import com.inosystem.pdv.contoller.CidadeController;
+import com.inosystem.pdv.contoller.ClienteCidadeEstadoController;
+import com.inosystem.pdv.contoller.ClienteController;
+import com.inosystem.pdv.contoller.EstadoController;
+import com.inosystem.pdv.model.Cidade;
+import com.inosystem.pdv.model.Cliente;
+import com.inosystem.pdv.model.ClienteCidadeEstado;
+import com.inosystem.pdv.model.Estado;
+import com.inosystem.pdv.util.AguardeGerandoRelatorio;
+import com.inosystem.pdv.util.Mascara;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -15,28 +17,22 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import model.ModelCidade;
-import model.ModelCliente;
-import model.ModelClienteCidadeEstado;
-import model.ModelEstado;
-import util.AguardeGerandoRelatorio;
-import util.BLMascaras;
 
 /**
  * @author Jrpbjr * jrpbjr *
  */
 public class ViewCliente extends javax.swing.JFrame {
 
-    ModelCliente modelCliente = new ModelCliente();
-    ControllerCliente controllerCliente = new ControllerCliente();
-    ControllerEstado controllerEstado = new ControllerEstado();
-    ControllerCidade controllerCidade = new ControllerCidade();
-    ControllerClienteCidadeEstado controllerClienteCidadeEstado = new ControllerClienteCidadeEstado();
-    ArrayList<ModelCidade> listaModelCidades = new ArrayList<>();
-    ArrayList<ModelEstado> listaModelEstados = new ArrayList<>();
-    ArrayList<ModelCliente> listaModelCliente = new ArrayList<>();
-    ArrayList<ModelClienteCidadeEstado> listaModelClienteCidadeEstados = new ArrayList<>();
-    BLMascaras bLMascaras = new BLMascaras();
+    Cliente modelCliente = new Cliente();
+    ClienteController controllerCliente = new ClienteController();
+    EstadoController EstadoController = new EstadoController();
+    CidadeController controllerCidade = new CidadeController();
+    ClienteCidadeEstadoController controllerClienteCidadeEstado = new ClienteCidadeEstadoController();
+    ArrayList<Cidade> listaCidades = new ArrayList<>();
+    ArrayList<Estado> listaEstados = new ArrayList<>();
+    ArrayList<Cliente> listaCliente = new ArrayList<>();
+    ArrayList<ClienteCidadeEstado> listaClienteCidadeEstados = new ArrayList<>();
+    Mascara bLMascaras = new Mascara();
     String tipoCadastro;
 
     /**
@@ -495,10 +491,10 @@ public class ViewCliente extends javax.swing.JFrame {
      * Preencher combobox estados
      */
     private void listarEstados() {
-        listaModelEstados = controllerEstado.getListaEstadoController();
+        listaEstados = EstadoController.getListaEstadoController();
         cbEstado.removeAllItems();
-        for (int i = 0; i < listaModelEstados.size(); i++) {
-            cbEstado.addItem(listaModelEstados.get(i).getUf());
+        for (int i = 0; i < listaEstados.size(); i++) {
+            cbEstado.addItem(listaEstados.get(i).getUf());
         }
     }
 
@@ -507,13 +503,13 @@ public class ViewCliente extends javax.swing.JFrame {
      */
     private void listarCidades() {
         try {
-            listaModelCidades = controllerCidade.getListaCidadePorEstadoController(controllerEstado.getEstadoUFController(this.cbEstado.getSelectedItem().toString()).getCodigo());
+            listaCidades = controllerCidade.getListaCidadePorEstadoController(EstadoController.getEstadoUFController(this.cbEstado.getSelectedItem().toString()).getCodigo());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Você deve cadastrar cidades e estados primeiro!");
         }
         cbCidade.removeAllItems();
-        for (int i = 0; i < listaModelCidades.size(); i++) {
-            cbCidade.addItem(listaModelCidades.get(i).getNome());
+        for (int i = 0; i < listaCidades.size(); i++) {
+            cbCidade.addItem(listaCidades.get(i).getNome());
         }
     }
 
@@ -583,7 +579,7 @@ public class ViewCliente extends javax.swing.JFrame {
             return false;
         } else {
             modelCliente.setCodCidade(controllerCidade.getCidadeController(this.cbCidade.getSelectedItem().toString()).getCodigo());
-            modelCliente.setCodEstado(controllerEstado.getEstadoUFController(this.cbEstado.getSelectedItem().toString()).getCodigo());
+            modelCliente.setCodEstado(EstadoController.getEstadoUFController(this.cbEstado.getSelectedItem().toString()).getCodigo());
             modelCliente.setCep(this.tfCep.getText());
             modelCliente.setTelefone(this.tfTelefone.getText());
             modelCliente.setCpfCNPJ(this.tfCpfCnpj.getText());
@@ -641,32 +637,32 @@ public class ViewCliente extends javax.swing.JFrame {
     }
 
     private void carregarClientes() {
-        listaModelClienteCidadeEstados = controllerClienteCidadeEstado.getListaClienteCidadeEstadoController();
+        listaClienteCidadeEstados = controllerClienteCidadeEstado.getListaClienteCidadeEstadoController();
         DefaultTableModel modelo = (DefaultTableModel) tbClientes.getModel();
         modelo.setNumRows(0);
         String ativo = "";
         String tipo = "";
         //CARREGA OS DADOS DA LISTA NA TABELA
-        int cont = listaModelClienteCidadeEstados.size();
+        int cont = listaClienteCidadeEstados.size();
         for (int i = 0; i < cont; i++) {
-            if (listaModelClienteCidadeEstados.get(i).getModelCliente().getAtivo() == 1) {
+            if (listaClienteCidadeEstados.get(i).getCliente().getAtivo() == 1) {
                 ativo = "SIM";
             } else {
                 ativo = "NAO";
             }
-            if (listaModelClienteCidadeEstados.get(i).getModelCliente().getTipoPessoa().equals("F")) {
+            if (listaClienteCidadeEstados.get(i).getCliente().getTipoPessoa().equals("F")) {
                 tipo = "FISICA";
             } else {
                 tipo = "JURIDICA";
             }
             modelo.addRow(new Object[]{
-                listaModelClienteCidadeEstados.get(i).getModelCliente().getCodigo(),
-                listaModelClienteCidadeEstados.get(i).getModelCliente().getNome(),
-                listaModelClienteCidadeEstados.get(i).getModelCliente().getCpfCNPJ(),
+                listaClienteCidadeEstados.get(i).getCliente().getCodigo(),
+                listaClienteCidadeEstados.get(i).getCliente().getNome(),
+                listaClienteCidadeEstados.get(i).getCliente().getCpfCNPJ(),
                 ativo,
                 tipo,
-                listaModelClienteCidadeEstados.get(i).getModelCidade().getNome(),
-                listaModelClienteCidadeEstados.get(i).getModelEstado().getUf()
+                listaClienteCidadeEstados.get(i).getCidade().getNome(),
+                listaClienteCidadeEstados.get(i).getEstado().getUf()
             });
         }
     }
@@ -757,7 +753,7 @@ public class ViewCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Você deve selecionar um item na tabela antes de clicar no botão!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
         } else {
             final AguardeGerandoRelatorio carregando = new AguardeGerandoRelatorio();
-            final ControllerCliente controllerCliente = new ControllerCliente();
+            final ClienteController controllerCliente = new ClienteController();
             carregando.setVisible(true);
             Thread t = new Thread() {
                 @Override
