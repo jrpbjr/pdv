@@ -31,10 +31,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+/*
 import nfe.view.ViewLeitorNotaXML;
 import nfe.view.ViewNFe;
 import nfe.view.ViewParAssDigital;
-
+*/
 /**
  *
  * @author Vitor Aguiar desenvolvimento de Sistemas
@@ -84,24 +85,6 @@ public class ViewPrincipal_1 extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
-        uJPanelImagem1 = new componentes.UJPanelImagem();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jToolBar2 = new javax.swing.JToolBar();
-        btClientes = new javax.swing.JButton();
-        btProdutos = new javax.swing.JButton();
-        btFornecedores = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JToolBar.Separator();
-        btRegistrarVenda = new javax.swing.JButton();
-        btPDV = new javax.swing.JButton();
-        btOrcamento = new javax.swing.JButton();
-        btMesa = new javax.swing.JButton();
-        jSeparator4 = new javax.swing.JToolBar.Separator();
-        jbPrecoprodutos = new javax.swing.JButton();
-        btFluxoCaixa = new javax.swing.JButton();
-        jSeparator5 = new javax.swing.JToolBar.Separator();
-        jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jlUsuario = new javax.swing.JLabel();
@@ -176,208 +159,6 @@ public class ViewPrincipal_1 extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/imagens/blicon.png")).getImage());
         setLocationByPlatform(true);
 
-        uJPanelImagem1.setImagem(new java.io.File("C:\\BLVendas\\src\\imagens\\fundo3.jpg"));
-
-        jPanel2.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Alt+C = Clientes   -   Alt+P = Produtos   -   Alt+F = Fornecedor   -   Alt+V = Vendas  -   Alt+G = Contas Pagar   -    Alt+R = Contas a Receber   -  Orçamento =  ALt+O   -   Alt+D = PDV");
-        jPanel2.add(jLabel6);
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jToolBar2.setBackground(new java.awt.Color(255, 255, 255));
-        jToolBar2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Menu de acesso rápido", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(102, 102, 102))); // NOI18N
-        jToolBar2.setForeground(new java.awt.Color(102, 102, 102));
-        jToolBar2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jToolBar2.setRollover(true);
-        jToolBar2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        btClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 30/icons8-adicionar-usuário-masculino-filled-50.png"))); // NOI18N
-        btClientes.setText("Clientes");
-        btClientes.setEnabled(false);
-        btClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btClientes.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btClientes.setMaximumSize(new java.awt.Dimension(200, 40));
-        btClientes.setMinimumSize(new java.awt.Dimension(200, 40));
-        btClientes.setPreferredSize(new java.awt.Dimension(200, 40));
-        btClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btClientesActionPerformed(evt);
-            }
-        });
-        jToolBar2.add(btClientes);
-
-        btProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 30/icons8-comida-como-recursos-filled-50.png"))); // NOI18N
-        btProdutos.setText("Produtos");
-        btProdutos.setEnabled(false);
-        btProdutos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btProdutos.setMaximumSize(new java.awt.Dimension(200, 40));
-        btProdutos.setMinimumSize(new java.awt.Dimension(200, 40));
-        btProdutos.setPreferredSize(new java.awt.Dimension(200, 40));
-        btProdutos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btProdutosActionPerformed(evt);
-            }
-        });
-        jToolBar2.add(btProdutos);
-
-        btFornecedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 30/icons8-empregado-filled-50.png"))); // NOI18N
-        btFornecedores.setText("Fornecedor");
-        btFornecedores.setEnabled(false);
-        btFornecedores.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btFornecedores.setMaximumSize(new java.awt.Dimension(200, 40));
-        btFornecedores.setMinimumSize(new java.awt.Dimension(200, 40));
-        btFornecedores.setPreferredSize(new java.awt.Dimension(200, 40));
-        btFornecedores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btFornecedoresActionPerformed(evt);
-            }
-        });
-        jToolBar2.add(btFornecedores);
-        jToolBar2.add(jSeparator3);
-
-        btRegistrarVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 30/icons8-carrinho-de-compras-filled-50.png"))); // NOI18N
-        btRegistrarVenda.setText("Vender");
-        btRegistrarVenda.setEnabled(false);
-        btRegistrarVenda.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btRegistrarVenda.setMaximumSize(new java.awt.Dimension(200, 40));
-        btRegistrarVenda.setMinimumSize(new java.awt.Dimension(200, 40));
-        btRegistrarVenda.setPreferredSize(new java.awt.Dimension(200, 40));
-        btRegistrarVenda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btRegistrarVendaActionPerformed(evt);
-            }
-        });
-        jToolBar2.add(btRegistrarVenda);
-
-        btPDV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 30/icons8-carrinho-de-compras-filled-50.png"))); // NOI18N
-        btPDV.setText("PDV");
-        btPDV.setEnabled(false);
-        btPDV.setFocusable(false);
-        btPDV.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btPDV.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btPDV.setMaximumSize(new java.awt.Dimension(200, 40));
-        btPDV.setMinimumSize(new java.awt.Dimension(200, 40));
-        btPDV.setPreferredSize(new java.awt.Dimension(200, 40));
-        btPDV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btPDVActionPerformed(evt);
-            }
-        });
-        jToolBar2.add(btPDV);
-
-        btOrcamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 30/icons8-contabilidade-de-fundo-filled-50.png"))); // NOI18N
-        btOrcamento.setText("Orçamento");
-        btOrcamento.setEnabled(false);
-        btOrcamento.setFocusable(false);
-        btOrcamento.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btOrcamento.setMaximumSize(new java.awt.Dimension(200, 40));
-        btOrcamento.setMinimumSize(new java.awt.Dimension(200, 40));
-        btOrcamento.setPreferredSize(new java.awt.Dimension(200, 40));
-        btOrcamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btOrcamentoActionPerformed(evt);
-            }
-        });
-        jToolBar2.add(btOrcamento);
-
-        btMesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 30/icons8-carrinho-de-compras-filled-50.png"))); // NOI18N
-        btMesa.setText("Mesa  ");
-        btMesa.setEnabled(false);
-        btMesa.setFocusable(false);
-        btMesa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btMesa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btMesa.setMaximumSize(new java.awt.Dimension(200, 40));
-        btMesa.setMinimumSize(new java.awt.Dimension(200, 40));
-        btMesa.setPreferredSize(new java.awt.Dimension(200, 40));
-        btMesa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btMesaActionPerformed(evt);
-            }
-        });
-        jToolBar2.add(btMesa);
-        jToolBar2.add(jSeparator4);
-
-        jbPrecoprodutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 30/icons8-caro-2-filled-50.png"))); // NOI18N
-        jbPrecoprodutos.setText("Preço produtos");
-        jbPrecoprodutos.setEnabled(false);
-        jbPrecoprodutos.setFocusable(false);
-        jbPrecoprodutos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbPrecoprodutos.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jbPrecoprodutos.setMaximumSize(new java.awt.Dimension(200, 40));
-        jbPrecoprodutos.setMinimumSize(new java.awt.Dimension(200, 40));
-        jbPrecoprodutos.setPreferredSize(new java.awt.Dimension(200, 40));
-        jbPrecoprodutos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbPrecoprodutosActionPerformed(evt);
-            }
-        });
-        jToolBar2.add(jbPrecoprodutos);
-
-        btFluxoCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 30/icons8-dados-em-ambas-as-direções-filled-50.png"))); // NOI18N
-        btFluxoCaixa.setText("Fluxo de caixa");
-        btFluxoCaixa.setEnabled(false);
-        btFluxoCaixa.setFocusable(false);
-        btFluxoCaixa.setHideActionText(true);
-        btFluxoCaixa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btFluxoCaixa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btFluxoCaixa.setMaximumSize(new java.awt.Dimension(200, 40));
-        btFluxoCaixa.setMinimumSize(new java.awt.Dimension(200, 40));
-        btFluxoCaixa.setPreferredSize(new java.awt.Dimension(200, 40));
-        btFluxoCaixa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btFluxoCaixa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btFluxoCaixaActionPerformed(evt);
-            }
-        });
-        jToolBar2.add(btFluxoCaixa);
-        jToolBar2.add(jSeparator5);
-
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nfe/imagens/nfe mini.png"))); // NOI18N
-        jLabel8.setText("em desenvolvimento ...");
-        jLabel8.setToolTipText("");
-        jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel8MouseClicked(evt);
-            }
-        });
-        jToolBar2.add(jLabel8);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout uJPanelImagem1Layout = new javax.swing.GroupLayout(uJPanelImagem1);
-        uJPanelImagem1.setLayout(uJPanelImagem1Layout);
-        uJPanelImagem1Layout.setHorizontalGroup(
-            uJPanelImagem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(uJPanelImagem1Layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(699, Short.MAX_VALUE))
-        );
-        uJPanelImagem1Layout.setVerticalGroup(
-            uJPanelImagem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(uJPanelImagem1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         jPanel3.setBackground(new java.awt.Color(102, 102, 102));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -402,7 +183,7 @@ public class ViewPrincipal_1 extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jlUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 692, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlData))
@@ -450,7 +231,7 @@ public class ViewPrincipal_1 extends javax.swing.JFrame {
         jmArquivo.add(jmiConfiguracoes);
         jmArquivo.add(jSeparator2);
 
-        mnuSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        mnuSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mnuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 20/icons8-sair-filled-50.png"))); // NOI18N
         mnuSair.setText("Sair");
         mnuSair.addActionListener(new java.awt.event.ActionListener() {
@@ -465,7 +246,7 @@ public class ViewPrincipal_1 extends javax.swing.JFrame {
         jmCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 20/icons8-adicionar-usuário-masculino-filled-50.png"))); // NOI18N
         jmCadastrar.setText("Cadastros");
 
-        jmiClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
+        jmiClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jmiClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 20/icons8-adicionar-filled-50.png"))); // NOI18N
         jmiClientes.setText("Clientes");
         jmiClientes.setEnabled(false);
@@ -476,7 +257,7 @@ public class ViewPrincipal_1 extends javax.swing.JFrame {
         });
         jmCadastrar.add(jmiClientes);
 
-        jmiProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
+        jmiProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jmiProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 20/icons8-comida-como-recursos-filled-50.png"))); // NOI18N
         jmiProdutos.setText("Produtos");
         jmiProdutos.setEnabled(false);
@@ -487,7 +268,7 @@ public class ViewPrincipal_1 extends javax.swing.JFrame {
         });
         jmCadastrar.add(jmiProdutos);
 
-        jmiFornecedor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.ALT_MASK));
+        jmiFornecedor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jmiFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 20/icons8-empregado-filled-50.png"))); // NOI18N
         jmiFornecedor.setText("Fornecedores");
         jmiFornecedor.setEnabled(false);
@@ -498,7 +279,7 @@ public class ViewPrincipal_1 extends javax.swing.JFrame {
         });
         jmCadastrar.add(jmiFornecedor);
 
-        jmiUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
+        jmiUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jmiUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 20/icons8-direitos-de-usuário-filled-50.png"))); // NOI18N
         jmiUsuario.setText("Usuário");
         jmiUsuario.setEnabled(false);
@@ -584,7 +365,7 @@ public class ViewPrincipal_1 extends javax.swing.JFrame {
         jmVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 20/icons8-carrinho-de-compras-filled-50.png"))); // NOI18N
         jmVendas.setText("Vendas");
 
-        jmiRegistrarVenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
+        jmiRegistrarVenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jmiRegistrarVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 20/icons8-carrinho-de-compras-filled-50.png"))); // NOI18N
         jmiRegistrarVenda.setText("Vendas");
         jmiRegistrarVenda.setEnabled(false);
@@ -605,7 +386,7 @@ public class ViewPrincipal_1 extends javax.swing.JFrame {
         });
         jmVendas.add(jmiConsultarVenda);
 
-        miOrcamento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
+        miOrcamento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
         miOrcamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 20/icons8-contabilidade-de-fundo-filled-50.png"))); // NOI18N
         miOrcamento.setText("Orcamento");
         miOrcamento.setEnabled(false);
@@ -616,7 +397,7 @@ public class ViewPrincipal_1 extends javax.swing.JFrame {
         });
         jmVendas.add(miOrcamento);
 
-        miPDV.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK));
+        miPDV.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_DOWN_MASK));
         miPDV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 20/icons8-carrinho-de-compras-filled-50.png"))); // NOI18N
         miPDV.setText("Vendas em PDV");
         miPDV.setEnabled(false);
@@ -652,7 +433,7 @@ public class ViewPrincipal_1 extends javax.swing.JFrame {
         jmFinanceiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 20/icons8-caro-2-filled-50.png"))); // NOI18N
         jmFinanceiro.setText("Financeiro");
 
-        jmiContasPagar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.ALT_MASK));
+        jmiContasPagar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jmiContasPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 20/icons8-presentes-para-todos-filled-50.png"))); // NOI18N
         jmiContasPagar.setText("Conta a pagar");
         jmiContasPagar.setEnabled(false);
@@ -663,7 +444,7 @@ public class ViewPrincipal_1 extends javax.swing.JFrame {
         });
         jmFinanceiro.add(jmiContasPagar);
 
-        jmiContasReceber.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK));
+        jmiContasReceber.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jmiContasReceber.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 20/icons8-baixar-filled-50(1).png"))); // NOI18N
         jmiContasReceber.setText("Contas a receber");
         jmiContasReceber.setEnabled(false);
@@ -880,14 +661,12 @@ public class ViewPrincipal_1 extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(uJPanelImagem1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(uJPanelImagem1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(650, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -1150,192 +929,6 @@ public class ViewPrincipal_1 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jmiVendasMesaActionPerformed
 
-    private void btClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btClientesActionPerformed
-        final Carregando carregando = new Carregando();
-        carregando.setVisible(true);
-        Thread t = new Thread() {
-            @Override
-            public void run() {
-                // abrir
-                modelCidade = controllerCidade.getListaCidadeController();
-                if (modelCidade.size() < 1) {
-                    JOptionPane.showMessageDialog(null, "Cadastre primeiro uma cidade!", "ATENÇÂO", JOptionPane.WARNING_MESSAGE);
-                } else {
-                    new ViewCliente().setVisible(true);
-                }
-                carregando.dispose();
-            }
-        };
-        t.start();
-    }//GEN-LAST:event_btClientesActionPerformed
-
-    private void btProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProdutosActionPerformed
-        final Carregando carregando = new Carregando();
-        carregando.setVisible(true);
-        Thread t = new Thread() {
-            @Override
-            public void run() {
-                // abrir
-                modelUnidadeMedia = controllerUnidadeMedia.getListaUnidadeMediaController();
-                modelFornecedors = controllerFornecedor.getListaFornecedorController();
-                if (modelUnidadeMedia.size() < 1 || modelFornecedors.size() < 1) {
-                    JOptionPane.showMessageDialog(null, "Cadastre primeiro unidade de medida e fornecedor!", "ATENÇÂO", JOptionPane.WARNING_MESSAGE);
-                } else {
-                    new ViewProduto().setVisible(true);
-                }
-                carregando.dispose();
-            }
-        };
-        t.start();
-    }//GEN-LAST:event_btProdutosActionPerformed
-
-    private void btFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFornecedoresActionPerformed
-        final Carregando carregando = new Carregando();
-        carregando.setVisible(true);
-        Thread t = new Thread() {
-            @Override
-            public void run() {
-                // abrir
-                modelCidade = controllerCidade.getListaCidadeController();
-                if (modelCidade.size() < 1) {
-                    JOptionPane.showMessageDialog(null, "Cadastre primeiro uma cidade!", "ATENÇÂO", JOptionPane.WARNING_MESSAGE);
-                } else {
-                    new ViewFornecedor().setVisible(true);
-                }
-                carregando.dispose();
-            }
-        };
-        t.start();
-    }//GEN-LAST:event_btFornecedoresActionPerformed
-
-    private void btRegistrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistrarVendaActionPerformed
-        final Carregando carregando = new Carregando();
-        carregando.setVisible(true);
-        Thread t = new Thread() {
-            @Override
-            public void run() {
-                // abrir
-                modelProdutos = controllerProdutos.getListaProdutosAtivosController();
-                modelCliente = controllerCliente.getListaClienteAtivoController();
-                if (modelProdutos.size() < 1 || modelCliente.size() < 1) {
-                    JOptionPane.showMessageDialog(null, "Cadastre primeiro clientes e produtos!", "ATENÇÂO", JOptionPane.WARNING_MESSAGE);
-                } else {
-                    new ViewVenda().setVisible(true);
-                }
-                carregando.dispose();
-            }
-        };
-        t.start();
-    }//GEN-LAST:event_btRegistrarVendaActionPerformed
-
-    private void btOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOrcamentoActionPerformed
-        // TODO add your handling code here:
-        final Carregando carregando = new Carregando();
-        carregando.setVisible(true);
-        Thread t = new Thread() {
-            @Override
-            public void run() {
-                // abrir
-                modelProdutos = controllerProdutos.getListaProdutosAtivosController();
-                modelCliente = controllerCliente.getListaClienteAtivoController();
-                if (modelProdutos.size() < 1 || modelCliente.size() < 1) {
-                    JOptionPane.showMessageDialog(null, "Cadastre primeiro clientes e produtos!", "ATENÇÂO", JOptionPane.WARNING_MESSAGE);
-                } else {
-                    new ViewOrcamento().setVisible(true);
-                }
-                carregando.dispose();
-            }
-        };
-        t.start();
-    }//GEN-LAST:event_btOrcamentoActionPerformed
-
-    private void btPDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPDVActionPerformed
-        final Carregando carregando = new Carregando();
-        carregando.setVisible(true);
-        Thread t = new Thread() {
-            @Override
-            public void run() {
-                // abrir
-                modelProdutos = controllerProdutos.getListaProdutosAtivosController();
-                modelCliente = controllerCliente.getListaClienteAtivoController();
-                if (modelProdutos.size() < 1 || modelCliente.size() < 1) {
-                    JOptionPane.showMessageDialog(null, "Cadastre primeiro clientes e produtos!", "ATENÇÂO", JOptionPane.WARNING_MESSAGE);
-                } else {
-                    new ViewABCaixa().setVisible(true);
-                }
-                carregando.dispose();
-            }
-        };
-        t.start();
-    }//GEN-LAST:event_btPDVActionPerformed
-
-    private void btMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMesaActionPerformed
-        // acessar
-        final Carregando carregando = new Carregando();
-        carregando.setVisible(true);
-        Thread t = new Thread() {
-            @Override
-            public void run() {
-                // abrir
-                modelProdutos = controllerProdutos.getListaProdutosAtivosController();
-                modelCliente = controllerCliente.getListaClienteAtivoController();
-                if (modelProdutos.size() < 1 || modelCliente.size() < 1) {
-                    JOptionPane.showMessageDialog(null, "Cadastre primeiro clientes e produtos!", "ATENÇÂO", JOptionPane.WARNING_MESSAGE);
-                } else {
-                    new ViewMesas().setVisible(true);
-                }
-                carregando.dispose();
-            }
-        };
-        t.start();
-    }//GEN-LAST:event_btMesaActionPerformed
-
-    private void btFluxoCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFluxoCaixaActionPerformed
-        // TODO add your handling code here:
-        final Carregando carregando = new Carregando();
-        carregando.setVisible(true);
-        Thread t = new Thread() {
-            @Override
-            public void run() {
-                // abrir
-                new ViewFluxoCaixa().setVisible(true);
-                carregando.dispose();
-            }
-        };
-        t.start();
-    }//GEN-LAST:event_btFluxoCaixaActionPerformed
-
-    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        // TODO add your handling code here:
-        Desktop desk = java.awt.Desktop.getDesktop();
-        try {
-            desk.browse(new java.net.URI("http://* jrpbjr/"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_jLabel8MouseClicked
-
-    private void jbPrecoprodutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPrecoprodutosActionPerformed
-        // acessar
-        final Carregando carregando = new Carregando();
-        carregando.setVisible(true);
-        Thread t = new Thread() {
-            @Override
-            public void run() {
-                // abrir
-                modelProdutos = controllerProdutos.getListaProdutosAtivosController();
-                modelFornecedors = controllerFornecedor.getListaFornecedorController();
-                if (modelProdutos.size() < 1 || modelFornecedors.size() < 1) {
-                    JOptionPane.showMessageDialog(null, "Cadastre primeiro fornecedores e produtos!", "ATENÇÂO", JOptionPane.WARNING_MESSAGE);
-                } else {
-                    new ViewPrecosProdutos().setVisible(true);
-                }
-                carregando.dispose();
-            }
-        };
-        t.start();
-    }//GEN-LAST:event_jbPrecoprodutosActionPerformed
-
     private void jmiAberturaCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAberturaCaixaActionPerformed
         // TODO add your handling code here:
         new ViewABCaixa().setVisible(true);
@@ -1564,19 +1157,9 @@ public class ViewPrincipal_1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btClientes;
-    private javax.swing.JButton btFluxoCaixa;
-    private javax.swing.JButton btFornecedores;
-    private javax.swing.JButton btMesa;
-    private javax.swing.JButton btOrcamento;
-    private javax.swing.JButton btPDV;
-    private javax.swing.JButton btProdutos;
-    private javax.swing.JButton btRegistrarVenda;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -1584,16 +1167,9 @@ public class ViewPrincipal_1 extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
-    private javax.swing.JToolBar.Separator jSeparator3;
-    private javax.swing.JToolBar.Separator jSeparator4;
-    private javax.swing.JToolBar.Separator jSeparator5;
-    private javax.swing.JToolBar jToolBar2;
-    private javax.swing.JButton jbPrecoprodutos;
     private javax.swing.JLabel jlData;
     private javax.swing.JLabel jlUsuario;
     private javax.swing.JMenu jmAjuda;
@@ -1642,7 +1218,6 @@ public class ViewPrincipal_1 extends javax.swing.JFrame {
     private javax.swing.JMenuItem miRelatorioContasReceber;
     private javax.swing.JMenuItem miUnidadeMedida;
     private javax.swing.JMenuItem mnuSair;
-    private componentes.UJPanelImagem uJPanelImagem1;
     // End of variables declaration//GEN-END:variables
 
     private void JButton() {

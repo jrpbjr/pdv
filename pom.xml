@@ -136,6 +136,12 @@
             <artifactId>UGComp</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        
+        <dependency>
+            <groupId>br.com.inosystem</groupId>
+            <artifactId>commons-report</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>net.java.openjfx.backport</groupId>
@@ -143,6 +149,26 @@
             <version>1.8.0.1</version>
             <type>jar</type>
         </dependency>
+       
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+        
+        
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        
         <dependency>
             <groupId>cc.kkon</groupId>
             <artifactId>gmssl_provider</artifactId>
