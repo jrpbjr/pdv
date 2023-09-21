@@ -62,10 +62,10 @@ public class GerarCupom {
                 conteudoFor += listaVendaProdutoes.get(i).getQuantidade() + " x " + controllerProdutos.getProdutosController(listaVendaProdutoes.get(i).getCodigo_produto()).getNome() + " - " + listaVendaProdutoes.get(i).getCodigo_venda() + "\n\r";
             }
             //armazenar em uma string o texto(cupom) para imprimir
-            textoParaImprimir = (modelEmpresaCidadeEstado.getModelEmpresa().getNomeFantasia() + "\n\r"
-                    + modelEmpresaCidadeEstado.getModelEmpresa().getEndereco() + "\n\r"
-                    + modelEmpresaCidadeEstado.getCidade().getNome() + "-" + modelEmpresaCidadeEstado.getestado().getUf() + "\n\r"
-                    + modelEmpresaCidadeEstado.getModelEmpresa().getCnpj() + "\n\r"
+            textoParaImprimir = (modelEmpresaCidadeEstado.getEmpresa().getNomeFantasia() + "\n\r"
+                    + modelEmpresaCidadeEstado.getEmpresa().getEndereco() + "\n\r"
+                    + modelEmpresaCidadeEstado.getCidade().getNome() + "-" + modelEmpresaCidadeEstado.getEstado().getUf() + "\n\r"
+                    + modelEmpresaCidadeEstado.getEmpresa().getCnpj() + "\n\r"
                     + "Data venda: " + modelVendas.getDataVenda() + "\n\r" + "Impressao:" + data1 + "-" + hora1 + "\n\r"
                     + "--------------------------------\n\r"
                     + "        CUPOM COZINHA        \n\r"
@@ -112,10 +112,10 @@ public class GerarCupom {
                 conteudoFor += listaVendaProdutoes.get(i).getQuantidade() + " x " + controllerProdutos.getProdutosController(listaVendaProdutoes.get(i).getCodigo_produto()).getNome() + " - " + listaVendaProdutoes.get(i).getCodigo_venda() + "\n\r";
             }
             //armazenar em uma string o texto(cupom) para imprimir
-            textoParaImprimir = (modelEmpresaCidadeEstado.getModelEmpresa().getNomeFantasia() + "\n\r"
-                    + modelEmpresaCidadeEstado.getModelEmpresa().getEndereco() + "\n\r"
-                    + modelEmpresaCidadeEstado.getCidade().getNome() + "-" + modelEmpresaCidadeEstado.getestado().getUf() + "\n\r"
-                    + modelEmpresaCidadeEstado.getModelEmpresa().getCnpj() + "\n\r"
+            textoParaImprimir = (modelEmpresaCidadeEstado.getEmpresa().getNomeFantasia() + "\n\r"
+                    + modelEmpresaCidadeEstado.getEmpresa().getEndereco() + "\n\r"
+                    + modelEmpresaCidadeEstado.getCidade().getNome() + "-" + modelEmpresaCidadeEstado.getEstado().getUf() + "\n\r"
+                    + modelEmpresaCidadeEstado.getEmpresa().getCnpj() + "\n\r"
                     + "Data venda: " + modelVendas.getDataVenda() + "\n\r" + "Impressao:" + data1 + "-" + hora1 + "\n\r"
                     + "--------------------------------\n\r"
                     + "         CUPOM DELIVERY         \n\r"
@@ -168,10 +168,10 @@ public class GerarCupom {
             for (int i = 0; i < listaVendaProdutoes.size(); i++) {
                 conteudoFor += listaVendaProdutoes.get(i).getQuantidade() + " x " + bLMascaras.arredondamentoDoubleComPontoDuasCasasString(controllerProdutos.getProdutosController(listaVendaProdutoes.get(i).getCodigo_produto()).getValor()) + " - " + controllerProdutos.getProdutosController(listaVendaProdutoes.get(i).getCodigo_produto()).getNome() + "\n\r";
             }
-            textoParaImprimir = (modelEmpresaCidadeEstado.getModelEmpresa().getNomeFantasia() + "\n\r"
-                    + modelEmpresaCidadeEstado.getModelEmpresa().getEndereco() + "\n\r"
-                    + modelEmpresaCidadeEstado.getCidade().getNome() + "-" + modelEmpresaCidadeEstado.getestado().getUf() + "\n\r"
-                    + modelEmpresaCidadeEstado.getModelEmpresa().getCnpj() + "\n\r"
+            textoParaImprimir = (modelEmpresaCidadeEstado.getEmpresa().getNomeFantasia() + "\n\r"
+                    + modelEmpresaCidadeEstado.getEmpresa().getEndereco() + "\n\r"
+                    + modelEmpresaCidadeEstado.getCidade().getNome() + "-" + modelEmpresaCidadeEstado.getEstado().getUf() + "\n\r"
+                    + modelEmpresaCidadeEstado.getEmpresa().getCnpj() + "\n\r"
                     + "Data venda: " + modelVendas.getDataVenda() + "\n\r" + "Impressao:" + data1 + "-" + hora1 + "\n\r"
                     + "--------------------------------\n\r"
                     + "        CUPOM NAO FISCAL        \n\r"

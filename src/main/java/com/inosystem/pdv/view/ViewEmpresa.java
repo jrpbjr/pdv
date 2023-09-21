@@ -550,7 +550,7 @@ public class ViewEmpresa extends javax.swing.JFrame {
             this.jtfNumero.setText(modelEmpresaCidadeEstado.getEmpresa().getEnderecoNumero());
             this.jtfComplemento.setText(modelEmpresaCidadeEstado.getEmpresa().getEnderecoComplemento());
             this.tfBairro.setText(modelEmpresaCidadeEstado.getEmpresa().getBairro());
-            this.cbEstado.setSelectedItem(EstadoController.getEstadoController(modelEmpresaCidadeEstado.getestado().getUf()));
+            this.cbEstado.setSelectedItem(EstadoController.getEstadoController(modelEmpresaCidadeEstado.getEstado().getUf()));
             this.listarCidades();
             this.cbCidade.setSelectedItem(controllerCidade.getCidadeController(modelEmpresaCidadeEstado.getCidade().getNome()));
             this.tfCep.setText(modelEmpresaCidadeEstado.getEmpresa().getCep());
@@ -571,7 +571,7 @@ public class ViewEmpresa extends javax.swing.JFrame {
             modelEmpresaCidadeEstado.getEmpresa().getCodigo(),
             modelEmpresaCidadeEstado.getEmpresa().getNomeFantasia(),
             modelEmpresaCidadeEstado.getCidade().getNome(),
-            modelEmpresaCidadeEstado.getEmpresa().getUf()
+            modelEmpresaCidadeEstado.getEstado().getUf()
         });
     }
 

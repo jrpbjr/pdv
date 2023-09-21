@@ -17,7 +17,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
 import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+import cn.gmssl.sun.misc.BASE64Encoder;
 
 /**
  *

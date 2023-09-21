@@ -4,6 +4,8 @@ import com.inosystem.pdv.contoller.ClienteController;
 import com.inosystem.pdv.contoller.VendaController;
 import com.inosystem.pdv.model.Config;
 import com.inosystem.pdv.model.Venda;
+import com.inosystem.pdv.util.GerarCupom;
+import com.inosystem.pdv.util.Impressora;
 import com.inosystem.pdv.util.ManipularXML;
 import java.io.IOException;
 import java.util.ArrayList;

@@ -131,7 +131,7 @@ public class EmpresaDao extends ConexaoMySql {
                 modelCidade.setNome(this.getResultSet().getString(14));
                 modelEstado.setUf(this.getResultSet().getString(15));
                 modelEmpresaCidadeEstado.setCidade(modelCidade);
-                modelEmpresaCidadeEstado.setestado(modelEstado);
+                modelEmpresaCidadeEstado.setEstado(modelEstado);
                 modelEmpresaCidadeEstado.setEmpresa(modelEmpresa);
             }
         } catch (Exception e) {
@@ -207,7 +207,7 @@ public class EmpresaDao extends ConexaoMySql {
                 modelCidade.setNome(this.getResultSet().getString(14));
                 modelEstado.setUf(this.getResultSet().getString(15));
                 modelEmpresaCidadeEstado.setCidade(modelCidade);
-                modelEmpresaCidadeEstado.setestado(modelEstado);
+                modelEmpresaCidadeEstado.setEstado(modelEstado);
                 modelEmpresaCidadeEstado.setEmpresa(modelEmpresa);
             }
         } catch (Exception e) {

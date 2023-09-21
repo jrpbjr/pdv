@@ -41,14 +41,14 @@ public class EmpresaCidadeEstado {
      *
      * @param pestado
      */
-    public void setestado(Estado pestado) {
+    public void setEstado(Estado pestado) {
         this.estado = pestado;
     }
 
     /**
      * return empresa
      */
-    public Estado getestado() {
+    public Estado getEstado() {
         return this.estado;
     }
 

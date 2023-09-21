@@ -1,16 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.inosystem.pdv.view;
 
-import controller.ControllerFormaPagamento;
+import com.inosystem.pdv.contoller.FormaPagamentoController;
+import com.inosystem.pdv.model.FormaPagamento;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.ModelFormaPagamento;
 
 /**
  *
@@ -18,9 +14,9 @@ import model.ModelFormaPagamento;
  */
 public class ViewFormaPagamento extends javax.swing.JFrame {
 
-    ControllerFormaPagamento controllerFormaPagamento = new ControllerFormaPagamento();
-    ModelFormaPagamento modelFormaPagamento = new ModelFormaPagamento();
-    ArrayList<ModelFormaPagamento> listaFormaPagamentos = new ArrayList<>();
+    FormaPagamentoController controllerFormaPagamento = new FormaPagamentoController();
+    FormaPagamento modelFormaPagamento = new FormaPagamento();
+    ArrayList<FormaPagamento> listaFormaPagamentos = new ArrayList<>();
     String tipoCadastro;
 
     /**
@@ -346,7 +342,7 @@ public class ViewFormaPagamento extends javax.swing.JFrame {
         try {
             modelFormaPagamento.setDesconto(Float.parseFloat(this.tfDesconto.getText()));
         } catch (Exception e) {
-            modelFormaPagamento.setDesconto(0);
+            modelFormaPagamento.setDesconto(new BigDecimal(0).floatValue());
         }
         try {
             modelFormaPagamento.setQuantidadeParcelas(Integer.parseInt(this.tfQuantidadeParcelas.getText()));

@@ -14,7 +14,6 @@ import com.inosystem.pdv.model.Fornecedor;
 import com.inosystem.pdv.model.Venda;
 import com.inosystem.pdv.util.AguardeGerandoRelatorio;
 import com.inosystem.pdv.util.Mascara;
-import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import java.awt.Desktop;
 import java.io.File;
 import java.util.ArrayList;

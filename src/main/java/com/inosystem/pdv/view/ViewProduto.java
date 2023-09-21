@@ -6,6 +6,7 @@ import com.inosystem.pdv.contoller.UnidadeMedidaController;
 import com.inosystem.pdv.model.Fornecedor;
 import com.inosystem.pdv.model.Produto;
 import com.inosystem.pdv.model.UnidadeMedida;
+import com.inosystem.pdv.util.FileChooser;
 import com.inosystem.pdv.util.Mascara;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -384,7 +385,7 @@ public class ViewProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     private void jbImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbImagemActionPerformed
-        BrFileChooser brFileChooser = new BrFileChooser();
+        FileChooser brFileChooser = new FileChooser();
         this.arquivoImagem = brFileChooser.getArquivo(new JDialog(), "jpg", "jpg");
         this.imagemB = Toolkit.getDefaultToolkit().createImage(this.arquivoImagem.getAbsolutePath());
         this.pintarImagem();

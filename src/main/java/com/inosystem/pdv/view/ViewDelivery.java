@@ -22,6 +22,8 @@ import com.inosystem.pdv.model.Produto;
 import com.inosystem.pdv.model.SessaoUsuario;
 import com.inosystem.pdv.model.Venda;
 import com.inosystem.pdv.util.AguardeGerandoRelatorio;
+import com.inosystem.pdv.util.GerarCupom;
+import com.inosystem.pdv.util.Impressora;
 import com.inosystem.pdv.util.ManipularXML;
 import com.inosystem.pdv.util.Mascara;
 import java.io.IOException;

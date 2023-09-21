@@ -6,9 +6,10 @@
 package com.inosystem.pdv.view;
 
 import com.inosystem.pdv.model.Config;
+import com.inosystem.pdv.util.Impressora;
 import com.inosystem.pdv.util.ManipularXML;
 import javax.swing.JOptionPane;
-import util.Impressora;
+
 
 /**
  *

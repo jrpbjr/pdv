@@ -9,7 +9,6 @@ import com.inosystem.pdv.model.Estado;
 import com.inosystem.pdv.model.RelatorioProduto;
 import com.inosystem.pdv.util.AguardeGerandoRelatorio;
 import com.inosystem.pdv.util.Mascara;
-import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import java.awt.Desktop;
 import java.io.File;
 import java.sql.Date;
