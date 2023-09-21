@@ -8,17 +8,11 @@ import com.inosystem.pdv.dao.BancoDao;
 import com.inosystem.pdv.model.Banco;
 import java.util.ArrayList;
 
-/**
- *
- * @author jrpbj
- */
-public class BancoController {
-
     /**
      *
      * @author Jrpbjr
      */
-    public class ControllerBanco {
+    public class BancoController {
 
         private BancoDao bancoDao = new BancoDao();
 
@@ -86,4 +80,4 @@ public class BancoController {
         }
 
     }
-}
+

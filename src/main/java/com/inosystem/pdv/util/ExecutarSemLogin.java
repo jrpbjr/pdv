@@ -11,6 +11,8 @@ import com.inosystem.pdv.model.SessaoUsuario;
 import com.inosystem.pdv.model.Usuario;
 import com.inosystem.pdv.serial.ConfigXML;
 import com.inosystem.pdv.serial.CriptografiaReversivel;
+import com.inosystem.pdv.view.ViewBackup;
+import com.inosystem.pdv.view.ViewLogin;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
