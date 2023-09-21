@@ -38,7 +38,7 @@ import javax.swing.table.TableRowSorter;
  */
 public class ViewOrcamento extends javax.swing.JFrame {
 
-    VendaController controllerVendas = new VendaController();
+    VendaController VendaController = new VendaController();
     Venda modelVendas = new Venda();
     Produto modelProdutos = new Produto();
     UnidadeMedidaController controllerUnidadeMedia = new UnidadeMedidaController();
@@ -811,13 +811,13 @@ public class ViewOrcamento extends javax.swing.JFrame {
             modelProdutos.setListaProdutoes(listaProdutoses);
 
             //salvar venda
-            int codigoVenda = controllerVendas.salvarVendasController(modelVendas);
+            int codigoVenda = VendaController.salvarVendasController(modelVendas);
             if (codigoVenda > 0) {
                 modelVendas.setCodigo(codigoVenda);
                 //da baixa no estoque
                 controllerProdutos.atualizarProdutosQuantidadeController(modelProdutos);
                 //salvar lista de produtos
-                controllerVendas.salvarVendasProdutosController(modelVendas);
+                VendaController.salvarVendasProdutosController(modelVendas);
                 JOptionPane.showMessageDialog(this, "Registro gravado com sucesso!");
                 adicionarValorCaixa();
                 this.limparTela();
@@ -874,8 +874,8 @@ public class ViewOrcamento extends javax.swing.JFrame {
                 + " excluir o registro:\n" + "\n " + nome + "?", "Atenção", JOptionPane.YES_NO_OPTION);
         //se sim exclui, se não não faz nada    
         if (opcao == JOptionPane.OK_OPTION) {
-            if (controllerVendas.excluirProdutoVendasController(codigo)) {
-                if (controllerVendas.excluirVendasController(codigo)) {
+            if (VendaController.excluirProdutoVendasController(codigo)) {
+                if (VendaController.excluirVendasController(codigo)) {
                     JOptionPane.showMessageDialog(this, "Registro excluido com suscesso!");
                 } else {
                     JOptionPane.showMessageDialog(this, "Erro ao excluir os dados!", "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -918,7 +918,7 @@ public class ViewOrcamento extends javax.swing.JFrame {
 
     private void jbImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbImprimirActionPerformed
         final AguardeGerandoRelatorio carregando = new AguardeGerandoRelatorio();
-        final VendaController controllerVendas = new VendaController();
+        final VendaController VendaController = new VendaController();
         carregando.setVisible(true);
         Thread t = new Thread() {
             @Override
@@ -926,7 +926,7 @@ public class ViewOrcamento extends javax.swing.JFrame {
                 // imprimir vendas
                 int linha = tbConsultasVendas.getSelectedRow();
                 int codigo = (int) tbConsultasVendas.getValueAt(linha, 0);
-                controllerVendas.gerarRelatorioOrcamento(codigo);
+                VendaController.gerarRelatorioOrcamento(codigo);
                 carregando.dispose();
             }
         };
@@ -1107,7 +1107,7 @@ public class ViewOrcamento extends javax.swing.JFrame {
             int codigoProduto;
             modelVendas.setCodigo(codigo);
             //recupera os dados do banco
-            modelVendas = controllerVendas.getVendasController(codigo);
+            modelVendas = VendaController.getVendasController(codigo);
             //seta os dados na interface
             this.cbClientes.setSelectedItem(nome);
             this.tfNumeroOrcamento.setText(String.valueOf(modelVendas.getCodigo()));
@@ -1116,7 +1116,7 @@ public class ViewOrcamento extends javax.swing.JFrame {
             this.tfObservacao.setText(modelVendas.getObservacao());
             this.jcbTipoPagamento.setSelectedItem(controllerTipoPagamento.getFormaPagamentoController(modelVendas.getTipoPagamento()).getDescricao());
             //recupera os dados do banco
-            listaVendaAlterar = controllerVendas.getListaVendasController(codigo);
+            listaVendaAlterar = VendaController.getListaVendasController(codigo);
             //carregar lista de produtos da venda
             DefaultTableModel modelo = (DefaultTableModel) tbProdutos.getModel();
             modelo.setNumRows(0);
@@ -1260,7 +1260,7 @@ public class ViewOrcamento extends javax.swing.JFrame {
     }
 
     private void carregarOrcamento() {
-        listaVenda = controllerVendas.getListaOrcamentoController();
+        listaVenda = VendaController.getListaOrcamentoController();
         DefaultTableModel modelo = (DefaultTableModel) tbConsultasVendas.getModel();
         modelo.setNumRows(0);
         //CARREGA OS DADOS DA LISTA NA TABELA
@@ -1318,13 +1318,13 @@ public class ViewOrcamento extends javax.swing.JFrame {
             modelProdutos.setListaProdutoes(listaProdutoses);
 
             //salvar venda
-            if (controllerVendas.atualizarVendasController(modelVendas)) {
+            if (VendaController.atualizarVendasController(modelVendas)) {
                 //da baixa no estoque
                 controllerProdutos.atualizarProdutosQuantidadeController(modelProdutos);
                 //excluir dados alteriores
-                controllerVendas.excluirProdutoVendasController(modelVendas.getCodigo());
+                VendaController.excluirProdutoVendasController(modelVendas.getCodigo());
                 //salvar novamente lista de produtos tualisados
-                controllerVendas.salvarVendasProdutosController(modelVendas);
+                VendaController.salvarVendasProdutosController(modelVendas);
                 JOptionPane.showMessageDialog(this, "Registro alterado com sucesso!");
                 adicionarValorCaixa();
                 this.limparTela();

@@ -49,7 +49,7 @@ public class ViewFluxoCaixa extends javax.swing.JFrame {
     ArrayList<FormaPagamento> listaModelTipoPagamentos = new ArrayList<>();
     ArrayList<Cliente> listaClientes = new ArrayList<>();
     ArrayList<Fornecedor> listaFornecedor = new ArrayList<>();
-    VendaController controllerVendas = new VendaController();
+    VendaController VendaController = new VendaController();
     ArrayList<Venda> listaVendas = new ArrayList<>();
     Mascara bLMascaras = new Mascara();
     Venda modelVendas = new Venda();
@@ -429,7 +429,7 @@ public class ViewFluxoCaixa extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Você deve preencher as datas de inicio e fim!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
         }
         listaModelContasPagar = controllerContasPagar.getListaContasController(modelContasPagar);
-        listaVendas = controllerVendas.getListaPedidosController(modelVendas);
+        listaVendas = VendaController.getListaPedidosController(modelVendas);
         modelo.setNumRows(0);
         String nomePessoa, tipoPagamento = "";
         //CARREGA OS DADOS DA LISTA NA TABELA as contas a pagar

@@ -643,11 +643,11 @@ public class ViewTransportadora extends javax.swing.JFrame {
         int cont = listaTransportadoraCidadeEstados.size();
         for (int i = 0; i < cont; i++) {
             modelo.addRow(new Object[]{
-                listaTransportadoraCidadeEstados.get(i).getModelTransportadora().getCodigo(),
-                listaTransportadoraCidadeEstados.get(i).getModelTransportadora().getNome(),
+                listaTransportadoraCidadeEstados.get(i).getTransportadora().getCodigo(),
+                listaTransportadoraCidadeEstados.get(i).getTransportadora().getNome(),
                 listaTransportadoraCidadeEstados.get(i).getCidade().getNome(),
                 listaTransportadoraCidadeEstados.get(i).getEstado().getUf(),
-                listaTransportadoraCidadeEstados.get(i).getModelTransportadora().getTelefone()
+                listaTransportadoraCidadeEstados.get(i).getTransportadora().getTelefone()
 
             });
         }

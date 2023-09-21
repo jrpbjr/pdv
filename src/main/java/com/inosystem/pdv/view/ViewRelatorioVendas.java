@@ -20,7 +20,7 @@ public class ViewRelatorioVendas extends javax.swing.JFrame {
     ClienteController controllerCliente = new ClienteController();
     Cliente modelCliente = new Cliente();
     Mascara bLMascaras = new Mascara();
-    VendaController controllerVendas = new VendaController();
+    VendaController VendaController = new VendaController();
 
     /**
      * Creates new form ViewRelatorioVendas
@@ -197,9 +197,9 @@ public class ViewRelatorioVendas extends javax.swing.JFrame {
             dataInicial = bLMascaras.converterDataParaDateUS(bLMascaras.converterDataParaDateUS(jdcDataInicial.getDate()));
             dataFinal = bLMascaras.converterDataParaDateUS(bLMascaras.converterDataParaDateUS(jdcDataFinal.getDate()));
             if (cbClientes.getSelectedItem().toString().equals("TODOS OS CLIENTES")) {
-                controllerVendas.gerarRelatorioVendaTodosCliente(dataInicial, dataFinal);
+                VendaController.gerarRelatorioVendaTodosCliente(dataInicial, dataFinal);
             } else {
-                controllerVendas.gerarRelatorioVendasCliente(dataInicial, dataFinal, codigoCliente);
+                VendaController.gerarRelatorioVendasCliente(dataInicial, dataFinal, codigoCliente);
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Preencha corretamente os campos de data!", "ATENÇÂO", JOptionPane.WARNING_MESSAGE);

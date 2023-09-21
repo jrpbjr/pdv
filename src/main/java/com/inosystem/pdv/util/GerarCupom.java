@@ -27,9 +27,9 @@ import javax.swing.JOptionPane;
 
 public class GerarCupom {
 
-    VendaProdutoController controllerVendasProdutos = new VendaProdutoController();
+    VendaProdutoController VendaControllerProdutos = new VendaProdutoController();
     ProdutoController controllerProdutos = new ProdutoController();
-    VendaController controllerVendas = new VendaController();
+    VendaController VendaController = new VendaController();
     EmpresaCidadeEstadoController controllerEmpresaCidadeEstado = new EmpresaCidadeEstadoController();
     ArrayList<VendaProduto> listaVendaProdutoes = new ArrayList<>();
     Venda modelVendas = new Venda();
@@ -42,8 +42,8 @@ public class GerarCupom {
         String textoParaImprimir = "";
         try {
 
-            modelVendas = controllerVendas.getVendasController(pCodigo);
-            listaVendaProdutoes = controllerVendasProdutos.getListaVendasProdutosController(pCodigo);
+            modelVendas = VendaController.getVendasController(pCodigo);
+            listaVendaProdutoes = VendaControllerProdutos.getListaVendasProdutosController(pCodigo);
             modelEmpresaCidadeEstado = controllerEmpresaCidadeEstado.getEmpresaCidadeEstadoController(1);
 
             //data e hora do sistema
@@ -89,8 +89,8 @@ public class GerarCupom {
 
     public String geraCupomDelivery(int pCodigo) throws IOException {
         String textoParaImprimir = "";
-        modelVendas = controllerVendas.getVendasController(pCodigo);
-        listaVendaProdutoes = controllerVendasProdutos.getListaVendasProdutosController(pCodigo);
+        modelVendas = VendaController.getVendasController(pCodigo);
+        listaVendaProdutoes = VendaControllerProdutos.getListaVendasProdutosController(pCodigo);
         modelEmpresaCidadeEstado = controllerEmpresaCidadeEstado.getEmpresaCidadeEstadoController(1);
         modelClienteCidadeEstado = controllerClienteCidadeEstado.getClienteCidadeEstadoController(modelVendas.getClientesCodigo());
 
@@ -146,8 +146,8 @@ public class GerarCupom {
     }
 
     public String gerarCupomPDV(int pCodigo) throws IOException {
-        modelVendas = controllerVendas.getVendasController(pCodigo);
-        listaVendaProdutoes = controllerVendasProdutos.getListaVendasProdutosController(pCodigo);
+        modelVendas = VendaController.getVendasController(pCodigo);
+        listaVendaProdutoes = VendaControllerProdutos.getListaVendasProdutosController(pCodigo);
         modelEmpresaCidadeEstado = controllerEmpresaCidadeEstado.getEmpresaCidadeEstadoController(1);
 
         String textoParaImprimir = "";

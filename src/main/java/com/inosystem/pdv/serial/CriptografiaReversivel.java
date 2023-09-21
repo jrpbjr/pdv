@@ -17,7 +17,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
 import sun.misc.BASE64Decoder;
-import cn.gmssl.sun.misc.BASE64Encoder;
+import org.bouncycastle.asn1.x500.style.RFC4519Style.cn.gmssl.sun.misc.BASE64Encoder;
 
 /**
  *

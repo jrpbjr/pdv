@@ -55,21 +55,21 @@ public class TransportadoraCidEst {
     /**
      * seta o valor de transportadora
      *
-     * @param pModelTransportadora
+     * @param pTransportadora
      */
-    public void setModelTransportadora(Transportadora pModelTransportadora) {
-        this.transportadora = pModelTransportadora;
+    public void setTransportadora(Transportadora pTransportadora) {
+        this.transportadora = pTransportadora;
     }
 
     /**
      * return transportadora
      */
-    public Transportadora getModelTransportadora() {
+    public Transportadora getTransportadora() {
         return this.transportadora;
     }
 
     @Override
     public String toString() {
-        return "ModelTransportadoraCidEst {" + "::cidade = " + this.cidade + "::estado = " + this.estado + "::transportadora = " + this.transportadora + "}";
+        return "TransportadoraCidEst {" + "::cidade = " + this.cidade + "::estado = " + this.estado + "::transportadora = " + this.transportadora + "}";
     }
 }

@@ -92,6 +92,6 @@ public class Banco {
 
     @Override
     public String toString(){
-        return "ModelBanco {" + "::codigo = " + this.codigo + "::banco = " + this.banco + "::descricao = " + this.descricao + "::nomeReduzido = " + this.nomeReduzido + "::emiteBoleto = " + this.emiteBoleto +  "}";
+        return "Banco {" + "::codigo = " + this.codigo + "::banco = " + this.banco + "::descricao = " + this.descricao + "::nomeReduzido = " + this.nomeReduzido + "::emiteBoleto = " + this.emiteBoleto +  "}";
     }
 }

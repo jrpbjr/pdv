@@ -64,7 +64,7 @@ public class ViewMesas extends javax.swing.JFrame {
     ArrayList<Mesas> listaMesases = new ArrayList<>();
     Mesas modelMesas = new Mesas();
     ArrayList<Venda> listaVenda = new ArrayList<>();
-    VendaController controllerVendas = new VendaController();
+    VendaController VendaController = new VendaController();
     Caixa modelCaixa = new Caixa();
     CaixaController controllerCaixa = new CaixaController();
     Venda modelVendas = new Venda();
@@ -81,7 +81,7 @@ public class ViewMesas extends javax.swing.JFrame {
     ArrayList<Integer> listaMesasOcupadas = new ArrayList<>();
     Config modelConfig = new Config();
     ManipularXML manipularXML = new ManipularXML();
-    VendaProdutoController controllerVendasProdutos = new VendaProdutoController();
+    VendaProdutoController VendaControllerProdutos = new VendaProdutoController();
     EmpresaCidadeEstadoController controllerEmpresaCidadeEstado = new EmpresaCidadeEstadoController();
     ArrayList<VendaProduto> listaVendaProdutoses = new ArrayList<>();
     EmpresaCidadeEstado modelEmpresaCidadeEstado = new EmpresaCidadeEstado();
@@ -632,13 +632,13 @@ public class ViewMesas extends javax.swing.JFrame {
 
     private void jmiVizualizarpedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVizualizarpedActionPerformed
         final AguardeGerandoRelatorio carregando = new AguardeGerandoRelatorio();
-        final VendaController controllerVendas = new VendaController();
+        final VendaController VendaController = new VendaController();
         carregando.setVisible(true);
         Thread t = new Thread() {
             @Override
             public void run() {
                 // vizualizar vendas;
-                controllerVendas.vizualizarMesaController(Integer.parseInt(jlNumeroMesa.getText()));
+                VendaController.vizualizarMesaController(Integer.parseInt(jlNumeroMesa.getText()));
                 carregando.dispose();
             }
         };
@@ -939,7 +939,7 @@ public class ViewMesas extends javax.swing.JFrame {
         modelProdutos.setListaProdutoes(listaProdutoses);
 
         //salvar venda
-        codigoVenda = controllerVendas.salvarVendasController(modelVendas);
+        codigoVenda = VendaController.salvarVendasController(modelVendas);
         if (codigoVenda > 0) {
             modelVendas.setCodigo(codigoVenda);
             //da baixa no estoque
@@ -950,7 +950,7 @@ public class ViewMesas extends javax.swing.JFrame {
             }
 
             //salvar lista de produtos
-            controllerVendas.salvarVendasProdutosController(modelVendas);
+            VendaController.salvarVendasProdutosController(modelVendas);
             JOptionPane.showMessageDialog(this, "Registro gravado com sucesso!");
             adicionarValorCaixa();
             //imprimir cupom

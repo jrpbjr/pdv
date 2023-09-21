@@ -24,7 +24,7 @@ public class ViewBanco extends javax.swing.JFrame {
 
     BancoController controllerBanco = new BancoController();
     Banco modelBanco = new Banco();
-    ArrayList<Banco> listaModelBancos = new ArrayList<>();
+    ArrayList<Banco> listaBancos = new ArrayList<>();
     String tipoCadastro;
     Mascara bLMascaras = new Mascara();
 
@@ -412,17 +412,17 @@ public class ViewBanco extends javax.swing.JFrame {
 
     // carregar bancos salvos
     private void carregarBanco() {
-        listaModelBancos = controllerBanco.getListaBancoController();
+        listaBancos = controllerBanco.getListaBancoController();
         DefaultTableModel modelo = (DefaultTableModel) jtBancos.getModel();
         modelo.setNumRows(0);
         //CARREGA OS DADOS DA LISTA NA TABELA
-        int cont = listaModelBancos.size();
+        int cont = listaBancos.size();
         for (int i = 0; i < cont; i++) {
             modelo.addRow(new Object[]{
-                listaModelBancos.get(i).getCodigo(),
-                listaModelBancos.get(i).getBanco(),
-                listaModelBancos.get(i).getNomeReduzido(),
-                listaModelBancos.get(i).getEmiteBoleto()
+                listaBancos.get(i).getCodigo(),
+                listaBancos.get(i).getBanco(),
+                listaBancos.get(i).getNomeReduzido(),
+                listaBancos.get(i).getEmiteBoleto()
             });
         }
     }

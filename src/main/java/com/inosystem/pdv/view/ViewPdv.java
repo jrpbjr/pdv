@@ -36,7 +36,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ViewPdv extends javax.swing.JFrame {
 
-    VendaController controllerVendas = new VendaController();
+    VendaController VendaController = new VendaController();
     Venda modelVendas = new Venda();
     Produto modelProdutos = new Produto();
     ArrayList<Venda> listaVenda = new ArrayList<>();
@@ -1066,13 +1066,13 @@ public class ViewPdv extends javax.swing.JFrame {
         modelProdutos.setListaProdutoes(listaProdutoses);
 
         //salvar venda
-        codigoVenda = controllerVendas.salvarVendasController(modelVendas);
+        codigoVenda = VendaController.salvarVendasController(modelVendas);
         if (codigoVenda > 0) {
             modelVendas.setCodigo(codigoVenda);
             //da baixa no estoque
             controllerProdutos.atualizarProdutosQuantidadeController(modelProdutos);
 
-            controllerVendas.salvarVendasProdutosController(modelVendas);
+            VendaController.salvarVendasProdutosController(modelVendas);
             JOptionPane.showMessageDialog(this, "Registro gravado com sucesso!");
             adicionarValorCaixa();
             if (jlModoImpressao.getText().equals("Sim")) {

@@ -22,7 +22,7 @@ import javax.swing.table.TableRowSorter;
  */
 public class ViewImprimirPDV extends javax.swing.JDialog {
 
-    VendaController controllerVendas = new VendaController();
+    VendaController VendaController = new VendaController();
     Venda modelVendas = new Venda();
     ArrayList<Venda> listaVenda = new ArrayList<>();
     ClienteController controllerCliente = new ClienteController();
@@ -194,7 +194,7 @@ public class ViewImprimirPDV extends javax.swing.JDialog {
         int linha = tbConsultasVendas.getSelectedRow();
         int codigo = (int) tbConsultasVendas.getValueAt(linha, 0);
         if (rbCompleto.isSelected()) {
-            controllerVendas.gerarRelatorioVenda(codigo);
+            VendaController.gerarRelatorioVenda(codigo);
         } else {
             imprimirCupom(codigo);
         }
@@ -222,7 +222,7 @@ public class ViewImprimirPDV extends javax.swing.JDialog {
     }
 
     private void carregarVendas() {
-        listaVenda = controllerVendas.getListaPedidosController();
+        listaVenda = VendaController.getListaPedidosController();
         DefaultTableModel modelo = (DefaultTableModel) tbConsultasVendas.getModel();
         modelo.setNumRows(0);
         //CARREGA OS DADOS DA LISTA NA TABELA

@@ -189,7 +189,7 @@ private Integer codigo;
 
     @Override
     public String toString() {
-        return "ModelTransportadora {" + "::codigo = " + this.codigo + "::nome = " + this.nome + "::endereco = " + this.endereco + "::bairro = " + this.bairro + "::cep = " + this.cep + "::telefone = " + this.telefone + "::cod_cidade = " + this.codCidade + "::nome_fantasia = " + this.nomeFantasia + "::cnpj = " + this.cnpj + "::insc_estad = " + this.inscEstad + "}";
+        return "Transportadora {" + "::codigo = " + this.codigo + "::nome = " + this.nome + "::endereco = " + this.endereco + "::bairro = " + this.bairro + "::cep = " + this.cep + "::telefone = " + this.telefone + "::cod_cidade = " + this.codCidade + "::nome_fantasia = " + this.nomeFantasia + "::cnpj = " + this.cnpj + "::insc_estad = " + this.inscEstad + "}";
     }
 }
 

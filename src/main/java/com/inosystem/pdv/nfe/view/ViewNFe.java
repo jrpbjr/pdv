@@ -6,10 +6,19 @@
 package com.inosystem.pdv.nfe.view;
 
 
+import com.inosystem.pdv.contoller.ClienteController;
 import com.inosystem.pdv.contoller.EmpresaController;
+import com.inosystem.pdv.contoller.ProdutoController;
+import com.inosystem.pdv.model.Banco;
+import com.inosystem.pdv.model.Cliente;
 import com.inosystem.pdv.model.Empresa;
+import com.inosystem.pdv.model.FormaPagamento;
 import com.inosystem.pdv.model.Produto;
+import com.inosystem.pdv.model.Transportadora;
+import com.inosystem.pdv.model.Venda;
+import com.inosystem.pdv.nfe.model.Inf;
 import com.inosystem.pdv.util.ExecutarSemLogin;
+import com.inosystem.pdv.util.Mascara;
 import com.inosystem.pdv.view.ViewVerificarPermissao;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -19,8 +28,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import nfe.controller.ControllerNF;
-import nfe.model.ModelNF;
-import util.BLMascaras;
+import nfe.model.Inf;
 
 /**
  *
@@ -30,34 +38,34 @@ public class ViewNFe extends javax.swing.JFrame {
 
     Produto modelProdutos = new Produto();
     ArrayList<Produto> listaProduto = new ArrayList<>();
-    ArrayList<ModelCliente> listaModelClientes = new ArrayList<>();
-    ControllerCliente controllerCliente = new ControllerCliente();
-    ModelCliente modelCliente = new ModelCliente();
-    ControllerProdutos controllerProdutos = new ControllerProdutos();
-    ControllerFormaPagamento controllerTipoPagamento = new ControllerFormaPagamento();
-    ArrayList<ModelFormaPagamento> listaModelTipoPagamentos = new ArrayList<>();
+    ArrayList<Cliente> listaClientes = new ArrayList<>();
+    ClienteController controllerCliente = new ClienteController();
+    Cliente modelCliente = new Cliente();
+    ProdutoController controllerProdutos = new ProdutoController();
+    FormaPagamentoController controllerTipoPagamento = new FormaPagamentoController();
+    ArrayList<FormaPagamento> listaModelTipoPagamentos = new ArrayList<>();
     ControllerFornecedor controllerFornecedor = new ControllerFornecedor();
-    ModelVendas modelVendas = new ModelVendas();
-    ControllerVendas controllerVendas = new ControllerVendas();
-    ControllerVendasProdutos controllerVendasProdutos = new ControllerVendasProdutos();
-    ArrayList<ModelVendasProdutos> listaModelVendasProdutoses = new ArrayList<>();
-    ArrayList<ModelVendas> listaModelVendases = new ArrayList<>();
+    Venda modelVendas = new Venda();
+    VendaController VendaController = new VendaController();
+    VendaControllerProdutos VendaControllerProdutos = new VendaControllerProdutos();
+    ArrayList<VendaProdutos> listaVendaProdutoses = new ArrayList<>();
+    ArrayList<Venda> listaVendaes = new ArrayList<>();
     private ViewVerificarPermissao viewVerificarPermissao;
-    ControllerFormaPagamento controllerFormaPagamento = new ControllerFormaPagamento();
-    ModelFormaPagamento modelFormaPagamento = new ModelFormaPagamento();
-    ArrayList<ModelFormaPagamento> listaModelFormaPagamentos = new ArrayList<>();
-    BLMascaras bLMascaras = new BLMascaras();
+    FormaPagamentoController controllerFormaPagamento = new FormaPagamentoController();
+    FormaPagamento modelFormaPagamento = new FormaPagamento();
+    ArrayList<FormaPagamento> listaFormaPagamentos = new ArrayList<>();
+    Mascara bLMascaras = new Mascara();
     int contVendaMenor;
     ControllerUnidadeMedia controllerUnidadeMedia = new ControllerUnidadeMedia();
     ControllerTransportadora controllerTransportadora = new ControllerTransportadora();
-    ArrayList<ModelTransportadora> listaModelTransportadoras = new ArrayList<>();
-    ArrayList<ModelVendas> listaModelVendasAlterar = new ArrayList<>();
+    ArrayList<Transportadora> listaTransportadoras = new ArrayList<>();
+    ArrayList<Venda> listaVendaAlterar = new ArrayList<>();
     ControllerBanco controllerBanco = new ControllerBanco();
-    ModelBanco modelBanco = new ModelBanco();
-    ArrayList<ModelBanco> listaModelBancos = new ArrayList<>();
+    Banco modelBanco = new Banco();
+    ArrayList<Banco> listaBancos = new ArrayList<>();
     ControllerNF controllerNF = new ControllerNF();
-    ModelNF modelNF = new ModelNF();
-    ArrayList<ModelNF> listaModelNFs = new ArrayList<>();
+    Inf modelNF = new Inf();
+    ArrayList<Inf> listaInfs = new ArrayList<>();
     EmpresaController controllerEmpresa = new EmpresaController();
     Empresa modelEmpresa = new Empresa();
 
@@ -543,7 +551,7 @@ public class ViewNFe extends javax.swing.JFrame {
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
         // Salvar nfe 34 campos no formulário e 46 aqui
-        modelNF = new ModelNF();
+        modelNF = new Inf();
         modelNF.setChaveNfe(jtfChaveNFeR.getText());
         modelNF.setCodBanco(controllerBanco.getBancoController(jcbBanco.getSelectedItem().toString()).getCodigo());
         modelNF.setCodCliente(Integer.parseInt(jcbCodigoCliente.getSelectedItem().toString()));
@@ -655,7 +663,7 @@ public class ViewNFe extends javax.swing.JFrame {
 
     private void preencherFormulario() {
         setarImposto();
-        modelVendas = controllerVendas.getVendasController(Integer.parseInt(jcbNPedido.getSelectedItem().toString()));
+        modelVendas = VendaController.getVendasController(Integer.parseInt(jcbNPedido.getSelectedItem().toString()));
         //setar dados no formulario
         jcbCodigoCliente.setSelectedItem(String.valueOf(modelVendas.getClientesCodigo()));
         jcbFormaPagamento.setSelectedItem(controllerFormaPagamento.getFormaPagamentoController(modelVendas.getTipoPagamento()));
@@ -673,30 +681,30 @@ public class ViewNFe extends javax.swing.JFrame {
             float quantidadeVolumes = 0, peso = 0;
             modelVendas.setCodigo(pCodigo);
             //recupera os dados do banco
-            modelVendas = controllerVendas.getVendasController(pCodigo);
+            modelVendas = VendaController.getVendasController(pCodigo);
             //seta os dados na interface
             this.jtfDescontoProdutos.setText(String.valueOf(modelVendas.getDesconto()));
             this.jtfValorTotalprodutos.setText(String.valueOf(modelVendas.getValorTotal()));
             this.jtfValorBrutoProdutos.setText(String.valueOf(modelVendas.getValorTotal() + modelVendas.getDesconto()));
             this.jcbFormaPagamento.setSelectedItem(controllerTipoPagamento.getFormaPagamentoController(modelVendas.getTipoPagamento()).getDescricao());
             //recupera os dados do banco
-            listaModelVendasAlterar = controllerVendas.getListaVendasController(pCodigo);
+            listaVendaAlterar = VendaController.getListaVendasController(pCodigo);
             //carregar lista de produtos da venda
             DefaultTableModel modelo = (DefaultTableModel) tbProdutos.getModel();
             modelo.setNumRows(0);
 
-            int cont = listaModelVendasAlterar.size();
+            int cont = listaVendaAlterar.size();
             for (int i = 0; i < cont; i++) {
-                codigoProduto = listaModelVendasAlterar.get(i).getProdutosCodigo();
+                codigoProduto = listaVendaAlterar.get(i).getProdutosCodigo();
                 modelProdutos = controllerProdutos.getProdutosController(codigoProduto);
-                quantidadeVolumes += listaModelVendasAlterar.get(i).getQuantidade();
-                peso += modelProdutos.getPeso() * listaModelVendasAlterar.get(i).getQuantidade();
+                quantidadeVolumes += listaVendaAlterar.get(i).getQuantidade();
+                peso += modelProdutos.getPeso() * listaVendaAlterar.get(i).getQuantidade();
                 modelo.addRow(new Object[]{
-                    listaModelVendasAlterar.get(i).getProdutosCodigo(),
+                    listaVendaAlterar.get(i).getProdutosCodigo(),
                     modelProdutos.getNome(),
-                    listaModelVendasAlterar.get(i).getQuantidade(),
-                    listaModelVendasAlterar.get(i).getValor(),
-                    listaModelVendasAlterar.get(i).getQuantidade() * listaModelVendasAlterar.get(i).getValor()
+                    listaVendaAlterar.get(i).getQuantidade(),
+                    listaVendaAlterar.get(i).getValor(),
+                    listaVendaAlterar.get(i).getQuantidade() * listaVendaAlterar.get(i).getValor()
                 });
             }
             jtfQtVolumes.setText(quantidadeVolumes + "");
@@ -727,46 +735,46 @@ public class ViewNFe extends javax.swing.JFrame {
     }
 
     private void listarCodigoVendas() {
-        listaModelVendases = controllerVendas.getListaPedidosController();
+        listaVendaes = VendaController.getListaPedidosController();
         jcbNPedido.removeAllItems();
-        for (int i = 0; i < listaModelVendases.size(); i++) {
-            jcbNPedido.addItem(listaModelVendases.get(i).getCodigo());
+        for (int i = 0; i < listaVendaes.size(); i++) {
+            jcbNPedido.addItem(listaVendaes.get(i).getCodigo());
         }
     }
 
     private void listarFormaPagamento() {
-        listaModelFormaPagamentos = controllerFormaPagamento.getListaFormaPagamentoController();
+        listaFormaPagamentos = controllerFormaPagamento.getListaFormaPagamentoController();
         jcbFormaPagamento.removeAllItems();
-        for (int i = 0; i < listaModelFormaPagamentos.size(); i++) {
-            jcbFormaPagamento.addItem(listaModelFormaPagamentos.get(i).getDescricao());
+        for (int i = 0; i < listaFormaPagamentos.size(); i++) {
+            jcbFormaPagamento.addItem(listaFormaPagamentos.get(i).getDescricao());
         }
     }
 
     private void listarBancos() {
-        listaModelBancos = controllerBanco.getListaBancoController();
+        listaBancos = controllerBanco.getListaBancoController();
         jcbBanco.removeAllItems();
-        for (int i = 0; i < listaModelBancos.size(); i++) {
-            jcbBanco.addItem(listaModelBancos.get(i).getNomeReduzido());
+        for (int i = 0; i < listaBancos.size(); i++) {
+            jcbBanco.addItem(listaBancos.get(i).getNomeReduzido());
         }
     }
 
     private void listarClientes() {
-        listaModelClientes = controllerCliente.getListaClienteAtivoController();
+        listaClientes = controllerCliente.getListaClienteAtivoController();
         jcbCodigoCliente.removeAllItems();
         jcbNomeCliente.removeAllItems();
-        for (int i = 0; i < listaModelClientes.size(); i++) {
-            jcbNomeCliente.addItem(listaModelClientes.get(i).getNome());
-            jcbCodigoCliente.addItem(listaModelClientes.get(i).getCodigo() + "");
+        for (int i = 0; i < listaClientes.size(); i++) {
+            jcbNomeCliente.addItem(listaClientes.get(i).getNome());
+            jcbCodigoCliente.addItem(listaClientes.get(i).getCodigo() + "");
         }
     }
 
     private void carregarTransportadora() {
-        listaModelTransportadoras = controllerTransportadora.getListaTransportadoraController();
+        listaTransportadoras = controllerTransportadora.getListaTransportadoraController();
         jcbCodigoTransportadora.removeAllItems();
         jcbTransportadora.removeAllItems();
-        for (int i = 0; i < listaModelTransportadoras.size(); i++) {
-            jcbTransportadora.addItem(listaModelTransportadoras.get(i).getNome());
-            jcbCodigoTransportadora.addItem(listaModelTransportadoras.get(i).getCodigo() + "");
+        for (int i = 0; i < listaTransportadoras.size(); i++) {
+            jcbTransportadora.addItem(listaTransportadoras.get(i).getNome());
+            jcbCodigoTransportadora.addItem(listaTransportadoras.get(i).getCodigo() + "");
         }
     }
 

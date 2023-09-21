@@ -77,7 +77,7 @@ public ArrayList<TransportadoraCidEst> getListaTransportadoraCidadeEstadoDAO() {
 
                 modelTransportadoraCidadeEstado.setCidade(modelCidade);
                 modelTransportadoraCidadeEstado.setEstado(modelEstado);
-                modelTransportadoraCidadeEstado.setModelTransportadora(modelTransportadora);
+                modelTransportadoraCidadeEstado.setTransportadora(modelTransportadora);
 
                 listaFornecedorCidadeEstado.add(modelTransportadoraCidadeEstado);
             }
